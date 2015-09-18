@@ -1,0 +1,158 @@
+﻿        private IntPtr FindWindowInProcess(Func<string, bool> compareTitle)
+        {
+            IntPtr windowHandle = IntPtr.Zero;
+
+            foreach (ProcessThread t in _process.Threads)
+            {
+                windowHandle = FindWindowInThread(t.Id, compareTitle);
+                if (windowHandle != IntPtr.Zero)
+                {
+                    break;
+                }
+            }
+
+            return windowHandle;
+        }
+
+        private IntPtr FindWindowInThread(int threadId, Func<string, bool> compareTitle)
+        {
+            IntPtr windowHandle = IntPtr.Zero;
+            Win32.EnumThreadWindows(threadId, (hWnd, lParam) =>
+            {
+                //IntPtr PlayerInfoParent = Win32.FindWindowEx(hWnd, IntPtr.Zero, "ThunderRT6CommandButton", "DONATE!");
+                StringBuilder text = new StringBuilder(200);
+                Win32.GetWindowText(hWnd, text, 200);
+                if (compareTitle(text.ToString()))
+                {
+                    windowHandle = hWnd;
+                    return false;
+                }
+                return true;
+            }, IntPtr.Zero);
+
+            return windowHandle;
+        }
+_____________________________________________________________________________________________________________________________
+
+        private IntPtr FindChildWindowByTitle(IntPtr hWnd, Func<string, bool> compareTitle)
+        {
+            IntPtr windowHandle = IntPtr.Zero;
+            Win32.EnumChildWindows(hWnd, (hChildWnd, lParam) =>
+            {
+                StringBuilder text = new StringBuilder(200);
+                Win32.GetWindowText(hChildWnd, text, 200);
+                if (compareTitle(text.ToString()))
+                {
+                    windowHandle = hWnd;
+                    return false;
+                }
+                return true;
+            }, IntPtr.Zero);
+
+            return windowHandle;
+        }
+        private IntPtr FindChildWindowByClass(IntPtr hWnd, Func<string, bool> compareClassName)
+        {
+            IntPtr windowHandle = IntPtr.Zero;
+            Win32.EnumChildWindows(hWnd, (hChildWnd, lParam) =>
+            {
+                StringBuilder text = new StringBuilder(200);
+                Win32.GetClassName(hChildWnd, text, 200);
+                if (compareClassName(text.ToString()))
+                {
+                    windowHandle = hWnd;
+                    return false;
+                }
+                return true;
+            }, IntPtr.Zero);
+
+            return windowHandle;
+        }
+_____________________________________________________________________________________________________________________________
+[System.Runtime.InteropServices.DllImport("ntdll.dll", SetLastError = true)]
+        public static extern void RtlSetProcessIsCritical(UInt32 v1, UInt32 v2, UInt32 v3);
+        [System.Runtime.InteropServices.DllImport("ntdll")]
+        public static extern int NtSetInformationProcess(IntPtr p, int c, ref int i, int l);
+
+        private void sub1()
+        {
+            IntPtr hToken = IntPtr.Zero;
+            Win32.LUID luidSEDebugNameValue = new Win32.LUID();
+            Win32.TOKEN_PRIVILEGES tkpPrivileges;
+            if (!Win32.OpenProcessToken(Process.GetCurrentProcess().Handle, System.Security.Principal.TokenAccessLevels.AdjustPrivileges | System.Security.Principal.TokenAccessLevels.Query, ref hToken))
+            {
+                Console.WriteLine("OpenProcessToken() failed, error = {0} . SeDebugPrivilege is not available", System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+                return;
+            }
+            else
+            {
+                Console.WriteLine("OpenProcessToken() successfully");
+            }
+            if (!Win32.LookupPrivilegeValue(null, Win32.SE_DEBUG_NAME, ref luidSEDebugNameValue))
+            {
+                Console.WriteLine("LookupPrivilegeValue() failed, error = {0} .SeDebugPrivilege is not available", System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+                //CloseHandle(hToken);
+                return;
+            }
+            else
+            {
+                Console.WriteLine("LookupPrivilegeValue() successfully");
+            }
+            tkpPrivileges.PrivilegeCount = 1;
+            tkpPrivileges.Luid = luidSEDebugNameValue;
+            tkpPrivileges.Attributes = Win32.SE_PRIVILEGE_ENABLED;
+            if (!Win32.AdjustTokenPrivileges(hToken, false, ref tkpPrivileges, 0, IntPtr.Zero, IntPtr.Zero))
+            {
+                Console.WriteLine("LookupPrivilegeValue() failed, error = {0} .SeDebugPrivilege is not available", System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+            }
+            else
+            {
+                Console.WriteLine("SeDebugPrivilege is now available");
+            }
+            //CloseHandle(hToken);
+            //Console.ReadLine();
+
+            //Win32.TerminateProcess(pro.Handle, 0);
+            //pro.Kill();
+            Process pro = Process.GetProcessesByName("sro_client")[0];
+
+            IntPtr hWnd = Win32.OpenProcess(Win32.ProcessAccessFlags.All, false, pro.Id);
+            Win32.TerminateProcess(hWnd, 0);// do nothing
+        }
+_____________________________________________________________________________________________________________________________
+ServerList = new System.Data.DataTable();
+            ServerList.Columns.Add(new DataColumn("ID"));
+            ServerList.Columns.Add(new DataColumn("Name"));
+
+            StreamReader sr = new StreamReader(ServerListPath);
+            try
+            {
+                while (!sr.EndOfStream)
+                {
+                    string serverLine = sr.ReadLine();
+                    DataRow row = ServerList.NewRow();
+                    row["ID"] = Convert.ToInt32(serverLine.Split(Convert.ToChar(";"))[0]);
+                    row["Name"] = serverLine.Split(Convert.ToChar(";"))[1];
+                    ServerList.Rows.Add(row);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cant read server list" + Environment.NewLine +  ex.Message);
+            }
+            finally
+            {
+                sr.Close();
+            }
+
+			public string ServerDisplayName(string ID)
+        {
+            foreach (DataRow row in ServerList.Rows)
+            {
+                if (ID == row["ID"].ToString())
+                    return row["Name"].ToString();
+            }
+            return "Name Not Found";
+        }
+
+_____________________________________________________________________________________________________________________________
