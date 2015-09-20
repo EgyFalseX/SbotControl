@@ -13,7 +13,7 @@ using System.Management.Instrumentation;
 
 namespace SbotControl
 {
-    public partial class MainFrm : Form
+    public partial class MainFrm : DevExpress.XtraEditors.XtraForm
     {
         Color AccountAutoStartEnabledColor = Color.Lime;
         Color AccountAutoStartDisabledColor = Color.DarkGreen;
@@ -50,7 +50,7 @@ namespace SbotControl
             cbStart.Checked = account.Start;
             cbDCRestart.Checked = account.DCRestart;
             cbRestartUnknowSpot.Checked = account.RestartUnknowSpot;
-            lblBotAccountPath.Text = account.IbotFilePath;
+            lblBotAccountPath.Text = account.BotFilePath;
         }
         private void FillBotsInfoUI(SBot bot)
         {
@@ -120,6 +120,11 @@ namespace SbotControl
             FillAccountsInfoList();
 
             Automation();
+            
+
+            DevExpress.XtraBars.Helpers.SkinHelper.InitSkinGallery(galleryControlMain, true);
+            //DevExpress.XtraBars.Helpers.SkinHelper.InitSkinPopupMenu(popupMenu1);
+
         }
         #region Menu Handlers
         private void MainFrm_SizeChanged(object sender, EventArgs e)
@@ -326,7 +331,6 @@ namespace SbotControl
         {
             MethodInvoker action = new MethodInvoker(() =>
             {
-
                 btnStart.Enabled = false;
                 btnStop.Enabled = false;
                 tabControlMain.SelectedTab = tabPageOverall;
@@ -449,7 +453,7 @@ namespace SbotControl
         }
         void bot_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            gridControlOverall.Invoke(new MethodInvoker(() => { gridViewOverall.RefreshData(); }));
+            //gridControlOverall.Invoke(new MethodInvoker(() => { gridViewOverall.RefreshData(); }));
              MethodInvoker action = delegate
             {
                 SBot bot = (SBot)sender;
@@ -543,22 +547,7 @@ namespace SbotControl
         }
 
         #region Options Tab
-        private void btnBotPath_Click(object sender, EventArgs e)
-        {
-            if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return;
-            Properties.Settings.Default.IbotPath = ofd.FileName;
-            lblIbotPath.Text = ofd.FileName;
-        }
-        private void btnSroPath_Click(object sender, EventArgs e)
-        {
-            fbd.Description = "Select Silkroad Directory";
-            if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return;
-            Properties.Settings.Default.SroPath = fbd.SelectedPath;
-            lblSroPath.Text = fbd.SelectedPath;
-
-        }
+     
         private void Automation()
         {
             if (!Properties.Settings.Default.RunAtStartup)
@@ -570,31 +559,43 @@ namespace SbotControl
         private void repositoryItemButtonEditReset_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.ClickResetButton();
         }
         private void repositoryItemButtonEditSave_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.ClickSaveSettingsButton();
         }
         private void repositoryItemButtonEditClient_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.ClickShowHideClientButton();
         }
         private void repositoryItemButtonEditStartTraining_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.ClickStartTrainingButton();
         }
         private void repositoryItemButtonEditStopTaining_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.ClickStopTrainingButton();
         }
         private void repositoryItemCheckEditVisable_Click(object sender, EventArgs e)
         {
             SBot bot = (SBot)gridViewOverall.GetRow(gridViewOverall.FocusedRowHandle);
+            if (bot == null)
+                return;
             bot.Visable = !bot.Visable;
             DevExpress.XtraEditors.CheckEdit ctr = (DevExpress.XtraEditors.CheckEdit)sender;
             ctr.Checked = bot.Visable;
@@ -607,7 +608,5 @@ namespace SbotControl
                 textBox1.Text += Environment.NewLine + item;
             }
         }
-
-        
     }
 }

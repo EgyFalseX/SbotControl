@@ -18,6 +18,7 @@ namespace SbotControl
         [STAThread]
         static void Main()
         {
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
@@ -25,8 +26,15 @@ namespace SbotControl
             //return;
             Init();
             try
-            { Application.Run(new MainFrm()); }
-            catch { Application.Restart(); }
+            {
+                Application.Run(new MainFrm());
+                //Application.Run(new AppMainFrm());
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Application.Restart();
+            }
         }
         static void Init()
         {

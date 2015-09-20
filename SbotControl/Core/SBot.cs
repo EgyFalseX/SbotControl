@@ -591,9 +591,10 @@ namespace SbotControl
                 return;
             TimeSpan ts = DateTime.Now.Subtract(StartupTime);
             double gained = Convert.ToDouble(_gold) - _StartupGold;
-            double NewGoldPetHour = (gained / ts.TotalSeconds) * 60 * 60;
+            int NewGoldPetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
 
-            GoldPetHour = Misc.FormateNumber(NewGoldPetHour);
+            //GoldPetHour = Misc.FormateNumber(NewGoldPetHour);
+            GoldPetHour = NewGoldPetHour.ToString();
             OnPropertyChanged("GoldPetHour");
         }
         public string GoldPetHour
@@ -607,8 +608,9 @@ namespace SbotControl
                 return;
             TimeSpan ts = DateTime.Now.Subtract(StartupTime);
             double gained = Convert.ToDouble(_xPGained.Replace("%", "")) - _StartupExperience;
-            double NewExperiencePetHour = (gained / ts.TotalSeconds) * 60 * 60;
-            ExperiencePetHour = Misc.FormateNumber(NewExperiencePetHour);
+            int NewExperiencePetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
+            //ExperiencePetHour = Misc.FormateNumber(NewExperiencePetHour);
+            ExperiencePetHour = NewExperiencePetHour.ToString();
             OnPropertyChanged("ExperiencePetHour");
         }
         public string ExperiencePetHour
@@ -858,9 +860,9 @@ namespace SbotControl
         private Process Runbot()
         {
             Process process = new Process();
-            process.StartInfo = new ProcessStartInfo(BotAccount.IbotFilePath, BotAccount.CommandLineArg)
+            process.StartInfo = new ProcessStartInfo(BotAccount.BotFilePath, BotAccount.CommandLineArg)
             {
-                WorkingDirectory = BotAccount.IbotFilePath.Substring(0, BotAccount.IbotFilePath.LastIndexOf(Convert.ToChar("\\")))
+                WorkingDirectory = BotAccount.BotFilePath.Substring(0, BotAccount.BotFilePath.LastIndexOf(Convert.ToChar("\\")))
             };
             process.Start();
             process.WaitForInputIdle();

@@ -28,21 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue3 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue4 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue5 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue6 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule7 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue7 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule8 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue8 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule9 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue9 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule10 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue10 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule11 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue11 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule12 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue12 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colConnectionQualityCur = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colConnectionQualityAvg = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
@@ -51,13 +50,13 @@
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new DevExpress.XtraEditors.SimpleButton();
+            this.btnStart = new DevExpress.XtraEditors.SimpleButton();
             this.tabPageAccount = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvAccount = new System.Windows.Forms.ListView();
             this.chCharName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripAccount = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripAccount = new System.Windows.Forms.ContextMenuStrip();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblBotAccountPath = new System.Windows.Forms.Label();
@@ -75,13 +74,13 @@
             this.LVBots = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripBots = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripBots = new System.Windows.Forms.ContextMenuStrip();
             this.BottoolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCloseAllBots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemShowHide = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemHideAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageListIcon = new System.Windows.Forms.ImageList(this.components);
+            this.imageListIcon = new System.Windows.Forms.ImageList();
             this.tabControlBotInfo = new System.Windows.Forms.TabControl();
             this.tabPageStatistics = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -129,24 +128,21 @@
             this.lbCharInventory = new System.Windows.Forms.ListBox();
             this.lbPetInventory = new System.Windows.Forms.ListBox();
             this.tabPageOptions = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.galleryControlMain = new DevExpress.XtraBars.Ribbon.GalleryControl();
+            this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
             this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblSroPath = new System.Windows.Forms.Label();
-            this.btnSroPath = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblIbotPath = new System.Windows.Forms.Label();
-            this.btnIbotPath = new System.Windows.Forms.Button();
             this.tabPageGrid = new System.Windows.Forms.TabPage();
             this.gridControlOverall = new DevExpress.XtraGrid.GridControl();
-            this.bindingSourceOverall = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceOverall = new System.Windows.Forms.BindingSource();
             this.gridViewOverall = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colVisable = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEditVisable = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.colCharName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSilkroadServerStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBotStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPosX = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPosY = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCharName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLevel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colGold = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSkillPoint = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -183,13 +179,12 @@
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TmrUIBotInfo = new System.Windows.Forms.Timer(this.components);
+            this.TmrUIBotInfo = new System.Windows.Forms.Timer();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
-            this.notifyIconApp = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.notifyIconApp = new System.Windows.Forms.NotifyIcon();
+            this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -222,8 +217,9 @@
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
             this.tabPageOptions.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControlMain)).BeginInit();
+            this.galleryControlMain.SuspendLayout();
             this.tabPageGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).BeginInit();
@@ -360,30 +356,28 @@
             // btnStop
             // 
             this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStop.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.btnStop.Appearance.Options.UseForeColor = true;
             this.btnStop.Enabled = false;
-            this.btnStop.ForeColor = System.Drawing.Color.Black;
             this.btnStop.Image = global::SbotControl.Properties.Resources.Stop;
-            this.btnStop.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnStop.Location = new System.Drawing.Point(736, 228);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(132, 42);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "STOP";
-            this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.ForeColor = System.Drawing.Color.Black;
+            this.btnStart.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.btnStart.Appearance.Options.UseForeColor = true;
             this.btnStart.Image = global::SbotControl.Properties.Resources.Start;
-            this.btnStart.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnStart.Location = new System.Drawing.Point(598, 228);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(132, 42);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "START";
-            this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // tabPageAccount
@@ -1266,8 +1260,6 @@
             this.tabPageOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.tabPageOptions.Controls.Add(this.groupBox4);
             this.tabPageOptions.Controls.Add(this.cbStartWithWindows);
-            this.tabPageOptions.Controls.Add(this.groupBox2);
-            this.tabPageOptions.Controls.Add(this.groupBox1);
             this.tabPageOptions.ImageKey = "Option.png";
             this.tabPageOptions.Location = new System.Drawing.Point(4, 23);
             this.tabPageOptions.Name = "tabPageOptions";
@@ -1276,87 +1268,52 @@
             this.tabPageOptions.TabIndex = 4;
             this.tabPageOptions.Text = "Options";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.galleryControlMain);
+            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.Location = new System.Drawing.Point(10, 29);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(860, 241);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = " Themes ";
+            // 
+            // galleryControlMain
+            // 
+            this.galleryControlMain.Controls.Add(this.galleryControlClient1);
+            this.galleryControlMain.DesignGalleryGroupIndex = 0;
+            this.galleryControlMain.DesignGalleryItemIndex = 0;
+            this.galleryControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            this.galleryControlMain.Gallery.ShowItemText = true;
+            this.galleryControlMain.Location = new System.Drawing.Point(3, 16);
+            this.galleryControlMain.Name = "galleryControlMain";
+            this.galleryControlMain.Size = new System.Drawing.Size(854, 222);
+            this.galleryControlMain.TabIndex = 0;
+            this.galleryControlMain.Text = "galleryControl1";
+            // 
+            // galleryControlClient1
+            // 
+            this.galleryControlClient1.GalleryControl = this.galleryControlMain;
+            this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
+            this.galleryControlClient1.Size = new System.Drawing.Size(833, 218);
+            // 
             // cbStartWithWindows
             // 
             this.cbStartWithWindows.AutoSize = true;
             this.cbStartWithWindows.Checked = global::SbotControl.Properties.Settings.Default.RunAtStartup;
             this.cbStartWithWindows.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::SbotControl.Properties.Settings.Default, "RunAtStartup", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbStartWithWindows.Location = new System.Drawing.Point(11, 116);
+            this.cbStartWithWindows.Location = new System.Drawing.Point(11, 6);
             this.cbStartWithWindows.Name = "cbStartWithWindows";
             this.cbStartWithWindows.Size = new System.Drawing.Size(183, 17);
             this.cbStartWithWindows.TabIndex = 1;
             this.cbStartWithWindows.Text = "Start with windows [Automation]";
             this.cbStartWithWindows.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.lblSroPath);
-            this.groupBox2.Controls.Add(this.btnSroPath);
-            this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(8, 61);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(860, 49);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Silkroad Path";
-            // 
-            // lblSroPath
-            // 
-            this.lblSroPath.AutoSize = true;
-            this.lblSroPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SbotControl.Properties.Settings.Default, "SroPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblSroPath.Location = new System.Drawing.Point(44, 21);
-            this.lblSroPath.Name = "lblSroPath";
-            this.lblSroPath.Size = new System.Drawing.Size(22, 13);
-            this.lblSroPath.TabIndex = 1;
-            this.lblSroPath.Text = global::SbotControl.Properties.Settings.Default.SroPath;
-            // 
-            // btnSroPath
-            // 
-            this.btnSroPath.ForeColor = System.Drawing.Color.Black;
-            this.btnSroPath.Location = new System.Drawing.Point(3, 16);
-            this.btnSroPath.Name = "btnSroPath";
-            this.btnSroPath.Size = new System.Drawing.Size(35, 23);
-            this.btnSroPath.TabIndex = 0;
-            this.btnSroPath.Text = "...";
-            this.btnSroPath.UseVisualStyleBackColor = true;
-            this.btnSroPath.Click += new System.EventHandler(this.btnSroPath_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.lblIbotPath);
-            this.groupBox1.Controls.Add(this.btnIbotPath);
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(8, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(860, 49);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Bot Path";
-            // 
-            // lblIbotPath
-            // 
-            this.lblIbotPath.AutoSize = true;
-            this.lblIbotPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::SbotControl.Properties.Settings.Default, "IbotPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblIbotPath.Location = new System.Drawing.Point(44, 21);
-            this.lblIbotPath.Name = "lblIbotPath";
-            this.lblIbotPath.Size = new System.Drawing.Size(22, 13);
-            this.lblIbotPath.TabIndex = 1;
-            this.lblIbotPath.Text = global::SbotControl.Properties.Settings.Default.IbotPath;
-            // 
-            // btnIbotPath
-            // 
-            this.btnIbotPath.ForeColor = System.Drawing.Color.Black;
-            this.btnIbotPath.Location = new System.Drawing.Point(3, 16);
-            this.btnIbotPath.Name = "btnIbotPath";
-            this.btnIbotPath.Size = new System.Drawing.Size(35, 23);
-            this.btnIbotPath.TabIndex = 0;
-            this.btnIbotPath.Text = "...";
-            this.btnIbotPath.UseVisualStyleBackColor = true;
-            this.btnIbotPath.Click += new System.EventHandler(this.btnBotPath_Click);
             // 
             // tabPageGrid
             // 
@@ -1396,13 +1353,13 @@
             // 
             this.gridViewOverall.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colVisable,
+            this.colCharName,
             this.colSilkroadServerStatus,
             this.colBotStatus,
             this.colConnectionQualityAvg,
             this.colConnectionQualityCur,
             this.colPosX,
             this.colPosY,
-            this.colCharName,
             this.colLevel,
             this.colGold,
             this.colSkillPoint,
@@ -1426,60 +1383,60 @@
             this.colBtnStopTraining,
             this.colGoldPetHour,
             this.colExperiencePetHour});
-            gridFormatRule1.Column = this.colConnectionQualityCur;
-            gridFormatRule1.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule1.Name = "FormatQualityCur0_1000";
-            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue1.Value1 = 1;
-            formatConditionRuleValue1.Value2 = 999;
-            gridFormatRule1.Rule = formatConditionRuleValue1;
-            gridFormatRule2.Column = this.colConnectionQualityCur;
-            gridFormatRule2.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule2.Name = "FormatQualityCur1000_2000";
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue2.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue2.Value1 = 1000;
-            formatConditionRuleValue2.Value2 = 1999;
-            gridFormatRule2.Rule = formatConditionRuleValue2;
-            gridFormatRule3.Column = this.colConnectionQualityCur;
-            gridFormatRule3.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule3.Name = "FormatQualityCur3000";
-            formatConditionRuleValue3.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue3.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue3.Value1 = 3000;
-            formatConditionRuleValue3.Value2 = 99999;
-            gridFormatRule3.Rule = formatConditionRuleValue3;
-            gridFormatRule4.Column = this.colConnectionQualityAvg;
-            gridFormatRule4.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule4.Name = "FormatQualityAvg0_1000";
-            formatConditionRuleValue4.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue4.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue4.Value1 = 0;
-            formatConditionRuleValue4.Value2 = 999;
-            gridFormatRule4.Rule = formatConditionRuleValue4;
-            gridFormatRule5.Column = this.colConnectionQualityAvg;
-            gridFormatRule5.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule5.Name = "FormatQualityAvg1000_2000";
-            formatConditionRuleValue5.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue5.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue5.Value1 = 1000;
-            formatConditionRuleValue5.Value2 = 1999;
-            gridFormatRule5.Rule = formatConditionRuleValue5;
-            gridFormatRule6.Column = this.colConnectionQualityAvg;
-            gridFormatRule6.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule6.Name = "FormatQualityAvg3000";
-            formatConditionRuleValue6.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue6.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue6.Value1 = 3000;
-            formatConditionRuleValue6.Value2 = 99999;
-            gridFormatRule6.Rule = formatConditionRuleValue6;
-            this.gridViewOverall.FormatRules.Add(gridFormatRule1);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule2);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule3);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule4);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule5);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule6);
+            gridFormatRule7.Column = this.colConnectionQualityCur;
+            gridFormatRule7.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule7.Name = "FormatQualityCur0_1000";
+            formatConditionRuleValue7.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue7.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue7.Value1 = 1;
+            formatConditionRuleValue7.Value2 = 1000;
+            gridFormatRule7.Rule = formatConditionRuleValue7;
+            gridFormatRule8.Column = this.colConnectionQualityCur;
+            gridFormatRule8.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule8.Name = "FormatQualityCur1000_2000";
+            formatConditionRuleValue8.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue8.PredefinedName = "Yellow Fill, Yellow Text";
+            formatConditionRuleValue8.Value1 = 1000;
+            formatConditionRuleValue8.Value2 = 2000;
+            gridFormatRule8.Rule = formatConditionRuleValue8;
+            gridFormatRule9.Column = this.colConnectionQualityCur;
+            gridFormatRule9.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule9.Name = "FormatQualityCur3000";
+            formatConditionRuleValue9.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue9.PredefinedName = "Red Fill, Red Text";
+            formatConditionRuleValue9.Value1 = 2000;
+            formatConditionRuleValue9.Value2 = 99999;
+            gridFormatRule9.Rule = formatConditionRuleValue9;
+            gridFormatRule10.Column = this.colConnectionQualityAvg;
+            gridFormatRule10.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule10.Name = "FormatQualityAvg0_1000";
+            formatConditionRuleValue10.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue10.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue10.Value1 = 0;
+            formatConditionRuleValue10.Value2 = 1000;
+            gridFormatRule10.Rule = formatConditionRuleValue10;
+            gridFormatRule11.Column = this.colConnectionQualityAvg;
+            gridFormatRule11.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule11.Name = "FormatQualityAvg1000_2000";
+            formatConditionRuleValue11.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue11.PredefinedName = "Yellow Fill, Yellow Text";
+            formatConditionRuleValue11.Value1 = 1000;
+            formatConditionRuleValue11.Value2 = 2000;
+            gridFormatRule11.Rule = formatConditionRuleValue11;
+            gridFormatRule12.Column = this.colConnectionQualityAvg;
+            gridFormatRule12.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule12.Name = "FormatQualityAvg3000";
+            formatConditionRuleValue12.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue12.PredefinedName = "Red Fill, Red Text";
+            formatConditionRuleValue12.Value1 = 2000;
+            formatConditionRuleValue12.Value2 = 99999;
+            gridFormatRule12.Rule = formatConditionRuleValue12;
+            this.gridViewOverall.FormatRules.Add(gridFormatRule7);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule8);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule9);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule10);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule11);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule12);
             this.gridViewOverall.GridControl = this.gridControlOverall;
             this.gridViewOverall.Name = "gridViewOverall";
             this.gridViewOverall.OptionsBehavior.ReadOnly = true;
@@ -1497,6 +1454,7 @@
             this.colVisable.Caption = "V";
             this.colVisable.ColumnEdit = this.repositoryItemCheckEditVisable;
             this.colVisable.FieldName = "Visable";
+            this.colVisable.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colVisable.Name = "colVisable";
             this.colVisable.Visible = true;
             this.colVisable.VisibleIndex = 0;
@@ -1507,6 +1465,23 @@
             this.repositoryItemCheckEditVisable.AutoHeight = false;
             this.repositoryItemCheckEditVisable.Name = "repositoryItemCheckEditVisable";
             this.repositoryItemCheckEditVisable.Click += new System.EventHandler(this.repositoryItemCheckEditVisable_Click);
+            // 
+            // colCharName
+            // 
+            this.colCharName.AppearanceCell.Options.UseTextOptions = true;
+            this.colCharName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colCharName.AppearanceHeader.Options.UseTextOptions = true;
+            this.colCharName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colCharName.Caption = "Name";
+            this.colCharName.FieldName = "CharName";
+            this.colCharName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colCharName.Name = "colCharName";
+            this.colCharName.OptionsColumn.AllowEdit = false;
+            this.colCharName.OptionsColumn.ReadOnly = true;
+            this.colCharName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "CharName", "{0}")});
+            this.colCharName.Visible = true;
+            this.colCharName.VisibleIndex = 1;
             // 
             // colSilkroadServerStatus
             // 
@@ -1561,20 +1536,6 @@
             this.colPosY.OptionsColumn.ReadOnly = true;
             this.colPosY.Visible = true;
             this.colPosY.VisibleIndex = 7;
-            // 
-            // colCharName
-            // 
-            this.colCharName.AppearanceCell.Options.UseTextOptions = true;
-            this.colCharName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colCharName.AppearanceHeader.Options.UseTextOptions = true;
-            this.colCharName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colCharName.Caption = "Name";
-            this.colCharName.FieldName = "CharName";
-            this.colCharName.Name = "colCharName";
-            this.colCharName.OptionsColumn.AllowEdit = false;
-            this.colCharName.OptionsColumn.ReadOnly = true;
-            this.colCharName.Visible = true;
-            this.colCharName.VisibleIndex = 1;
             // 
             // colLevel
             // 
@@ -1836,7 +1797,7 @@
             // 
             this.repositoryItemButtonEditReset.AutoHeight = false;
             this.repositoryItemButtonEditReset.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear, "Reset", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear, "Reset", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true)});
             this.repositoryItemButtonEditReset.Name = "repositoryItemButtonEditReset";
             this.repositoryItemButtonEditReset.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEditReset.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditReset_ButtonClick);
@@ -2074,26 +2035,14 @@
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(10, 139);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(860, 131);
-            this.groupBox4.TabIndex = 2;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = " Themes ";
-            // 
             // MainFrm
             // 
+            this.Appearance.ForeColor = System.Drawing.Color.White;
+            this.Appearance.Options.UseForeColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.toolStripContainer1);
-            this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainFrm";
@@ -2140,10 +2089,9 @@
             this.splitContainer5.ResumeLayout(false);
             this.tabPageOptions.ResumeLayout(false);
             this.tabPageOptions.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.galleryControlMain)).EndInit();
+            this.galleryControlMain.ResumeLayout(false);
             this.tabPageGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).EndInit();
@@ -2208,10 +2156,10 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.RichTextBox tbLog;
         private System.Windows.Forms.TabPage tabPageMain;
-        private System.Windows.Forms.Button btnStart;
+        private DevExpress.XtraEditors.SimpleButton btnStart;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button btnStop;
+        private DevExpress.XtraEditors.SimpleButton btnStop;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label lblSkillPerHour;
         private System.Windows.Forms.Label lblGoldPerHour;
@@ -2229,12 +2177,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemHideAll;
         private System.Windows.Forms.ImageList imageListIcon;
         private System.Windows.Forms.TabPage tabPageOptions;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblIbotPath;
-        private System.Windows.Forms.Button btnIbotPath;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lblSroPath;
-        private System.Windows.Forms.Button btnSroPath;
         private System.Windows.Forms.FolderBrowserDialog fbd;
         private System.Windows.Forms.OpenFileDialog ofd;
         private System.Windows.Forms.CheckBox cbStartWithWindows;
@@ -2310,5 +2252,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
+        private DevExpress.XtraBars.Ribbon.GalleryControl galleryControlMain;
+        private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient1;
     }
 }

@@ -50,7 +50,7 @@ namespace SbotControl
             account.RestartUnknowSpot = ScrollUnknowSpot;
             if (AccountListChanged != null)
                 AccountListChanged(account, ChangesType.Updated);
-            account.IbotFilePath = SbotFilePath;
+            account.BotFilePath = SbotFilePath;
             account.Start = Start;
             if (account.Start && ManagerOnline && account.bot == null)
                 AddBot(account);

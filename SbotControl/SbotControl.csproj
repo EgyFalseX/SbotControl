@@ -55,13 +55,30 @@
     <ApplicationIcon>SbotIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -82,7 +99,41 @@
     </Compile>
     <Compile Include="Core\Account.cs" />
     <Compile Include="Test.cs" />
+    <Compile Include="AppMainFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppMainFrm.Designer.cs">
+      <DependentUpon>AppMainFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AccountUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AccountUC.Designer.cs">
+      <DependentUpon>AccountUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddAccountFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddAccountFrm.Designer.cs">
+      <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OptionsUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\OptionsUC.Designer.cs">
+      <DependentUpon>OptionsUC.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\AccountUC.resx">
+      <DependentUpon>AccountUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddAccountFrm.resx">
+      <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionsUC.resx">
+      <DependentUpon>OptionsUC.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\Account.datasource" />
     <None Include="Properties\DataSources\SBot.datasource" />
     <None Include="Resources\GreenBall.png" />
     <None Include="Resources\RedBall.png" />
@@ -92,6 +143,8 @@
     <None Include="Resources\Save.png" />
     <None Include="Resources\Exit.png" />
     <None Include="Resources\SBot.png" />
+    <None Include="Resources\addfile_16x16.png" />
+    <None Include="Resources\refresh2_16x16.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />
@@ -137,6 +190,9 @@
     <Compile Include="Core\Win32.cs" />
     <EmbeddedResource Include="AboutUs.resx">
       <DependentUpon>AboutUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppMainFrm.resx">
+      <DependentUpon>AppMainFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DebugFrm.resx">
       <DependentUpon>DebugFrm.cs</DependentUpon>
