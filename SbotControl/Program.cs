@@ -27,13 +27,13 @@ namespace SbotControl
             Init();
             try
             {
-                Application.Run(new MainFrm());
-                //Application.Run(new AppMainFrm());
+                //Application.Run(new MainFrm());
+                Application.Run(new AppMainFrm());
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Application.Restart();
+                //Application.Restart();
             }
         }
         static void Init()

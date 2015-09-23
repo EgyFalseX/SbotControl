@@ -22,9 +22,16 @@ namespace SbotControl
             Updated,
             Deleted
         }
+        public enum ManagerStatusType
+        {
+            Started,
+            Stoped,
+        }
         public delegate void BotListChangedEventhandler(object sender, ChangesType e);
+        public delegate void ManagerStatusChangedEventhandler(object sender, ManagerStatusType e);
         public event BotListChangedEventhandler BotListChanged;
         public event BotListChangedEventhandler AccountListChanged;
+        public event ManagerStatusChangedEventhandler ManagerStatusChanged;
         private bool ManagerOnline;
 
         public void AddAccount(string Charname, bool Start, bool DCRestart, bool ScrollUnknowSpot, string SbotFilePath)
@@ -99,7 +106,13 @@ namespace SbotControl
                     return;
                 Account account = SearchAccount(bot.CharName);
                 if (account != null)
-                    account.bot = bot; bot.BotAccount = account;
+                {
+                    account.bot = bot;
+                    bot.BotAccount = account;
+                }
+                else
+                    bot.Group = "Unknown";
+                    
                 AddBot(bot);
             }
         }
@@ -265,12 +278,16 @@ namespace SbotControl
                 {
                     Resume();
                 }
+                if (ManagerStatusChanged != null)
+                    ManagerStatusChanged(this, ManagerStatusType.Started);
             });
             
         }
         public void Stop()
         {
             ManagerOnline = false;
+            if (ManagerStatusChanged != null)
+                ManagerStatusChanged(this, ManagerStatusType.Stoped);
         }
 
     }

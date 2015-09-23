@@ -192,6 +192,11 @@ namespace SbotControl
         public const int WM_ENABLE = 0x000A;//Enable Window//SendMessage(Button&, WM_ACTIVATE, 0&, WM_ENABLE)
         public const int WM_GETICON = 0x007F;//Window Icon
 
+        public const int WM_PRINT = 0x0317;
+        public const int WM_PRINTCLIENT = 0x0318;
+        public const int WM_ERASEBKGND = 0x0014;
+
+        
         # endregion
 
         # region Windows API declarations
@@ -379,6 +384,13 @@ namespace SbotControl
 
         [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         public static extern int CloseHandle(IntPtr hObject);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        internal static extern bool GetWindowRect(IntPtr hWnd, out Core.RECT lpRect);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        internal static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowDC(IntPtr hWnd);
 
         # endregion 
 

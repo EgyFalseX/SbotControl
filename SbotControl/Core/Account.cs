@@ -40,6 +40,16 @@ namespace SbotControl
                 OnPropertyChanged("Start");
             }
         }
+        private string _group;
+        public string Group
+        {
+            get { return _group; }
+            set
+            {
+                _group = value;
+                OnPropertyChanged("Group");
+            }
+        }
         [Browsable(false)]
         public bool DCRestart { get; set; }
         [Browsable(false)]

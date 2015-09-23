@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnReset = new DevExpress.XtraEditors.SimpleButton();
             this.btnAddAccount = new DevExpress.XtraEditors.SimpleButton();
@@ -39,6 +39,7 @@
             this.colStart = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEditActive = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.colIbotFilePath = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcGroup = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEdit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemButtonEditEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colDelete = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,8 +47,8 @@
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -59,8 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -125,6 +126,7 @@
             this.colcharName,
             this.colStart,
             this.colIbotFilePath,
+            this.gcGroup,
             this.colEdit,
             this.colDelete});
             this.gridViewMain.GridControl = this.gridControlMain;
@@ -137,6 +139,7 @@
             this.colcharName.Caption = "Char Name";
             this.colcharName.FieldName = "charName";
             this.colcharName.Name = "colcharName";
+            this.colcharName.OptionsColumn.ReadOnly = true;
             this.colcharName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "charName", "{0}")});
             this.colcharName.Visible = true;
@@ -153,6 +156,7 @@
             this.colStart.ColumnEdit = this.repositoryItemCheckEditActive;
             this.colStart.FieldName = "Start";
             this.colStart.Name = "colStart";
+            this.colStart.OptionsColumn.ReadOnly = true;
             this.colStart.Visible = true;
             this.colStart.VisibleIndex = 1;
             this.colStart.Width = 101;
@@ -167,9 +171,23 @@
             this.colIbotFilePath.Caption = "Bot Path";
             this.colIbotFilePath.FieldName = "BotFilePath";
             this.colIbotFilePath.Name = "colIbotFilePath";
+            this.colIbotFilePath.OptionsColumn.ReadOnly = true;
             this.colIbotFilePath.Visible = true;
             this.colIbotFilePath.VisibleIndex = 2;
             this.colIbotFilePath.Width = 487;
+            // 
+            // gcGroup
+            // 
+            this.gcGroup.AppearanceCell.Options.UseTextOptions = true;
+            this.gcGroup.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcGroup.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcGroup.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcGroup.Caption = "Group";
+            this.gcGroup.FieldName = "Group";
+            this.gcGroup.Name = "gcGroup";
+            this.gcGroup.OptionsColumn.ReadOnly = true;
+            this.gcGroup.Visible = true;
+            this.gcGroup.VisibleIndex = 3;
             // 
             // colEdit
             // 
@@ -181,13 +199,13 @@
             this.colEdit.ColumnEdit = this.repositoryItemButtonEditEdit;
             this.colEdit.Name = "colEdit";
             this.colEdit.Visible = true;
-            this.colEdit.VisibleIndex = 3;
+            this.colEdit.VisibleIndex = 4;
             // 
             // repositoryItemButtonEditEdit
             // 
             this.repositoryItemButtonEditEdit.AutoHeight = false;
             this.repositoryItemButtonEditEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, global::SbotControl.Properties.Resources.Edit2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, global::SbotControl.Properties.Resources.Edit2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
             this.repositoryItemButtonEditEdit.Name = "repositoryItemButtonEditEdit";
             this.repositoryItemButtonEditEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEditEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditEdit_ButtonClick);
@@ -202,13 +220,13 @@
             this.colDelete.ColumnEdit = this.repositoryItemButtonEditDelete;
             this.colDelete.Name = "colDelete";
             this.colDelete.Visible = true;
-            this.colDelete.VisibleIndex = 4;
+            this.colDelete.VisibleIndex = 5;
             // 
             // repositoryItemButtonEditDelete
             // 
             this.repositoryItemButtonEditDelete.AutoHeight = false;
             this.repositoryItemButtonEditDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, global::SbotControl.Properties.Resources.Delete, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, global::SbotControl.Properties.Resources.Delete, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true)});
             this.repositoryItemButtonEditDelete.Name = "repositoryItemButtonEditDelete";
             this.repositoryItemButtonEditDelete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEditDelete.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditDelete_ButtonClick);
@@ -245,14 +263,6 @@
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(94, 0);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(730, 26);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.btnReset;
@@ -262,16 +272,24 @@
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(94, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(730, 26);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
             // ofd
             // 
             this.ofd.Filter = "sbot2*.exe|*.exe";
             // 
-            // Account
+            // AccountUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl1);
-            this.Name = "Account";
+            this.Name = "AccountUC";
             this.Size = new System.Drawing.Size(906, 362);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -283,8 +301,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -310,5 +328,6 @@
         private System.Windows.Forms.OpenFileDialog ofd;
         private DevExpress.XtraEditors.SimpleButton btnReset;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraGrid.Columns.GridColumn gcGroup;
     }
 }

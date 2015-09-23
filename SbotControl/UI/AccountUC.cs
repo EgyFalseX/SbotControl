@@ -34,7 +34,10 @@ namespace SbotControl.UI
         {
             SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
             AddAccountFrm frm = new AddAccountFrm(acc);
-            frm.ShowDialog();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                Program.DM.SaveSettings();
+            }
             ReloadData();
         }
         private void repositoryItemButtonEditDelete_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)

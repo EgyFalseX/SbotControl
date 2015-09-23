@@ -28,20 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule7 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue7 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule8 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue8 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule9 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue9 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule10 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue10 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule11 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue11 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule12 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue12 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue3 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue4 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue5 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue6 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colConnectionQualityCur = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colConnectionQualityAvg = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
@@ -56,7 +65,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvAccount = new System.Windows.Forms.ListView();
             this.chCharName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripAccount = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripAccount = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblBotAccountPath = new System.Windows.Forms.Label();
@@ -74,13 +83,13 @@
             this.LVBots = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripBots = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripBots = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BottoolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCloseAllBots = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemShowHide = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemHideAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageListIcon = new System.Windows.Forms.ImageList();
+            this.imageListIcon = new System.Windows.Forms.ImageList(this.components);
             this.tabControlBotInfo = new System.Windows.Forms.TabControl();
             this.tabPageStatistics = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -134,7 +143,7 @@
             this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
             this.tabPageGrid = new System.Windows.Forms.TabPage();
             this.gridControlOverall = new DevExpress.XtraGrid.GridControl();
-            this.bindingSourceOverall = new System.Windows.Forms.BindingSource();
+            this.bindingSourceOverall = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewOverall = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colVisable = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEditVisable = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
@@ -145,6 +154,7 @@
             this.colPosY = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLevel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colGold = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemTextEditn0 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.colSkillPoint = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLocationName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotaltime = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -171,6 +181,11 @@
             this.repositoryItemButtonEditStopTaining = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colGoldPetHour = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colExperiencePetHour = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcStartGame = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcGoClientless = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcDisconnect = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcCommands = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemButtonEditCommands = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.tbLog = new System.Windows.Forms.RichTextBox();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -179,11 +194,11 @@
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OutputWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TmrUIBotInfo = new System.Windows.Forms.Timer();
+            this.TmrUIBotInfo = new System.Windows.Forms.Timer(this.components);
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
-            this.notifyIconApp = new System.Windows.Forms.NotifyIcon();
-            this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip();
+            this.notifyIconApp = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -225,11 +240,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditReset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditClient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditStartTraining)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditStopTaining)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditCommands)).BeginInit();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripTray.SuspendLayout();
             this.SuspendLayout();
@@ -248,7 +265,7 @@
             this.colConnectionQualityCur.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ConnectionQualityCur", "{0:0.##}")});
             this.colConnectionQualityCur.Visible = true;
-            this.colConnectionQualityCur.VisibleIndex = 5;
+            this.colConnectionQualityCur.VisibleIndex = 6;
             // 
             // colConnectionQualityAvg
             // 
@@ -264,7 +281,7 @@
             this.colConnectionQualityAvg.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ConnectionQualityAvg", "{0:0.##}")});
             this.colConnectionQualityAvg.Visible = true;
-            this.colConnectionQualityAvg.VisibleIndex = 4;
+            this.colConnectionQualityAvg.VisibleIndex = 5;
             // 
             // toolStripContainer1
             // 
@@ -1339,7 +1356,9 @@
             this.repositoryItemButtonEditClient,
             this.repositoryItemButtonEditStartTraining,
             this.repositoryItemButtonEditStopTaining,
-            this.repositoryItemCheckEditVisable});
+            this.repositoryItemCheckEditVisable,
+            this.repositoryItemTextEditn0,
+            this.repositoryItemButtonEditCommands});
             this.gridControlOverall.Size = new System.Drawing.Size(870, 270);
             this.gridControlOverall.TabIndex = 0;
             this.gridControlOverall.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1382,61 +1401,65 @@
             this.colBtnStartTraining,
             this.colBtnStopTraining,
             this.colGoldPetHour,
-            this.colExperiencePetHour});
-            gridFormatRule7.Column = this.colConnectionQualityCur;
-            gridFormatRule7.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule7.Name = "FormatQualityCur0_1000";
-            formatConditionRuleValue7.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue7.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue7.Value1 = 1;
-            formatConditionRuleValue7.Value2 = 1000;
-            gridFormatRule7.Rule = formatConditionRuleValue7;
-            gridFormatRule8.Column = this.colConnectionQualityCur;
-            gridFormatRule8.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule8.Name = "FormatQualityCur1000_2000";
-            formatConditionRuleValue8.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue8.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue8.Value1 = 1000;
-            formatConditionRuleValue8.Value2 = 2000;
-            gridFormatRule8.Rule = formatConditionRuleValue8;
-            gridFormatRule9.Column = this.colConnectionQualityCur;
-            gridFormatRule9.ColumnApplyTo = this.colConnectionQualityCur;
-            gridFormatRule9.Name = "FormatQualityCur3000";
-            formatConditionRuleValue9.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue9.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue9.Value1 = 2000;
-            formatConditionRuleValue9.Value2 = 99999;
-            gridFormatRule9.Rule = formatConditionRuleValue9;
-            gridFormatRule10.Column = this.colConnectionQualityAvg;
-            gridFormatRule10.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule10.Name = "FormatQualityAvg0_1000";
-            formatConditionRuleValue10.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue10.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue10.Value1 = 0;
-            formatConditionRuleValue10.Value2 = 1000;
-            gridFormatRule10.Rule = formatConditionRuleValue10;
-            gridFormatRule11.Column = this.colConnectionQualityAvg;
-            gridFormatRule11.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule11.Name = "FormatQualityAvg1000_2000";
-            formatConditionRuleValue11.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue11.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue11.Value1 = 1000;
-            formatConditionRuleValue11.Value2 = 2000;
-            gridFormatRule11.Rule = formatConditionRuleValue11;
-            gridFormatRule12.Column = this.colConnectionQualityAvg;
-            gridFormatRule12.ColumnApplyTo = this.colConnectionQualityAvg;
-            gridFormatRule12.Name = "FormatQualityAvg3000";
-            formatConditionRuleValue12.Condition = DevExpress.XtraEditors.FormatCondition.Between;
-            formatConditionRuleValue12.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue12.Value1 = 2000;
-            formatConditionRuleValue12.Value2 = 99999;
-            gridFormatRule12.Rule = formatConditionRuleValue12;
-            this.gridViewOverall.FormatRules.Add(gridFormatRule7);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule8);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule9);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule10);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule11);
-            this.gridViewOverall.FormatRules.Add(gridFormatRule12);
+            this.colExperiencePetHour,
+            this.gcStartGame,
+            this.gcGoClientless,
+            this.gcDisconnect,
+            this.gcCommands});
+            gridFormatRule1.Column = this.colConnectionQualityCur;
+            gridFormatRule1.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule1.Name = "FormatQualityCur0_1000";
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue1.Value1 = 1;
+            formatConditionRuleValue1.Value2 = 1000;
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            gridFormatRule2.Column = this.colConnectionQualityCur;
+            gridFormatRule2.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule2.Name = "FormatQualityCur1000_2000";
+            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue2.PredefinedName = "Yellow Fill, Yellow Text";
+            formatConditionRuleValue2.Value1 = 1000;
+            formatConditionRuleValue2.Value2 = 2000;
+            gridFormatRule2.Rule = formatConditionRuleValue2;
+            gridFormatRule3.Column = this.colConnectionQualityCur;
+            gridFormatRule3.ColumnApplyTo = this.colConnectionQualityCur;
+            gridFormatRule3.Name = "FormatQualityCur3000";
+            formatConditionRuleValue3.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue3.PredefinedName = "Red Fill, Red Text";
+            formatConditionRuleValue3.Value1 = 2000;
+            formatConditionRuleValue3.Value2 = 99999;
+            gridFormatRule3.Rule = formatConditionRuleValue3;
+            gridFormatRule4.Column = this.colConnectionQualityAvg;
+            gridFormatRule4.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule4.Name = "FormatQualityAvg0_1000";
+            formatConditionRuleValue4.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue4.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue4.Value1 = 0;
+            formatConditionRuleValue4.Value2 = 1000;
+            gridFormatRule4.Rule = formatConditionRuleValue4;
+            gridFormatRule5.Column = this.colConnectionQualityAvg;
+            gridFormatRule5.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule5.Name = "FormatQualityAvg1000_2000";
+            formatConditionRuleValue5.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue5.PredefinedName = "Yellow Fill, Yellow Text";
+            formatConditionRuleValue5.Value1 = 1000;
+            formatConditionRuleValue5.Value2 = 2000;
+            gridFormatRule5.Rule = formatConditionRuleValue5;
+            gridFormatRule6.Column = this.colConnectionQualityAvg;
+            gridFormatRule6.ColumnApplyTo = this.colConnectionQualityAvg;
+            gridFormatRule6.Name = "FormatQualityAvg3000";
+            formatConditionRuleValue6.Condition = DevExpress.XtraEditors.FormatCondition.Between;
+            formatConditionRuleValue6.PredefinedName = "Red Fill, Red Text";
+            formatConditionRuleValue6.Value1 = 2000;
+            formatConditionRuleValue6.Value2 = 99999;
+            gridFormatRule6.Rule = formatConditionRuleValue6;
+            this.gridViewOverall.FormatRules.Add(gridFormatRule1);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule2);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule3);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule4);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule5);
+            this.gridViewOverall.FormatRules.Add(gridFormatRule6);
             this.gridViewOverall.GridControl = this.gridControlOverall;
             this.gridViewOverall.Name = "gridViewOverall";
             this.gridViewOverall.OptionsBehavior.ReadOnly = true;
@@ -1481,7 +1504,7 @@
             this.colCharName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "CharName", "{0}")});
             this.colCharName.Visible = true;
-            this.colCharName.VisibleIndex = 1;
+            this.colCharName.VisibleIndex = 2;
             // 
             // colSilkroadServerStatus
             // 
@@ -1507,7 +1530,7 @@
             this.colBotStatus.OptionsColumn.AllowEdit = false;
             this.colBotStatus.OptionsColumn.ReadOnly = true;
             this.colBotStatus.Visible = true;
-            this.colBotStatus.VisibleIndex = 3;
+            this.colBotStatus.VisibleIndex = 4;
             // 
             // colPosX
             // 
@@ -1521,7 +1544,7 @@
             this.colPosX.OptionsColumn.AllowEdit = false;
             this.colPosX.OptionsColumn.ReadOnly = true;
             this.colPosX.Visible = true;
-            this.colPosX.VisibleIndex = 6;
+            this.colPosX.VisibleIndex = 7;
             // 
             // colPosY
             // 
@@ -1535,7 +1558,7 @@
             this.colPosY.OptionsColumn.AllowEdit = false;
             this.colPosY.OptionsColumn.ReadOnly = true;
             this.colPosY.Visible = true;
-            this.colPosY.VisibleIndex = 7;
+            this.colPosY.VisibleIndex = 8;
             // 
             // colLevel
             // 
@@ -1549,7 +1572,7 @@
             this.colLevel.OptionsColumn.AllowEdit = false;
             this.colLevel.OptionsColumn.ReadOnly = true;
             this.colLevel.Visible = true;
-            this.colLevel.VisibleIndex = 20;
+            this.colLevel.VisibleIndex = 21;
             // 
             // colGold
             // 
@@ -1558,6 +1581,7 @@
             this.colGold.AppearanceHeader.Options.UseTextOptions = true;
             this.colGold.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colGold.Caption = "Gold";
+            this.colGold.ColumnEdit = this.repositoryItemTextEditn0;
             this.colGold.FieldName = "Gold";
             this.colGold.Name = "colGold";
             this.colGold.OptionsColumn.AllowEdit = false;
@@ -1565,7 +1589,18 @@
             this.colGold.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Gold", "{0:c0}")});
             this.colGold.Visible = true;
-            this.colGold.VisibleIndex = 8;
+            this.colGold.VisibleIndex = 9;
+            // 
+            // repositoryItemTextEditn0
+            // 
+            this.repositoryItemTextEditn0.AutoHeight = false;
+            this.repositoryItemTextEditn0.DisplayFormat.FormatString = "n0";
+            this.repositoryItemTextEditn0.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEditn0.EditFormat.FormatString = "n0";
+            this.repositoryItemTextEditn0.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repositoryItemTextEditn0.Mask.EditMask = "n0";
+            this.repositoryItemTextEditn0.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.repositoryItemTextEditn0.Name = "repositoryItemTextEditn0";
             // 
             // colSkillPoint
             // 
@@ -1579,7 +1614,7 @@
             this.colSkillPoint.OptionsColumn.AllowEdit = false;
             this.colSkillPoint.OptionsColumn.ReadOnly = true;
             this.colSkillPoint.Visible = true;
-            this.colSkillPoint.VisibleIndex = 13;
+            this.colSkillPoint.VisibleIndex = 14;
             // 
             // colLocationName
             // 
@@ -1593,7 +1628,7 @@
             this.colLocationName.OptionsColumn.AllowEdit = false;
             this.colLocationName.OptionsColumn.ReadOnly = true;
             this.colLocationName.Visible = true;
-            this.colLocationName.VisibleIndex = 2;
+            this.colLocationName.VisibleIndex = 3;
             // 
             // colTotaltime
             // 
@@ -1607,7 +1642,7 @@
             this.colTotaltime.OptionsColumn.AllowEdit = false;
             this.colTotaltime.OptionsColumn.ReadOnly = true;
             this.colTotaltime.Visible = true;
-            this.colTotaltime.VisibleIndex = 9;
+            this.colTotaltime.VisibleIndex = 10;
             // 
             // colKills
             // 
@@ -1623,7 +1658,7 @@
             this.colKills.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Kills", "{0:n0}")});
             this.colKills.Visible = true;
-            this.colKills.VisibleIndex = 10;
+            this.colKills.VisibleIndex = 11;
             // 
             // colXPGained
             // 
@@ -1639,7 +1674,7 @@
             this.colXPGained.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "XPGained", "{0:n0}")});
             this.colXPGained.Visible = true;
-            this.colXPGained.VisibleIndex = 11;
+            this.colXPGained.VisibleIndex = 12;
             // 
             // colXPMin
             // 
@@ -1669,7 +1704,7 @@
             this.colXPH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "XPH", "{0:n0}")});
             this.colXPH.Visible = true;
-            this.colXPH.VisibleIndex = 12;
+            this.colXPH.VisibleIndex = 13;
             // 
             // colSPGained
             // 
@@ -1685,7 +1720,7 @@
             this.colSPGained.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "SPGained", "{0:n0}")});
             this.colSPGained.Visible = true;
-            this.colSPGained.VisibleIndex = 14;
+            this.colSPGained.VisibleIndex = 15;
             // 
             // colSPMin
             // 
@@ -1715,7 +1750,7 @@
             this.colSPH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "SPH", "{0:0.##}")});
             this.colSPH.Visible = true;
-            this.colSPH.VisibleIndex = 15;
+            this.colSPH.VisibleIndex = 16;
             // 
             // colDied
             // 
@@ -1731,7 +1766,7 @@
             this.colDied.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Died", "{0:0.##}")});
             this.colDied.Visible = true;
-            this.colDied.VisibleIndex = 16;
+            this.colDied.VisibleIndex = 17;
             // 
             // colDiedsess
             // 
@@ -1747,7 +1782,7 @@
             this.colDiedsess.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Diedsess", "{0:0.##}")});
             this.colDiedsess.Visible = true;
-            this.colDiedsess.VisibleIndex = 17;
+            this.colDiedsess.VisibleIndex = 18;
             // 
             // colItemDrops
             // 
@@ -1763,7 +1798,7 @@
             this.colItemDrops.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ItemDrops", "{0:0.##}")});
             this.colItemDrops.Visible = true;
-            this.colItemDrops.VisibleIndex = 18;
+            this.colItemDrops.VisibleIndex = 19;
             // 
             // colGoldLoop
             // 
@@ -1772,7 +1807,11 @@
             this.colGoldLoop.AppearanceHeader.Options.UseTextOptions = true;
             this.colGoldLoop.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colGoldLoop.Caption = "Good/Loop";
+            this.colGoldLoop.DisplayFormat.FormatString = "n0";
+            this.colGoldLoop.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colGoldLoop.FieldName = "GoldLoop";
+            this.colGoldLoop.GroupFormat.FormatString = "n0";
+            this.colGoldLoop.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colGoldLoop.Name = "colGoldLoop";
             this.colGoldLoop.OptionsColumn.AllowEdit = false;
             this.colGoldLoop.OptionsColumn.ReadOnly = true;
@@ -1791,13 +1830,13 @@
             this.colBtnResetStatus.Name = "colBtnResetStatus";
             this.colBtnResetStatus.OptionsColumn.ReadOnly = true;
             this.colBtnResetStatus.Visible = true;
-            this.colBtnResetStatus.VisibleIndex = 21;
+            this.colBtnResetStatus.VisibleIndex = 22;
             // 
             // repositoryItemButtonEditReset
             // 
             this.repositoryItemButtonEditReset.AutoHeight = false;
             this.repositoryItemButtonEditReset.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear, "Reset", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear, "Reset", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
             this.repositoryItemButtonEditReset.Name = "repositoryItemButtonEditReset";
             this.repositoryItemButtonEditReset.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.repositoryItemButtonEditReset.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditReset_ButtonClick);
@@ -1835,7 +1874,7 @@
             this.colBtnHieClient.Name = "colBtnHieClient";
             this.colBtnHieClient.OptionsColumn.ReadOnly = true;
             this.colBtnHieClient.Visible = true;
-            this.colBtnHieClient.VisibleIndex = 22;
+            this.colBtnHieClient.VisibleIndex = 23;
             // 
             // repositoryItemButtonEditClient
             // 
@@ -1858,7 +1897,7 @@
             this.colBtnStartTraining.Name = "colBtnStartTraining";
             this.colBtnStartTraining.OptionsColumn.ReadOnly = true;
             this.colBtnStartTraining.Visible = true;
-            this.colBtnStartTraining.VisibleIndex = 23;
+            this.colBtnStartTraining.VisibleIndex = 24;
             this.colBtnStartTraining.Width = 85;
             // 
             // repositoryItemButtonEditStartTraining
@@ -1882,7 +1921,7 @@
             this.colBtnStopTraining.Name = "colBtnStopTraining";
             this.colBtnStopTraining.OptionsColumn.ReadOnly = true;
             this.colBtnStopTraining.Visible = true;
-            this.colBtnStopTraining.VisibleIndex = 24;
+            this.colBtnStopTraining.VisibleIndex = 25;
             this.colBtnStopTraining.Width = 83;
             // 
             // repositoryItemButtonEditStopTaining
@@ -1901,6 +1940,7 @@
             this.colGoldPetHour.AppearanceHeader.Options.UseTextOptions = true;
             this.colGoldPetHour.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colGoldPetHour.Caption = "Gold/H";
+            this.colGoldPetHour.ColumnEdit = this.repositoryItemTextEditn0;
             this.colGoldPetHour.FieldName = "GoldPetHour";
             this.colGoldPetHour.Name = "colGoldPetHour";
             this.colGoldPetHour.OptionsColumn.AllowEdit = false;
@@ -1908,7 +1948,7 @@
             this.colGoldPetHour.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "GoldPetHour", "{0:c0}")});
             this.colGoldPetHour.Visible = true;
-            this.colGoldPetHour.VisibleIndex = 19;
+            this.colGoldPetHour.VisibleIndex = 20;
             // 
             // colExperiencePetHour
             // 
@@ -1923,6 +1963,68 @@
             this.colExperiencePetHour.OptionsColumn.ReadOnly = true;
             this.colExperiencePetHour.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ExperiencePetHour", "{0:n0}")});
+            // 
+            // gcStartGame
+            // 
+            this.gcStartGame.AppearanceCell.Options.UseTextOptions = true;
+            this.gcStartGame.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcStartGame.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcStartGame.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcStartGame.Caption = "Start Game";
+            this.gcStartGame.Name = "gcStartGame";
+            this.gcStartGame.Visible = true;
+            this.gcStartGame.VisibleIndex = 26;
+            // 
+            // gcGoClientless
+            // 
+            this.gcGoClientless.AppearanceCell.Options.UseTextOptions = true;
+            this.gcGoClientless.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcGoClientless.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcGoClientless.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcGoClientless.Caption = "Go Clientless";
+            this.gcGoClientless.Name = "gcGoClientless";
+            this.gcGoClientless.Visible = true;
+            this.gcGoClientless.VisibleIndex = 27;
+            // 
+            // gcDisconnect
+            // 
+            this.gcDisconnect.AppearanceCell.Options.UseTextOptions = true;
+            this.gcDisconnect.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcDisconnect.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcDisconnect.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcDisconnect.Caption = "Disconnect";
+            this.gcDisconnect.Name = "gcDisconnect";
+            this.gcDisconnect.Visible = true;
+            this.gcDisconnect.VisibleIndex = 28;
+            // 
+            // gcCommands
+            // 
+            this.gcCommands.AppearanceCell.Options.UseTextOptions = true;
+            this.gcCommands.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcCommands.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcCommands.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcCommands.Caption = "Commands";
+            this.gcCommands.ColumnEdit = this.repositoryItemButtonEditCommands;
+            this.gcCommands.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.gcCommands.Name = "gcCommands";
+            this.gcCommands.Visible = true;
+            this.gcCommands.VisibleIndex = 1;
+            this.gcCommands.Width = 91;
+            // 
+            // repositoryItemButtonEditCommands
+            // 
+            this.repositoryItemButtonEditCommands.AutoHeight = false;
+            this.repositoryItemButtonEditCommands.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Start Game", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Go Clientless", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Disconnect", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Resert", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Save Settings", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Show/Hide Client", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Start Training", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", null, null, true),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "End Training", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, "", null, null, true)});
+            this.repositoryItemButtonEditCommands.Name = "repositoryItemButtonEditCommands";
+            this.repositoryItemButtonEditCommands.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // tbLog
             // 
@@ -2097,11 +2199,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOverall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditReset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditClient)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditStartTraining)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditStopTaining)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditCommands)).EndInit();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.contextMenuStripTray.ResumeLayout(false);
@@ -2254,5 +2358,11 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private DevExpress.XtraBars.Ribbon.GalleryControl galleryControlMain;
         private DevExpress.XtraBars.Ribbon.GalleryControlClient galleryControlClient1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEditn0;
+        private DevExpress.XtraGrid.Columns.GridColumn gcStartGame;
+        private DevExpress.XtraGrid.Columns.GridColumn gcGoClientless;
+        private DevExpress.XtraGrid.Columns.GridColumn gcDisconnect;
+        private DevExpress.XtraGrid.Columns.GridColumn gcCommands;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEditCommands;
     }
 }

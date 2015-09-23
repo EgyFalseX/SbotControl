@@ -98,6 +98,7 @@
       <DependentUpon>AboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Account.cs" />
+    <Compile Include="Core\Rect.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="AppMainFrm.cs">
       <SubType>Form</SubType>
@@ -117,6 +118,12 @@
     <Compile Include="UI\AddAccountFrm.Designer.cs">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OnlineBotUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\OnlineBotUC.Designer.cs">
+      <DependentUpon>OnlineBotUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionsUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -128,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AddAccountFrm.resx">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OnlineBotUC.resx">
+      <DependentUpon>OnlineBotUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OptionsUC.resx">
       <DependentUpon>OptionsUC.cs</DependentUpon>
@@ -145,6 +155,10 @@
     <None Include="Resources\SBot.png" />
     <None Include="Resources\addfile_16x16.png" />
     <None Include="Resources\refresh2_16x16.png" />
+    <None Include="Resources\media_16x16.png" />
+    <None Include="Resources\media_32x32.png" />
+    <None Include="Resources\borules_16x16.png" />
+    <None Include="Resources\borules_32x32.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />

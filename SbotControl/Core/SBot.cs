@@ -93,52 +93,53 @@ namespace SbotControl
         # region Types
         private enum CtrID : int
         {
-            MainTab = 0x000049D,//1181
+            //MainTab = 0x000049D,
+            MainTab = 0x00004A0,
 
-            BtnStartGame = 0x00000FC,//252
-            BtnGoClientless = 0x00000FD,//253
-            BtnDisconnect = 0x00000FE,//254
+            BtnStartGame = 0x00000FC,
+            BtnGoClientless = 0x00000FD,
+            BtnDisconnect = 0x00000FE,
 
-            TopPanal = 0x00000FB,//251
-            RightPanal = 0x000049A,//1178
-            ButtomPanal = 0x000049C,//1180
+            TopPanal = 0x00000FB,
+            RightPanal = 0x000049D,
+            ButtomPanal = 0x000049F,
             //Top Panal Ctr
-            BotVersion = 0x00000E9,//223
-            CharHPProgressBar = 0x00000EB,//235
-            CharMPProgressBar = 0x00000ED,//237
-            CharExpProgressBar = 0x00000EF,//239
-            BotServerStatus = 0x00000F1,//241
-            SilkroadServerStatus = 0x00000F3,//243
-            BotStatus = 0x00000F5,//245
-            ConnectionQualityAvg = 0x00000F8,//248
-            ConnectionQualityCur = 0x00000FA,//250
+            BotVersion = 0x00000E9,
+            CharHPProgressBar = 0x00000EB,
+            CharMPProgressBar = 0x00000ED,
+            CharExpProgressBar = 0x00000EF,
+            BotServerStatus = 0x00000F1,
+            SilkroadServerStatus = 0x00000F3,
+            BotStatus = 0x00000F5,
+            ConnectionQualityAvg = 0x00000F8,
+            ConnectionQualityCur = 0x00000FA,
             //Right Panal Ctr
-            PosX = 0x000046D,//1133
-            PosY = 0x000046F,//1135
-            CharName = 0x0000472,//1138
-            Level = 0x0000474,//1140
-            Gold = 0x0000476,//1142
-            SkillPoint = 0x0000478,//1144
-            LocationName = 0x000047A,//1146
-            Totaltime = 0x000047D,//1149
-            Kills = 0x000047F,//1151
-            XPGained = 0x0000481,//1153
-            XPMin = 0x0000483,//1155
-            XPH = 0x0000485,//1157
-            SPGained = 0x0000487,//1159
-            SPMin = 0x0000489,//1161
-            SPH = 0x000048B,//1163
-            Died = 0x000048D,//1165
-            Diedsess = 0x000048F,//1167
-            ItemDrops = 0x0000491,//1169
-            GoldLoop = 0x0000493,//1171
-            BtnResetStatus = 0x0000494,//1172
-            BtnSaveSettings = 0x0000496,//1174
-            BtnHieClient = 0x0000497,//1175
-            BtnStartTraining = 0x0000498,//1176
-            BtnStopTraining = 0x0000499,//1177
+            PosX = 0x0000470,
+            PosY = 0x0000472,
+            CharName = 0x0000475,
+            Level = 0x0000477,
+            Gold = 0x0000479,
+            SkillPoint = 0x000047B,
+            LocationName = 0x000047D,
+            Totaltime = 0x0000480,
+            Kills = 0x0000482,
+            XPGained = 0x0000484,
+            XPMin = 0x0000486,
+            XPH = 0x0000488,
+            SPGained = 0x000048A,
+            SPMin = 0x000048C,
+            SPH = 0x000048E,
+            Died = 0x0000490,
+            Diedsess = 0x0000492,
+            ItemDrops = 0x0000494,
+            GoldLoop = 0x0000496,
+            BtnResetStatus = 0x0000497,
+            BtnSaveSettings = 0x0000499,
+            BtnHieClient = 0x000049A,
+            BtnStartTraining = 0x000049B,
+            BtnStopTraining = 0x000049C,
             //Buttom Panal Ctr
-            BotLogs = 0x000049B,//1179
+            BotLogs = 0x000049E,
         }
         public enum StatusType
         {
@@ -199,6 +200,10 @@ namespace SbotControl
         public void PrepareHandlers()
         {
             MainWindowHandle = FindMainWindowInProcess(BOTPROOF);
+            if (MainWindowHandle != IntPtr.Zero)
+            {
+                string x = "";
+            }
             MainPanalHandle = Win32.GetDlgItem(MainWindowHandle, (int)CtrID.MainTab);
             
             BtnStartGameHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnStartGame);
@@ -250,7 +255,7 @@ namespace SbotControl
         public void InitiProperties()
         {
             UpdateProperty(BotVersionHandle, ref _botVersion, "BotVersion");
-            GetCharHPProgressBar(); GetCharMPProgressBar(); GetCharExpProgressBar();
+            //GetCharHPProgressBar(); GetCharMPProgressBar(); GetCharExpProgressBar();
             UpdateProperty(BotServerStatusHandle, ref _botServerStatus, "BotServerStatus");
             UpdateProperty(SilkroadServerStatusHandle, ref _silkroadServerStatus, "SilkroadServerStatus");
             UpdateProperty(BotStatusHandle, ref _botStatus, "BotStatus");
@@ -280,8 +285,21 @@ namespace SbotControl
             UpdateProperty(BtnHieClientHandle, ref _btnHieClient, "BtnHieClient");
             UpdateProperty(BtnStartTrainingHandle, ref _btnStartTraining, "BtnStartTraining");
             UpdateProperty(BtnStopTrainingHandle, ref _btnStopTraining, "BtnStopTraining");
-            
-            
+            //HP Bar
+            Bitmap hpBar = new Bitmap(PrintWindow(CharHPProgressBarHandle));
+            if (!hpBar.Equals(_hpBar))
+            {
+                _hpBar = hpBar;
+                OnPropertyChanged("HPBar");
+            }
+            //MP Bar
+            Bitmap mpBar = new Bitmap(PrintWindow(CharMPProgressBarHandle));
+            if (!mpBar.Equals(_mpBar))
+            {
+                _mpBar = mpBar;
+                OnPropertyChanged("MPBar");
+            }
+
             if (_StartupExperience == 0 && _StartupGold == 0 && _StartupExperience == 0)
             {
                 if (_skillPoint != string.Empty && _gold != string.Empty && _xPGained != string.Empty)
@@ -350,10 +368,12 @@ namespace SbotControl
                 if (value != null)
                 {
                     _charName = _account.charName;
+                    Group = _account.Group;
                     //SetMainWindowTitle();
                 }
             }
         }
+        public string Group { get; set; }
 
         string _botVersion;
         
@@ -416,6 +436,25 @@ namespace SbotControl
                 OnPropertyChanged("CharExpProgressBar");
             }
         }
+        private Bitmap _hpBar;
+        public Bitmap HPBar
+        {
+            get
+            {
+                return _hpBar;
+            }
+            
+        }
+        private Bitmap _mpBar;
+        public Bitmap MPBar
+        {
+            get
+            {
+                return _mpBar;
+            }
+
+        }
+
         [Browsable(false)]
         public int[] CharExpProgressBar
         {
@@ -478,14 +517,24 @@ namespace SbotControl
             get { return _level; }
         }
         string _gold;
-        public string Gold
+        public int Gold
         {
-            get { return _gold; }
+            get
+            {
+                int output = 0;
+                int.TryParse(_gold, out output);
+                return Convert.ToInt32(output);
+            }
         }
         string _skillPoint;
-        public string SkillPoint
+        public int SkillPoint
         {
-            get { return _skillPoint; }
+            get
+            {
+                int output = 0;
+                int.TryParse(_skillPoint, out output);
+                return Convert.ToInt32(output);
+            }
         }
         string _locationName;
         public string LocationName
@@ -594,10 +643,10 @@ namespace SbotControl
             int NewGoldPetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
 
             //GoldPetHour = Misc.FormateNumber(NewGoldPetHour);
-            GoldPetHour = NewGoldPetHour.ToString();
+            GoldPetHour = NewGoldPetHour;
             OnPropertyChanged("GoldPetHour");
         }
-        public string GoldPetHour
+        public int GoldPetHour
         {
             get;
             private set;
@@ -856,6 +905,54 @@ namespace SbotControl
             //ShowWindow(MainWindowHandle, SW_SHOWNORMAL);
             //SendMessage(MainWindowHandle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
         }
+        public static System.IO.MemoryStream PrintWindow(IntPtr hwnd)
+        {
+            Core.RECT rc;
+            Win32.GetWindowRect(hwnd, out rc);
+            using (Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+            {
+                using (Graphics gfxBmp = Graphics.FromImage(bmp))
+                {
+                    //Win32.SendMessage(hwnd, Win32.WM_ERASEBKGND, gfxBmp.GetHdc().ToInt32(), 0);
+                    //gfxBmp.ReleaseHdc();
+                    IntPtr hdcBitmap = gfxBmp.GetHdc();
+                    try
+                    {
+
+                        Win32.PrintWindow(hwnd, hdcBitmap, 0);
+                    }
+                    finally
+                    {
+                        gfxBmp.ReleaseHdc(hdcBitmap);
+                    }
+                }
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+                return ms;
+            }
+
+            //System.Drawing.Rectangle rctForm = System.Drawing.Rectangle.Empty;
+            //using (System.Drawing.Graphics grfx = System.Drawing.Graphics.FromHdc(Win32.GetWindowDC(hwnd)))
+            //{
+            //    rctForm = System.Drawing.Rectangle.Round(grfx.VisibleClipBounds);
+            //}
+            //System.Drawing.Bitmap pImage = new System.Drawing.Bitmap(rctForm.Width, rctForm.Height);
+            //System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(pImage);
+            //IntPtr hDC = graphics.GetHdc();
+            ////paint control onto graphics using provided options        
+            //try
+            //{
+            //    PrintWindow(hwnd, hDC, (uint)0);
+            //}
+            //finally
+            //{
+            //    graphics.ReleaseHdc(hDC);
+            //}
+            ////return pImage;
+            //System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            //pImage.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            //return ms;
+        }
 
         private Process Runbot()
         {
@@ -891,6 +988,19 @@ namespace SbotControl
         {
             Win32.SendMessage(hwnd, Win32.BM_CLICK, 0, 0);
         }
+        public void ClickStartGameButton()
+        {
+            PerformClick(BtnStartGameHandle);
+        }
+        public void ClickGoClienlessButton()
+        {
+            PerformClick(BtnGoClientlessHandle);
+        }
+        public void ClickDisconnectButton()
+        {
+            PerformClick(BtnDisconnectHandle);
+        }
+
         public void ClickResetButton()
         {
             PerformClick(BtnResetStatusHandle);
@@ -961,18 +1071,5 @@ namespace SbotControl
             Dispose(false);
         }
         # endregion
-        public List<string> Test()
-        {
-            List<string> output = new List<string>();
-            for (int i = 1024; i < 2048; i++)
-            {
-                object obj = Win32.SendMessage(CharMPProgressBarHandle.ToInt32(), i, 0, 0);
-                if (obj.ToString() != "0")
-                {
-                    output.Add(obj.ToString());
-                }
-            }
-            return output;
-        }
     }
 }

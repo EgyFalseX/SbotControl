@@ -29,9 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppMainFrm));
             this.barManagerMain = new DevExpress.XtraBars.BarManager(this.components);
             this.bar2 = new DevExpress.XtraBars.Bar();
-            this.barDockingMenuItem1 = new DevExpress.XtraBars.BarDockingMenuItem();
+            this.bbiStart = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiStop = new DevExpress.XtraBars.BarButtonItem();
+            this.barDockingMenuItemWindow = new DevExpress.XtraBars.BarDockingMenuItem();
+            this.barAndDockingControllerMain = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -43,8 +47,11 @@
             this.docAccount = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOnline = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOption = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
-            this.barAndDockingControllerMain = new DevExpress.XtraBars.BarAndDockingController(this.components);
+            this.notifyIconApp = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingControllerMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManagerMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).BeginInit();
@@ -52,7 +59,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingControllerMain)).BeginInit();
+            this.contextMenuStripTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // barManagerMain
@@ -67,9 +74,11 @@
             this.barManagerMain.DockManager = this.dockManagerMain;
             this.barManagerMain.Form = this;
             this.barManagerMain.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.barDockingMenuItem1});
+            this.barDockingMenuItemWindow,
+            this.bbiStart,
+            this.bbiStop});
             this.barManagerMain.MainMenu = this.bar2;
-            this.barManagerMain.MaxItemId = 1;
+            this.barManagerMain.MaxItemId = 3;
             // 
             // bar2
             // 
@@ -78,23 +87,54 @@
             this.bar2.DockRow = 0;
             this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
             this.bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barDockingMenuItem1)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiStart),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiStop),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barDockingMenuItemWindow)});
             this.bar2.OptionsBar.MultiLine = true;
             this.bar2.OptionsBar.UseWholeRow = true;
             this.bar2.Text = "Main menu";
             // 
-            // barDockingMenuItem1
+            // bbiStart
             // 
-            this.barDockingMenuItem1.Caption = "Window";
-            this.barDockingMenuItem1.Id = 0;
-            this.barDockingMenuItem1.Name = "barDockingMenuItem1";
+            this.bbiStart.Caption = "Start";
+            this.bbiStart.Glyph = global::SbotControl.Properties.Resources.media_16x16;
+            this.bbiStart.Id = 1;
+            this.bbiStart.LargeGlyph = global::SbotControl.Properties.Resources.media_32x32;
+            this.bbiStart.Name = "bbiStart";
+            this.bbiStart.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.bbiStart.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStart_ItemClick);
+            // 
+            // bbiStop
+            // 
+            this.bbiStop.Caption = "Stop";
+            this.bbiStop.Glyph = global::SbotControl.Properties.Resources.borules_16x16;
+            this.bbiStop.Id = 2;
+            this.bbiStop.LargeGlyph = global::SbotControl.Properties.Resources.borules_32x32;
+            this.bbiStop.Name = "bbiStop";
+            this.bbiStop.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.bbiStop.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStop_ItemClick);
+            // 
+            // barDockingMenuItemWindow
+            // 
+            this.barDockingMenuItemWindow.Caption = "Window";
+            this.barDockingMenuItemWindow.Glyph = global::SbotControl.Properties.Resources.HideAll;
+            this.barDockingMenuItemWindow.Id = 0;
+            this.barDockingMenuItemWindow.Name = "barDockingMenuItemWindow";
+            this.barDockingMenuItemWindow.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            // 
+            // barAndDockingControllerMain
+            // 
+            this.barAndDockingControllerMain.PaintStyleName = "Skin";
+            this.barAndDockingControllerMain.PropertiesBar.AllowLinkLighting = false;
+            this.barAndDockingControllerMain.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
+            this.barAndDockingControllerMain.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
             // 
             // barDockControlTop
             // 
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(991, 22);
+            this.barDockControlTop.Size = new System.Drawing.Size(991, 24);
             // 
             // barDockControlBottom
             // 
@@ -107,15 +147,15 @@
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 22);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 405);
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 24);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 403);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(991, 22);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 405);
+            this.barDockControlRight.Location = new System.Drawing.Point(991, 24);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 403);
             // 
             // dockManagerMain
             // 
@@ -171,12 +211,27 @@
             this.docOption.Caption = "Options";
             this.docOption.ControlName = "docOption";
             // 
-            // barAndDockingControllerMain
+            // notifyIconApp
             // 
-            this.barAndDockingControllerMain.PaintStyleName = "Skin";
-            this.barAndDockingControllerMain.PropertiesBar.AllowLinkLighting = false;
-            this.barAndDockingControllerMain.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
-            this.barAndDockingControllerMain.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
+            this.notifyIconApp.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconApp.Icon")));
+            this.notifyIconApp.Text = "bot control";
+            this.notifyIconApp.Visible = true;
+            this.notifyIconApp.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIconApp_MouseDoubleClick);
+            // 
+            // contextMenuStripTray
+            // 
+            this.contextMenuStripTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.contextMenuStripTray.Name = "contextMenuStripTray";
+            this.contextMenuStripTray.Size = new System.Drawing.Size(153, 48);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = global::SbotControl.Properties.Resources.Exit;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // AppMainFrm
             // 
@@ -187,9 +242,11 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AppMainFrm";
-            this.Text = "XtraForm1";
+            this.Text = "Sbot Control";
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingControllerMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManagerMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).EndInit();
@@ -197,7 +254,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingControllerMain)).EndInit();
+            this.contextMenuStripTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,7 +275,12 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docAccount;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docOnline;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docOption;
-        private DevExpress.XtraBars.BarDockingMenuItem barDockingMenuItem1;
+        private DevExpress.XtraBars.BarDockingMenuItem barDockingMenuItemWindow;
         private DevExpress.XtraBars.BarAndDockingController barAndDockingControllerMain;
+        private DevExpress.XtraBars.BarButtonItem bbiStart;
+        private DevExpress.XtraBars.BarButtonItem bbiStop;
+        private System.Windows.Forms.NotifyIcon notifyIconApp;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripTray;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }

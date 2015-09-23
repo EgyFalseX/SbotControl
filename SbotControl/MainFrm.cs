@@ -28,8 +28,14 @@ namespace SbotControl
             pbCharBerzerg.ShowText = true; pbPetHP.ShowText = true; pbPetHGP.ShowText = true;
             pbTransHP.ShowText = true;
 
+            //Binding Gridcontrol
+            bindingSourceOverall.DataSource = Program.BM.Bots;
+            bindingSourceOverall.ResetBindings(false);
+            gridControlOverall.Refresh();
+            gridControlOverall.RefreshDataSource();
+
         }
-      
+
         private void FillAccountsInfoList()
         {
             lvAccount.Items.Clear();
@@ -55,8 +61,8 @@ namespace SbotControl
         private void FillBotsInfoUI(SBot bot)
         {
             lblCharName.Text = bot.CharName;
-            lblSkill.Text = bot.SkillPoint;
-            lblGold.Text = bot.Gold;
+            lblSkill.Text = bot.SkillPoint.ToString();
+            lblGold.Text = bot.Gold.ToString();
             lblExp.Text = "should change this to exp from bar";
             lblLvl.Text = bot.Level;
             lblItems.Text = bot.ItemDrops;
@@ -64,7 +70,7 @@ namespace SbotControl
             lblLoop.Text = "Remove it";
             lblStatus.Text = bot.Status.ToString();
             lblExpPerHour.Text = bot.ExperiencePetHour;
-            lblGoldPerHour.Text = bot.GoldPetHour;
+            lblGoldPerHour.Text = bot.GoldPetHour.ToString();
             lblSkillPerHour.Text = bot.SPH;
             lblDCCount.Text = "Should Updated";
             lblTryConnectCount.Text = bot.TryConnectCount.ToString();
@@ -326,6 +332,7 @@ namespace SbotControl
             //if (LVBots.SelectedIndices.Count == 0)
             //    return;
             //FillBotsInfoUI(Program.BM.Bots[LVBots.SelectedIndices[0]]);
+            gridControlOverall.RefreshDataSource();
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -339,10 +346,7 @@ namespace SbotControl
                 else
                     Program.BM.Start(true);
                 btnStop.Enabled = true;
-                bindingSourceOverall.DataSource = Program.BM.Bots;
-                gridControlOverall.Refresh();
-                gridControlOverall.RefreshDataSource();
-                //gridControl1.DataSource = Program.BM.Bots;
+                TmrUIBotInfo.Start();
             });
             this.Invoke(action);
             //ThreadPool.QueueUserWorkItem((o) => 
@@ -352,6 +356,7 @@ namespace SbotControl
         private void btnStop_Click(object sender, EventArgs e)
         {
             Program.BM.Stop();
+            TmrUIBotInfo.Stop();
             btnStart.Enabled = true;
             btnStop.Enabled = false;
         }
@@ -469,10 +474,10 @@ namespace SbotControl
                         lblCharName.Text = bot.CharName;
                         break;
                     case "SkillPoint":
-                        lblSkill.Text = bot.SkillPoint;
+                        lblSkill.Text = bot.SkillPoint.ToString();
                         break;
                     case "Gold":
-                        lblGold.Text = bot.Gold;
+                        lblGold.Text = bot.Gold.ToString();
                         break;
                     case "Experience":
                         lblExp.Text = bot.XPGained;
@@ -543,7 +548,7 @@ namespace SbotControl
                         break;
                 }
             };
-            this.Invoke(action);
+            try { this.Invoke(action); }  catch {}
         }
 
         #region Options Tab
@@ -603,10 +608,7 @@ namespace SbotControl
         #endregion
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach (string item in Program.BM.Bots[0].Test())
-            {
-                textBox1.Text += Environment.NewLine + item;
-            }
+            
         }
     }
 }
