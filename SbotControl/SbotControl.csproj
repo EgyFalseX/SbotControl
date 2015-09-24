@@ -58,9 +58,11 @@
     <Reference Include="DevExpress.Data.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="DevExpress.RichEdit.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -79,6 +81,7 @@
     <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -98,6 +101,7 @@
       <DependentUpon>AboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Account.cs" />
+    <Compile Include="Core\BotLogUnit.cs" />
     <Compile Include="Core\Rect.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="AppMainFrm.cs">
@@ -118,6 +122,18 @@
     <Compile Include="UI\AddAccountFrm.Designer.cs">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\BotInfoUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BotInfoUC.Designer.cs">
+      <DependentUpon>BotInfoUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BotLogUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\BotLogUC.Designer.cs">
+      <DependentUpon>BotLogUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OnlineBotUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -135,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AddAccountFrm.resx">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BotInfoUC.resx">
+      <DependentUpon>BotInfoUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\BotLogUC.resx">
+      <DependentUpon>BotLogUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OnlineBotUC.resx">
       <DependentUpon>OnlineBotUC.cs</DependentUpon>
@@ -159,6 +181,16 @@
     <None Include="Resources\media_32x32.png" />
     <None Include="Resources\borules_16x16.png" />
     <None Include="Resources\borules_32x32.png" />
+    <None Include="Resources\windows_16x16.png" />
+    <None Include="Resources\windows_32x32.png" />
+    <None Include="Resources\usergroup_16x16.png" />
+    <None Include="Resources\usergroup_32x32.png" />
+    <None Include="Resources\enableclustering_16x16.png" />
+    <None Include="Resources\enableclustering_32x32.png" />
+    <None Include="Resources\pageorientation_16x16.png" />
+    <None Include="Resources\pageorientation_32x32.png" />
+    <None Include="Resources\technology_16x16.png" />
+    <None Include="Resources\technology_32x32.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />

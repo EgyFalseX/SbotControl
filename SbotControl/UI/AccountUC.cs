@@ -27,7 +27,10 @@ namespace SbotControl.UI
             SbotControl.Account acc = new SbotControl.Account(string.Empty, true, true, true, true, true, string.Empty);
             AddAccountFrm frm = new AddAccountFrm(acc);
             if (frm.ShowDialog() == DialogResult.OK)
+            {
                 Program.DM.Accounts.Add(acc);
+                Program.DM.SaveSettings();
+            }
             ReloadData();
         }
         private void repositoryItemButtonEditEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
@@ -46,6 +49,7 @@ namespace SbotControl.UI
             if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
             Program.DM.Accounts.Remove(acc);
+            Program.DM.SaveSettings();
             ReloadData();
         }
 

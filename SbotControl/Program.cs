@@ -22,12 +22,11 @@ namespace SbotControl
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
-            //Test.XXX();
-            //return;
             Init();
             try
             {
                 //Application.Run(new MainFrm());
+                //OutputFrm dbug = new OutputFrm(); dbug.Show();
                 Application.Run(new AppMainFrm());
             }
             catch(Exception ex)

@@ -41,17 +41,8 @@
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue5 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue6 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colConnectionQualityCur = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colConnectionQualityAvg = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bindingSourceOverall = new System.Windows.Forms.BindingSource(this.components);
             this.gridControlOverall = new DevExpress.XtraGrid.GridControl();
             this.GridMain = new DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView();
             this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
@@ -87,16 +78,31 @@
             this.colLevel = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colSkillPoint = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colGold = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gcCommands = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.repositoryItemButtonEditCommands = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.TmrUIBotInfo = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).BeginInit();
+            this.popupMenuGrid = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.bbiShowDetails = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiClose = new DevExpress.XtraBars.BarButtonItem();
+            this.bsiCommands = new DevExpress.XtraBars.BarSubItem();
+            this.bbiStartGame = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiGoClientless = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiDisconnect = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiResetStats = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiShowHideClient = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiStartTraining = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiStopTraining = new DevExpress.XtraBars.BarButtonItem();
+            this.barManagerMain = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.bbiSaveSettings = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditCommands)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).BeginInit();
             this.SuspendLayout();
             // 
             // colConnectionQualityCur
@@ -131,10 +137,6 @@
             this.colConnectionQualityAvg.Visible = true;
             this.colConnectionQualityAvg.Width = 55;
             // 
-            // bindingSourceOverall
-            // 
-            this.bindingSourceOverall.AllowNew = false;
-            // 
             // gridControlOverall
             // 
             this.gridControlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -144,7 +146,6 @@
             this.gridControlOverall.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEditVisable,
             this.repositoryItemTextEditn0,
-            this.repositoryItemButtonEditCommands,
             this.repositoryItemPictureEditBar});
             this.gridControlOverall.Size = new System.Drawing.Size(854, 451);
             this.gridControlOverall.TabIndex = 1;
@@ -185,7 +186,6 @@
             this.colItemDrops,
             this.colGoldLoop,
             this.colGoldPetHour,
-            this.gcCommands,
             this.gcHP,
             this.gcMP});
             gridFormatRule1.Column = this.colConnectionQualityCur;
@@ -247,6 +247,7 @@
             this.GridMain.OptionsBehavior.ReadOnly = true;
             this.GridMain.OptionsView.ShowFooter = true;
             this.GridMain.OptionsView.ShowGroupPanel = false;
+            this.GridMain.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.GridMain_PopupMenuShowing);
             // 
             // gridBand1
             // 
@@ -259,7 +260,7 @@
             this.gridBand1.Columns.Add(this.gcMP);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 287;
+            this.gridBand1.Width = 351;
             // 
             // colVisable
             // 
@@ -272,7 +273,7 @@
             this.colVisable.FieldName = "Visable";
             this.colVisable.Name = "colVisable";
             this.colVisable.Visible = true;
-            this.colVisable.Width = 20;
+            this.colVisable.Width = 24;
             // 
             // repositoryItemCheckEditVisable
             // 
@@ -294,7 +295,7 @@
             this.colCharName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "CharName", "{0}")});
             this.colCharName.Visible = true;
-            this.colCharName.Width = 37;
+            this.colCharName.Width = 44;
             // 
             // gcGroup
             // 
@@ -308,7 +309,7 @@
             this.gcGroup.OptionsColumn.AllowEdit = false;
             this.gcGroup.OptionsColumn.ReadOnly = true;
             this.gcGroup.Visible = true;
-            this.gcGroup.Width = 39;
+            this.gcGroup.Width = 47;
             // 
             // colBotStatus
             // 
@@ -322,7 +323,7 @@
             this.colBotStatus.OptionsColumn.AllowEdit = false;
             this.colBotStatus.OptionsColumn.ReadOnly = true;
             this.colBotStatus.Visible = true;
-            this.colBotStatus.Width = 41;
+            this.colBotStatus.Width = 76;
             // 
             // gcHP
             // 
@@ -335,6 +336,7 @@
             this.gcHP.FieldName = "HPBar";
             this.gcHP.Name = "gcHP";
             this.gcHP.Visible = true;
+            this.gcHP.Width = 73;
             // 
             // repositoryItemPictureEditBar
             // 
@@ -352,6 +354,7 @@
             this.gcMP.FieldName = "MPBar";
             this.gcMP.Name = "gcMP";
             this.gcMP.Visible = true;
+            this.gcMP.Width = 87;
             // 
             // gridBand4
             // 
@@ -651,15 +654,14 @@
             // 
             // gridBand2
             // 
-            this.gridBand2.Caption = "Generals & Commands";
+            this.gridBand2.Caption = "Generals";
             this.gridBand2.Columns.Add(this.colTotaltime);
             this.gridBand2.Columns.Add(this.colLevel);
             this.gridBand2.Columns.Add(this.colSkillPoint);
             this.gridBand2.Columns.Add(this.colGold);
-            this.gridBand2.Columns.Add(this.gcCommands);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 3;
-            this.gridBand2.Width = 746;
+            this.gridBand2.Width = 305;
             // 
             // colTotaltime
             // 
@@ -673,7 +675,7 @@
             this.colTotaltime.OptionsColumn.AllowEdit = false;
             this.colTotaltime.OptionsColumn.ReadOnly = true;
             this.colTotaltime.Visible = true;
-            this.colTotaltime.Width = 108;
+            this.colTotaltime.Width = 79;
             // 
             // colLevel
             // 
@@ -687,7 +689,7 @@
             this.colLevel.OptionsColumn.AllowEdit = false;
             this.colLevel.OptionsColumn.ReadOnly = true;
             this.colLevel.Visible = true;
-            this.colLevel.Width = 57;
+            this.colLevel.Width = 45;
             // 
             // colSkillPoint
             // 
@@ -701,7 +703,7 @@
             this.colSkillPoint.OptionsColumn.AllowEdit = false;
             this.colSkillPoint.OptionsColumn.ReadOnly = true;
             this.colSkillPoint.Visible = true;
-            this.colSkillPoint.Width = 90;
+            this.colSkillPoint.Width = 73;
             // 
             // colGold
             // 
@@ -718,67 +720,184 @@
             this.colGold.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Gold", "{0:c0}")});
             this.colGold.Visible = true;
-            this.colGold.Width = 118;
-            // 
-            // gcCommands
-            // 
-            this.gcCommands.AppearanceCell.Options.UseTextOptions = true;
-            this.gcCommands.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gcCommands.AppearanceHeader.Options.UseTextOptions = true;
-            this.gcCommands.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gcCommands.Caption = "Commands";
-            this.gcCommands.ColumnEdit = this.repositoryItemButtonEditCommands;
-            this.gcCommands.Name = "gcCommands";
-            this.gcCommands.Visible = true;
-            this.gcCommands.Width = 373;
-            // 
-            // repositoryItemButtonEditCommands
-            // 
-            this.repositoryItemButtonEditCommands.AutoHeight = false;
-            this.repositoryItemButtonEditCommands.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Start Game", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Go Clientless", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Disconnect", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject3, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Resert", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Save Settings", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Show/Hide Client", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject6, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Start Training", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject7, "", null, null, true),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "End Training", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject8, "", null, null, true)});
-            this.repositoryItemButtonEditCommands.Name = "repositoryItemButtonEditCommands";
-            this.repositoryItemButtonEditCommands.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            this.repositoryItemButtonEditCommands.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEditCommands_ButtonClick);
+            this.colGold.Width = 108;
             // 
             // TmrUIBotInfo
             // 
-            this.TmrUIBotInfo.Enabled = true;
             this.TmrUIBotInfo.Interval = 1000;
             this.TmrUIBotInfo.Tick += new System.EventHandler(this.TmrUIBotInfo_Tick);
+            // 
+            // popupMenuGrid
+            // 
+            this.popupMenuGrid.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiShowDetails),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiClose),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bsiCommands)});
+            this.popupMenuGrid.Manager = this.barManagerMain;
+            this.popupMenuGrid.Name = "popupMenuGrid";
+            // 
+            // bbiShowDetails
+            // 
+            this.bbiShowDetails.Caption = "Show Details";
+            this.bbiShowDetails.Id = 0;
+            this.bbiShowDetails.Name = "bbiShowDetails";
+            this.bbiShowDetails.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiShowDetails_ItemClick);
+            // 
+            // bbiClose
+            // 
+            this.bbiClose.Caption = "Close";
+            this.bbiClose.Id = 1;
+            this.bbiClose.Name = "bbiClose";
+            this.bbiClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiClose_ItemClick);
+            // 
+            // bsiCommands
+            // 
+            this.bsiCommands.Caption = "Commands";
+            this.bsiCommands.Id = 2;
+            this.bsiCommands.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiStartGame),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiGoClientless),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiDisconnect),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiResetStats),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiSaveSettings),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiShowHideClient),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiStartTraining),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiStopTraining)});
+            this.bsiCommands.Name = "bsiCommands";
+            // 
+            // bbiStartGame
+            // 
+            this.bbiStartGame.Caption = "Start Game";
+            this.bbiStartGame.Id = 3;
+            this.bbiStartGame.Name = "bbiStartGame";
+            this.bbiStartGame.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStartGame_ItemClick);
+            // 
+            // bbiGoClientless
+            // 
+            this.bbiGoClientless.Caption = "Go Clientless";
+            this.bbiGoClientless.Id = 4;
+            this.bbiGoClientless.Name = "bbiGoClientless";
+            this.bbiGoClientless.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiGoClientless_ItemClick);
+            // 
+            // bbiDisconnect
+            // 
+            this.bbiDisconnect.Caption = "Disconnect";
+            this.bbiDisconnect.Id = 5;
+            this.bbiDisconnect.Name = "bbiDisconnect";
+            this.bbiDisconnect.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiDisconnect_ItemClick);
+            // 
+            // bbiResetStats
+            // 
+            this.bbiResetStats.Caption = "ResetStats";
+            this.bbiResetStats.Id = 7;
+            this.bbiResetStats.Name = "bbiResetStats";
+            this.bbiResetStats.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiResetStats_ItemClick);
+            // 
+            // bbiShowHideClient
+            // 
+            this.bbiShowHideClient.Caption = "Show/Hide Client";
+            this.bbiShowHideClient.Id = 8;
+            this.bbiShowHideClient.Name = "bbiShowHideClient";
+            this.bbiShowHideClient.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiShowHideClient_ItemClick);
+            // 
+            // bbiStartTraining
+            // 
+            this.bbiStartTraining.Caption = "Start Training";
+            this.bbiStartTraining.Id = 9;
+            this.bbiStartTraining.Name = "bbiStartTraining";
+            this.bbiStartTraining.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStartTraining_ItemClick);
+            // 
+            // bbiStopTraining
+            // 
+            this.bbiStopTraining.Caption = "Stop Training";
+            this.bbiStopTraining.Id = 10;
+            this.bbiStopTraining.Name = "bbiStopTraining";
+            this.bbiStopTraining.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiStopTraining_ItemClick);
+            // 
+            // barManagerMain
+            // 
+            this.barManagerMain.DockControls.Add(this.barDockControlTop);
+            this.barManagerMain.DockControls.Add(this.barDockControlBottom);
+            this.barManagerMain.DockControls.Add(this.barDockControlLeft);
+            this.barManagerMain.DockControls.Add(this.barDockControlRight);
+            this.barManagerMain.Form = this;
+            this.barManagerMain.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.bbiShowDetails,
+            this.bbiClose,
+            this.bsiCommands,
+            this.bbiStartGame,
+            this.bbiGoClientless,
+            this.bbiDisconnect,
+            this.bbiResetStats,
+            this.bbiShowHideClient,
+            this.bbiStartTraining,
+            this.bbiStopTraining,
+            this.bbiSaveSettings});
+            this.barManagerMain.MaxItemId = 12;
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(854, 0);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 451);
+            this.barDockControlBottom.Size = new System.Drawing.Size(854, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 451);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(854, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 451);
+            // 
+            // bbiSaveSettings
+            // 
+            this.bbiSaveSettings.Caption = "SaveSettings";
+            this.bbiSaveSettings.Id = 11;
+            this.bbiSaveSettings.Name = "bbiSaveSettings";
+            this.bbiSaveSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiSaveSettings_ItemClick);
             // 
             // OnlineBotUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gridControlOverall);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Name = "OnlineBotUC";
             this.Size = new System.Drawing.Size(854, 451);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceOverall)).EndInit();
+            this.Load += new System.EventHandler(this.OnlineBotUC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEditCommands)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupMenuGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.BindingSource bindingSourceOverall;
         private DevExpress.XtraGrid.GridControl gridControlOverall;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEditVisable;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEditn0;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEditCommands;
         private System.Windows.Forms.Timer TmrUIBotInfo;
         private DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView GridMain;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colVisable;
@@ -807,13 +926,29 @@
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colItemDrops;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colGoldLoop;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colGoldPetHour;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcCommands;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcHP;
+        private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEditBar;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcMP;
+        private DevExpress.XtraBars.PopupMenu popupMenuGrid;
+        private DevExpress.XtraBars.BarButtonItem bbiShowDetails;
+        private DevExpress.XtraBars.BarButtonItem bbiClose;
+        private DevExpress.XtraBars.BarSubItem bsiCommands;
+        private DevExpress.XtraBars.BarButtonItem bbiStartGame;
+        private DevExpress.XtraBars.BarButtonItem bbiGoClientless;
+        private DevExpress.XtraBars.BarButtonItem bbiDisconnect;
+        private DevExpress.XtraBars.BarButtonItem bbiResetStats;
+        private DevExpress.XtraBars.BarButtonItem bbiShowHideClient;
+        private DevExpress.XtraBars.BarButtonItem bbiStartTraining;
+        private DevExpress.XtraBars.BarButtonItem bbiStopTraining;
+        private DevExpress.XtraBars.BarManager barManagerMain;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcHP;
-        private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEditBar;
-        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcMP;
+        private DevExpress.XtraBars.BarButtonItem bbiSaveSettings;
     }
 }

@@ -14,8 +14,10 @@ namespace SbotControl
         {
             //ManagerOnline = true;
             //GetStartedIBots();
+            BotLogs = new List<Core.BotLogUnit>();
         }
         public List<SBot> Bots = new List<SBot>();
+        public List<Core.BotLogUnit> BotLogs { get; set; }
         public enum ChangesType
         {
             Added,
@@ -33,6 +35,12 @@ namespace SbotControl
         public event BotListChangedEventhandler AccountListChanged;
         public event ManagerStatusChangedEventhandler ManagerStatusChanged;
         private bool ManagerOnline;
+
+        ManagerStatusType _managerStatus;
+        public ManagerStatusType ManagerStatus
+        {
+            get { return _managerStatus; }
+        }
 
         public void AddAccount(string Charname, bool Start, bool DCRestart, bool ScrollUnknowSpot, string SbotFilePath)
         {
@@ -120,6 +128,7 @@ namespace SbotControl
         {
             Bots.Add(bot);
             bot.StateChanged += bot_StateChanged;
+            bot.LogAdded += Bot_LogAdded;
             bot.PropertyChanged += bot_PropertyChanged;
 
             Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Ready", bot.CharName));
@@ -127,13 +136,24 @@ namespace SbotControl
                 BotListChanged(bot, ChangesType.Added);
             bot.Start();
         }
+
+        private void Bot_LogAdded(SBot sender, string Log)
+        {
+            BotLogs.Add(new Core.BotLogUnit(sender.CharName, DateTime.Now.ToShortDateString(), Log));
+        }
+
         public void RemoveBot(SBot bot)
         {
             if (BotListChanged != null)
                 BotListChanged(bot, ChangesType.Deleted);
             bot.StateChanged -= bot_StateChanged; bot.PropertyChanged -= bot_PropertyChanged;
-            bot.BotAccount.bot = null;
-            Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Closed", bot.BotAccount.charName));
+            if (bot.BotAccount != null)
+            {
+                bot.BotAccount.bot = null;
+                Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Closed", bot.BotAccount.charName));
+            }
+            else
+                Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Closed", bot.CharName));
             lock (Bots)
                 Bots.Remove(bot);
             bot.Dispose();
@@ -259,7 +279,12 @@ namespace SbotControl
             {
                 //if (Bots[i].LastStatus != SBot.StatusType.Unknown)
                     //bot_StateChanged(Bots[i], SBot.StatusType.Unknown);
+                    //Bots[i].
             }
+            ManagerOnline = true;
+            _managerStatus = ManagerStatusType.Started;
+            if (ManagerStatusChanged != null)
+                ManagerStatusChanged(this, ManagerStatusType.Started);
         }
 
         public void Start(bool resume)
@@ -278,6 +303,8 @@ namespace SbotControl
                 {
                     Resume();
                 }
+
+                _managerStatus = ManagerStatusType.Started;
                 if (ManagerStatusChanged != null)
                     ManagerStatusChanged(this, ManagerStatusType.Started);
             });
@@ -286,6 +313,7 @@ namespace SbotControl
         public void Stop()
         {
             ManagerOnline = false;
+            _managerStatus = ManagerStatusType.Stoped;
             if (ManagerStatusChanged != null)
                 ManagerStatusChanged(this, ManagerStatusType.Stoped);
         }

@@ -7,6 +7,8 @@ using System.Text;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace SbotControl.UI
 {
@@ -15,19 +17,32 @@ namespace SbotControl.UI
         public OnlineBotUC()
         {
             InitializeComponent();
+        }
+        private void OnlineBotUC_Load(object sender, EventArgs e)
+        {
             if (Program.BM != null)
             {
                 //Binding Gridcontrol
                 gridControlOverall.DataSource = Program.BM.Bots;
                 Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
+                BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
+                
             }
         }
         private void BM_ManagerStatusChanged(object sender, BotsManager.ManagerStatusType e)
         {
             if (e == BotsManager.ManagerStatusType.Started)
-                TmrUIBotInfo.Start();
+            {
+                this.Invoke(new MethodInvoker(() => 
+                {
+                    TmrUIBotInfo.Start();
+                }));
+                
+            }
             else if (e == BotsManager.ManagerStatusType.Stoped)
-                TmrUIBotInfo.Stop();
+            {
+                TmrUIBotInfo.Enabled = false;
+            }
         }
         private void TmrUIBotInfo_Tick(object sender, EventArgs e)
         {
@@ -45,7 +60,6 @@ namespace SbotControl.UI
             bot.Visable = !bot.Visable;
             ctr.Checked = !ctr.Checked;
         }
-
         private void repositoryItemButtonEditCommands_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
@@ -68,5 +82,89 @@ namespace SbotControl.UI
             else if (e.Button.Caption == "End Training")
                 bot.ClickStopTrainingButton();
         }
+
+        #region ContextMenu
+        private void GridMain_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
+        {
+            GridView view = sender as GridView;
+            GridHitInfo hitInfo = view.CalcHitInfo(e.Point);
+            if (hitInfo.InRowCell)
+            {
+                popupMenuGrid.ShowPopup(barManagerMain, view.GridControl.PointToScreen(e.Point));
+            }
+        }
+        private void bbiShowDetails_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            AppMainFrm frm = (AppMainFrm)this.ParentForm;
+            frm.ShowBotDetailsTab(bot);
+        }
+        private void bbiClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            Program.BM.RemoveBot(bot);
+        }
+        private void bbiStartGame_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickStartGameButton();
+        }
+        private void bbiGoClientless_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickGoClienlessButton();
+        }
+        private void bbiDisconnect_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickDisconnectButton();
+        }
+        private void bbiResetStats_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickResetButton();
+        }
+        private void bbiSaveSettings_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickSaveSettingsButton();
+        }
+        private void bbiShowHideClient_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickShowHideClientButton();
+        }
+        private void bbiStartTraining_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickStartTrainingButton();
+        }
+        private void bbiStopTraining_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.ClickStopTrainingButton();
+        }
+        #endregion
+
     }
 }

@@ -32,6 +32,7 @@ namespace SbotControl
         private StatusType _status = StatusType.Unknown;
         public System.Threading.Timer tmrPuls;
         public System.Threading.Timer tmrLogin;
+        private int _LastLogLength = 0;
         //public bool HSState = true;
 
         private double _StartupSkill, _StartupGold, _StartupExperience = 0;
@@ -250,7 +251,7 @@ namespace SbotControl
             BtnStartTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStartTraining);
             BtnStopTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStopTraining);
             //RightPanal Ctr
-            BotLogsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BotLogs);
+            BotLogsHandle = Win32.GetDlgItem(ButtomPanalHandle, (int)CtrID.BotLogs);
         }
         public void InitiProperties()
         {
@@ -734,9 +735,9 @@ namespace SbotControl
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
-                handler(this, new PropertyChangedEventArgs(name));
+                handler.Invoke(this, new PropertyChangedEventArgs(name));
+                //handler(this, new PropertyChangedEventArgs(name));
             }
-            
             //Update Status
             if (name == "SilkroadServerStatus")
             {
@@ -840,29 +841,35 @@ namespace SbotControl
             _StatusLogList.Add(item);
             if (LogAdded != null)
                 LogAdded(this, item);// Rise event LogAdded
-            if (item.Contains(ErrorScriptSteps))
-            {
-                //AddClientlessLoginLogItem("[00:00:00] " + ErrorScriptSteps);
-            }
-            else if (item.Contains(ErrorHSIsDown))
-            {
-                //AddClientlessLoginLogItem("[00:00:00] " + ErrorHSIsDown);
-            }
+            //if (item.Contains(ErrorScriptSteps))
+            //{
+            //    //AddClientlessLoginLogItem("[00:00:00] " + ErrorScriptSteps);
+            //}
+            //else if (item.Contains(ErrorHSIsDown))
+            //{
+            //    //AddClientlessLoginLogItem("[00:00:00] " + ErrorHSIsDown);
+            //}
         }
+        
         private void GetStatusLogList()
         {
-            Int32 size = Win32.SendMessage((int)BotLogsHandle, Win32.CB_GETCOUNT, 0, 0).ToInt32();
-            if (size == 0 || size == _StatusLogList.Count)
-                return;
-            for (int i = (size - _StatusLogList.Count) - 1; i >= 0; i--)
+            Int32 size = Win32.SendMessage((int)BotLogsHandle, Win32.WM_GETTEXTLENGTH, 0, 0).ToInt32();
+            if (_LastLogLength == 0)
             {
-                if (size == _StatusLogList.Count)
-                    return;
-                int strLen = Win32.SendMessage((int)BotLogsHandle, Win32.CB_GETLBTEXTLEN, i, 0).ToInt32();
-                StringBuilder text = new StringBuilder(255);
-                Win32.SendMessage(BotLogsHandle, Win32.CB_GETLBTEXT, i, text);
-                AddStatusLogListItem(text.ToString());
+                _LastLogLength = size;
+                return;
             }
+            if (_LastLogLength == size)
+                return;
+            StringBuilder data = new StringBuilder(size + 1);
+            Win32.SendMessage(BotLogsHandle, Win32.WM_GETTEXT, data.Capacity, data);
+            if (data.Length < _LastLogLength)
+            {
+                _LastLogLength = data.Length;
+                return;
+            }
+            AddStatusLogListItem(data.ToString().Substring(_LastLogLength).Trim());
+            _LastLogLength = size;
         }
 
         private IntPtr FindMainWindowInProcess(string compareTitle)
@@ -905,10 +912,13 @@ namespace SbotControl
             //ShowWindow(MainWindowHandle, SW_SHOWNORMAL);
             //SendMessage(MainWindowHandle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
         }
-        public static System.IO.MemoryStream PrintWindow(IntPtr hwnd)
+        public static System.IO.MemoryStream PrintWindow(IntPtr hWnd)
         {
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
             Core.RECT rc;
-            Win32.GetWindowRect(hwnd, out rc);
+            Win32.GetWindowRect(hWnd, out rc);
+            if (rc.Width == 0 || rc.Height == 0)
+                return ms;
             using (Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
             {
                 using (Graphics gfxBmp = Graphics.FromImage(bmp))
@@ -919,14 +929,14 @@ namespace SbotControl
                     try
                     {
 
-                        Win32.PrintWindow(hwnd, hdcBitmap, 0);
+                        Win32.PrintWindow(hWnd, hdcBitmap, 2);
                     }
                     finally
                     {
                         gfxBmp.ReleaseHdc(hdcBitmap);
                     }
                 }
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                
                 bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
                 return ms;
             }
@@ -975,7 +985,7 @@ namespace SbotControl
             _process.Exited += _process_Exited;
             StartPlusTimer();
             System.Threading.Thread.Sleep(500);
-            Visable = false;
+            //Visable = false;
         }
         public void Stop()
         {
