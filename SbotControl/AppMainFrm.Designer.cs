@@ -39,7 +39,10 @@
             this.bbiOnlinebot = new DevExpress.XtraBars.BarButtonItem();
             this.bbiBotLog = new DevExpress.XtraBars.BarButtonItem();
             this.bbiOption = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiOutput = new DevExpress.XtraBars.BarButtonItem();
             this.barDockingMenuItemWindow = new DevExpress.XtraBars.BarDockingMenuItem();
+            this.bsiAbout = new DevExpress.XtraBars.BarSubItem();
+            this.bbiAboutMe = new DevExpress.XtraBars.BarButtonItem();
             this.barAndDockingControllerMain = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -51,8 +54,9 @@
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.docAccount = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOnline = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
-            this.docBotLog = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOption = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.documentGroup2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            this.docBotLog = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.notifyIconApp = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,8 +68,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).BeginInit();
             this.contextMenuStripTray.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,9 +93,12 @@
             this.bbiAccount,
             this.bbiOnlinebot,
             this.bbiBotLog,
-            this.bbiOption});
+            this.bbiOption,
+            this.bsiAbout,
+            this.bbiAboutMe,
+            this.bbiOutput});
             this.barManagerMain.MainMenu = this.bar2;
-            this.barManagerMain.MaxItemId = 8;
+            this.barManagerMain.MaxItemId = 11;
             // 
             // bar2
             // 
@@ -102,7 +110,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiStart),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiStop),
             new DevExpress.XtraBars.LinkPersistInfo(this.bsiViews),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barDockingMenuItemWindow)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barDockingMenuItemWindow),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bsiAbout)});
             this.bar2.OptionsBar.MultiLine = true;
             this.bar2.OptionsBar.UseWholeRow = true;
             this.bar2.Text = "Main menu";
@@ -138,7 +147,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiAccount),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiOnlinebot),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiBotLog),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bbiOption)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiOption),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiOutput)});
             this.bsiViews.Name = "bsiViews";
             this.bsiViews.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
@@ -178,6 +188,15 @@
             this.bbiOption.Name = "bbiOption";
             this.bbiOption.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiOption_ItemClick);
             // 
+            // bbiOutput
+            // 
+            this.bbiOutput.Caption = "Output";
+            this.bbiOutput.Glyph = global::SbotControl.Properties.Resources.bugreport_16x16;
+            this.bbiOutput.Id = 10;
+            this.bbiOutput.LargeGlyph = global::SbotControl.Properties.Resources.bugreport_32x32;
+            this.bbiOutput.Name = "bbiOutput";
+            this.bbiOutput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiOutput_ItemClick);
+            // 
             // barDockingMenuItemWindow
             // 
             this.barDockingMenuItemWindow.Caption = "Window";
@@ -185,6 +204,26 @@
             this.barDockingMenuItemWindow.Id = 0;
             this.barDockingMenuItemWindow.Name = "barDockingMenuItemWindow";
             this.barDockingMenuItemWindow.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            // 
+            // bsiAbout
+            // 
+            this.bsiAbout.Caption = "About";
+            this.bsiAbout.Glyph = global::SbotControl.Properties.Resources.logical_16x16;
+            this.bsiAbout.Id = 8;
+            this.bsiAbout.LargeGlyph = global::SbotControl.Properties.Resources.logical_32x32;
+            this.bsiAbout.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiAboutMe)});
+            this.bsiAbout.Name = "bsiAbout";
+            this.bsiAbout.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            // 
+            // bbiAboutMe
+            // 
+            this.bbiAboutMe.Caption = "About Me";
+            this.bbiAboutMe.Glyph = global::SbotControl.Properties.Resources.borole_16x16;
+            this.bbiAboutMe.Id = 9;
+            this.bbiAboutMe.LargeGlyph = global::SbotControl.Properties.Resources.borole_32x32;
+            this.bbiAboutMe.Name = "bbiAboutMe";
+            this.bbiAboutMe.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAboutMe_ItemClick);
             // 
             // barAndDockingControllerMain
             // 
@@ -198,28 +237,28 @@
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(991, 24);
+            this.barDockControlTop.Size = new System.Drawing.Size(984, 24);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 427);
-            this.barDockControlBottom.Size = new System.Drawing.Size(991, 0);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 561);
+            this.barDockControlBottom.Size = new System.Drawing.Size(984, 0);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 24);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 403);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 537);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(991, 24);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 403);
+            this.barDockControlRight.Location = new System.Drawing.Point(984, 24);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 537);
             // 
             // dockManagerMain
             // 
@@ -246,12 +285,14 @@
             // tabbedViewMain
             // 
             this.tabbedViewMain.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
-            this.documentGroup1});
+            this.documentGroup1,
+            this.documentGroup2});
             this.tabbedViewMain.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.docOnline,
-            this.docOption,
             this.docAccount,
-            this.docBotLog});
+            this.docBotLog,
+            this.docOption});
+            this.tabbedViewMain.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tabbedViewMain.DocumentClosing += new DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventHandler(this.tabbedViewMain_DocumentClosing);
             this.tabbedViewMain.QueryControl += new DevExpress.XtraBars.Docking2010.Views.QueryControlEventHandler(this.tabbedViewMain_QueryControl);
             // 
@@ -260,7 +301,6 @@
             this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
             this.docAccount,
             this.docOnline,
-            this.docBotLog,
             this.docOption});
             // 
             // docAccount
@@ -277,17 +317,26 @@
             this.docOnline.ControlName = "docOnline";
             this.docOnline.Image = global::SbotControl.Properties.Resources.enableclustering_16x16;
             // 
-            // docBotLog
-            // 
-            this.docBotLog.Caption = "Bot Logs";
-            this.docBotLog.ControlName = "docBotLog";
-            this.docBotLog.Image = global::SbotControl.Properties.Resources.pageorientation_16x16;
-            // 
             // docOption
             // 
             this.docOption.Caption = "Options";
             this.docOption.ControlName = "docOption";
+            this.docOption.FloatLocation = new System.Drawing.Point(69, 183);
+            this.docOption.FloatSize = new System.Drawing.Size(985, 170);
             this.docOption.Image = global::SbotControl.Properties.Resources.technology_16x16;
+            // 
+            // documentGroup2
+            // 
+            this.documentGroup2.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
+            this.docBotLog});
+            // 
+            // docBotLog
+            // 
+            this.docBotLog.Caption = "Bot Logs";
+            this.docBotLog.ControlName = "docBotLog";
+            this.docBotLog.FloatLocation = new System.Drawing.Point(321, 394);
+            this.docBotLog.FloatSize = new System.Drawing.Size(985, 372);
+            this.docBotLog.Image = global::SbotControl.Properties.Resources.pageorientation_16x16;
             // 
             // notifyIconApp
             // 
@@ -315,14 +364,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(991, 427);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AppMainFrm";
-            this.Text = "Sbot Control";
+            this.Text = "Sbot Control - BETA TEST";
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingControllerMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManagerMain)).EndInit();
@@ -331,8 +380,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).EndInit();
             this.contextMenuStripTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -367,5 +417,9 @@
         private DevExpress.XtraBars.BarButtonItem bbiOnlinebot;
         private DevExpress.XtraBars.BarButtonItem bbiBotLog;
         private DevExpress.XtraBars.BarButtonItem bbiOption;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup2;
+        private DevExpress.XtraBars.BarSubItem bsiAbout;
+        private DevExpress.XtraBars.BarButtonItem bbiAboutMe;
+        private DevExpress.XtraBars.BarButtonItem bbiOutput;
     }
 }

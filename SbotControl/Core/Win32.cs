@@ -182,6 +182,7 @@ namespace SbotControl
         public const int WM_CLOSE = 0x10;
         public const int WM_DESTROY = 0x0002;
         //   public const int CB_GETCOUNT = 0x0146;
+        public const int WM_SETFOCUS = 0x7;
         public const int CB_GETCOUNT = 0x018B;
         public const int CB_GETLBTEXTLEN = 0x0188;
         public const int CB_GETLBTEXT = 0x0189;
@@ -216,7 +217,7 @@ namespace SbotControl
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr GetWindow(IntPtr hWnd, GetWindow_Cmd uCmd);
-
+        
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern int GetWindowTextLength(IntPtr hWnd); 
 

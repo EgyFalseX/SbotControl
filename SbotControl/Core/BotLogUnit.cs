@@ -7,7 +7,7 @@ namespace SbotControl.Core
 {
     public class BotLogUnit
     {
-        public string ChareName { get; set; }
+        public string CharName { get; set; }
         public string Time { get; set; }
         public string LogData { get; set; }
         public BotLogUnit()
@@ -16,7 +16,7 @@ namespace SbotControl.Core
         }
         public BotLogUnit(string charname, string time, string logdata)
         {
-            ChareName = charname;
+            CharName = charname;
             Time = time;
             LogData = logdata;
         }

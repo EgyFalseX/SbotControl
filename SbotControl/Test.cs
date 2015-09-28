@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,28 +10,28 @@ namespace SbotControl
 {
     public static class Test
     {
-        public static void GetStartedBots()
+        public static void XXX()
         {
-            foreach (Process process in Process.GetProcesses())
+            Process pro = Process.Start(@"d:\Remove me\Bots\SBot\MyRarEIteM\SBot_2.0.13.exe");
+            pro.WaitForInputIdle();
+            IntPtr wHnd = FindMainWindowInProcess(pro, "by bot-cave.net");
+            if (wHnd == IntPtr.Zero)
             {
-                if (!process.MainWindowTitle.Contains(SBot.BotTitle))
-                {
-                    continue;
-                }
-                
-                
-                IntPtr windowHandle = FindMainWindowInProcess(SBot.BOTPROOF, process);
-                if (windowHandle != IntPtr.Zero)
-                {
-                    break;
-                }
+                System.Windows.Forms.MessageBox.Show("Test");
+            }
+            while (true)
+            {
+                System.Console.WriteLine(Win32.IsWindowVisible(wHnd.ToInt32()).ToString());
+                System.Threading.Thread.Sleep(3000);
+
             }
         }
-        private static IntPtr FindMainWindowInProcess(string compareTitle, Process pro)
+
+        private static IntPtr FindMainWindowInProcess(Process _process, string compareTitle)
         {
             IntPtr windowHandle = IntPtr.Zero;
 
-            foreach (ProcessThread t in pro.Threads)
+            foreach (ProcessThread t in _process.Threads)
             {
                 windowHandle = FindMainWindowInThread(t.Id, compareTitle);
                 if (windowHandle != IntPtr.Zero)
@@ -48,7 +49,7 @@ namespace SbotControl
             {
                 StringBuilder text = new StringBuilder(200);
                 Win32.GetWindowText(hWnd, text, 200);
-                if (text.ToString().Contains(SBot.BotTitle))
+                if (text.ToString().Contains(compareTitle))
                 {
                     windowHandle = hWnd;
                     return false;
@@ -58,26 +59,6 @@ namespace SbotControl
             }, IntPtr.Zero);
 
             return windowHandle;
-        }
-
-        const int WM_USER = 0x400;
-        const int PBM_SETSTATE = WM_USER + 16;
-        const int PBM_GETSTATE = WM_USER + 17;
-        public const int PBM_GETPOS = 0x0408;
-
-        public static void XXX()
-        {
-            int[] outInt = new int[3];
-            //IntPtr HWnd = new IntPtr(0x000567BC);//Sbot
-            IntPtr HWnd = new IntPtr(0x007962AC);
-            
-            object obj1 = Win32.SendMessage(HWnd, (uint)Win32.ProgressBar_Cmd.PBM_GETRANGE, true, 0);
-            object obj2 = Win32.SendMessage(HWnd, (uint)Win32.ProgressBar_Cmd.PBM_GETRANGE, false, 0);
-            object obj3 = Win32.SendMessage(HWnd, (int)Win32.ProgressBar_Cmd.PBM_GETPOS, 0, 0);
-
-            //StringBuilder data = new StringBuilder(100 + 1);
-            //object xxx = Win32.SendMessage(HWnd, PBM_GETPOS, 0, 0).ToString();
-            //object xxx = Win32.SendMessage(HWnd, Win32.WM_GETTEXT, 0, 0);
         }
 
         public static void PrintTest()
@@ -101,7 +82,6 @@ namespace SbotControl
             //    System.Windows.Forms.MessageBox.Show("done ...");
             //}
         }
-
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
         [System.Runtime.InteropServices.DllImport("User32.dll")]
@@ -122,6 +102,127 @@ namespace SbotControl
 
 
         }
+        public static void PrintWindow(IntPtr hWnd)
+        {
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            Core.RECT rc;
+            Win32.GetWindowRect(hWnd, out rc);
+            //if (rc.Width == 0 || rc.Height == 0)
+            //    return ms;
+            using (Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+            {
+                using (Graphics gfxBmp = Graphics.FromImage(bmp))
+                {
+                    //Win32.SendMessage(hwnd, Win32.WM_ERASEBKGND, gfxBmp.GetHdc().ToInt32(), 0);
+                    //gfxBmp.ReleaseHdc();
+                    IntPtr hdcBitmap = gfxBmp.GetHdc();
+                    try
+                    {
 
+                        Win32.PrintWindow(hWnd, hdcBitmap, 2);
+                    }
+                    finally
+                    {
+                        gfxBmp.ReleaseHdc(hdcBitmap);
+                    }
+                }
+                bmp.Save("C:\\pic.bmp");
+
+                //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+
+            }
+
+            //System.Drawing.Rectangle rctForm = System.Drawing.Rectangle.Empty;
+            //using (System.Drawing.Graphics grfx = System.Drawing.Graphics.FromHdc(Win32.GetWindowDC(hwnd)))
+            //{
+            //    rctForm = System.Drawing.Rectangle.Round(grfx.VisibleClipBounds);
+            //}
+            //System.Drawing.Bitmap pImage = new System.Drawing.Bitmap(rctForm.Width, rctForm.Height);
+            //System.Drawing.Graphics graphics = System.Drawing.Graphics.FromImage(pImage);
+            //IntPtr hDC = graphics.GetHdc();
+            ////paint control onto graphics using provided options        
+            //try
+            //{
+            //    PrintWindow(hwnd, hDC, (uint)0);
+            //}
+            //finally
+            //{
+            //    graphics.ReleaseHdc(hDC);
+            //}
+            ////return pImage;
+            //System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            //pImage.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            //return ms;
+        }
+        public static void GetCharInventory()
+        {
+            const int LVM_FIRST = 0x1000;
+            const int LVM_GETITEMCOUNT = LVM_FIRST + 4;
+            const int LVM_GETITEM = LVM_FIRST + 75;
+            const int LVIF_TEXT = 0x0001;
+
+        List<string> _CharInventor = new List<string>();
+            int CharInventoryFreeSlot = 0;
+            string EmptySlotTitle = "Empty";
+            //163154
+            //163150
+            //163144
+            //163138
+            IntPtr InventoryGridRowsHandle = new IntPtr(163144);
+            //IntPtr InventoryGridRowsHandle = new IntPtr(163136);
+            //IntPtr InventoryGridRowsHandle = new IntPtr(5965556);
+            bool InvChanded = false;
+            Int32 size = Win32.SendMessage((int)InventoryGridRowsHandle, LVM_GETITEMCOUNT, 0, 0).ToInt32();
+            if (_CharInventor.Count == 0)
+                _CharInventor = new List<string>(new string[size]);
+            _CharInventor = new List<string>(new string[100]);
+            CharInventoryFreeSlot = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                //int strLen = Win32.SendMessage((int)InventoryGridRowsHandle, Win32.CB_GETLBTEXTLEN, i, 0).ToInt32();
+                StringBuilder text = new StringBuilder(255);
+                Win32.SendMessage(InventoryGridRowsHandle, Win32.CB_GETLBTEXT, i, text);
+                if (text.ToString() != _CharInventor[i])
+                    InvChanded = true;
+                _CharInventor[i] = text.ToString();
+                if (text.ToString() == EmptySlotTitle)
+                    CharInventoryFreeSlot++;
+            }
+            if (InvChanded)
+            {
+                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, "Char Inv Changed");
+                //OnPropertyChanged("CharInventory");
+            }
+        }
+        public static void PrintWindowX()
+        {
+            IntPtr hWnd = new IntPtr(163138);
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            Core.RECT rc;
+            Win32.GetWindowRect(hWnd, out rc);
+
+            using (Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+            {
+                using (Graphics gfxBmp = Graphics.FromImage(bmp))
+                {
+                    //Win32.SendMessage(hwnd, Win32.WM_ERASEBKGND, gfxBmp.GetHdc().ToInt32(), 0);
+                    //gfxBmp.ReleaseHdc();
+                    IntPtr hdcBitmap = gfxBmp.GetHdc();
+                    try
+                    {
+                        Win32.PrintWindow(hWnd, hdcBitmap, 2);
+                    }
+                    finally
+                    {
+                        gfxBmp.ReleaseHdc(hdcBitmap);
+                    }
+                }
+
+                //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+                bmp.Save("C:\\163138.bmp");
+            }
+        }
+        
     }
+
 }

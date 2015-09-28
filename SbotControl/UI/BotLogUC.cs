@@ -28,7 +28,7 @@ namespace SbotControl.UI
                 Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
                 BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
             }
-
+            this.Disposed += BotLogUC_Disposed;
         }
         private void BM_ManagerStatusChanged(object sender, BotsManager.ManagerStatusType e)
         {
@@ -57,7 +57,12 @@ namespace SbotControl.UI
         }
         private void AddLog(Core.BotLogUnit unit)
         {
-             rec.Document.AppendHtmlText("&#13;&#10;" + string.Format(LogTemplate, unit.Time, unit.ChareName, unit.LogData.Replace("\n", "&#13;&#10;")));
+             rec.Document.AppendHtmlText("&#13;&#10;" + string.Format(LogTemplate, unit.Time, unit.CharName, unit.LogData.Replace("\n", "&#13;&#10;")));
+        }
+        private void BotLogUC_Disposed(object sender, EventArgs e)
+        {
+            Program.BM.ManagerStatusChanged -= BM_ManagerStatusChanged;
+            TmrUIBotInfo.Tick -= TmrUIBotInfo_Tick;
         }
     }
 }

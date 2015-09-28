@@ -108,6 +108,28 @@ namespace SbotControl.UI
                 return;
             Program.BM.RemoveBot(bot);
         }
+        private void bbiCloseAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            foreach (SBot bot in Program.BM.Bots)
+                bot.Stop();
+        }
+        private void bbiShowHide_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+            if (bot == null)
+                return;
+            bot.Visable = !bot.Visable;
+        }
+        private void bbiShowAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            foreach (SBot bot in Program.BM.Bots)
+                bot.Visable = true;
+        }
+        private void bbiHideAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            foreach (SBot bot in Program.BM.Bots)
+                bot.Visable = false;
+        }
         private void bbiStartGame_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
@@ -164,7 +186,14 @@ namespace SbotControl.UI
                 return;
             bot.ClickStopTrainingButton();
         }
+
+
         #endregion
 
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            GridMain.SaveLayoutToXml("C:\\Layout.xml", DevExpress.Utils.OptionsLayoutBase.FullLayout);
+            MessageBox.Show("Done ...");
+        }
     }
 }

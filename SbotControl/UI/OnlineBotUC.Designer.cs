@@ -81,12 +81,17 @@
             this.TmrUIBotInfo = new System.Windows.Forms.Timer(this.components);
             this.popupMenuGrid = new DevExpress.XtraBars.PopupMenu(this.components);
             this.bbiShowDetails = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiShowHide = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiShowAll = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiHideAll = new DevExpress.XtraBars.BarButtonItem();
             this.bbiClose = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiCloseAll = new DevExpress.XtraBars.BarButtonItem();
             this.bsiCommands = new DevExpress.XtraBars.BarSubItem();
             this.bbiStartGame = new DevExpress.XtraBars.BarButtonItem();
             this.bbiGoClientless = new DevExpress.XtraBars.BarButtonItem();
             this.bbiDisconnect = new DevExpress.XtraBars.BarButtonItem();
             this.bbiResetStats = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiSaveSettings = new DevExpress.XtraBars.BarButtonItem();
             this.bbiShowHideClient = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStartTraining = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStopTraining = new DevExpress.XtraBars.BarButtonItem();
@@ -95,7 +100,6 @@
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.bbiSaveSettings = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).BeginInit();
@@ -119,7 +123,7 @@
             this.colConnectionQualityCur.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ConnectionQualityCur", "{0:0.##}")});
             this.colConnectionQualityCur.Visible = true;
-            this.colConnectionQualityCur.Width = 55;
+            this.colConnectionQualityCur.Width = 59;
             // 
             // colConnectionQualityAvg
             // 
@@ -135,7 +139,7 @@
             this.colConnectionQualityAvg.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ConnectionQualityAvg", "{0:0.##}")});
             this.colConnectionQualityAvg.Visible = true;
-            this.colConnectionQualityAvg.Width = 55;
+            this.colConnectionQualityAvg.Width = 52;
             // 
             // gridControlOverall
             // 
@@ -201,7 +205,7 @@
             gridFormatRule2.Name = "FormatQualityCur1000_2000";
             formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Between;
             formatConditionRuleValue2.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue2.Value1 = 1000;
+            formatConditionRuleValue2.Value1 = 1001;
             formatConditionRuleValue2.Value2 = 2000;
             gridFormatRule2.Rule = formatConditionRuleValue2;
             gridFormatRule3.Column = this.colConnectionQualityCur;
@@ -209,7 +213,7 @@
             gridFormatRule3.Name = "FormatQualityCur3000";
             formatConditionRuleValue3.Condition = DevExpress.XtraEditors.FormatCondition.Between;
             formatConditionRuleValue3.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue3.Value1 = 2000;
+            formatConditionRuleValue3.Value1 = 2001;
             formatConditionRuleValue3.Value2 = 99999;
             gridFormatRule3.Rule = formatConditionRuleValue3;
             gridFormatRule4.Column = this.colConnectionQualityAvg;
@@ -225,7 +229,7 @@
             gridFormatRule5.Name = "FormatQualityAvg1000_2000";
             formatConditionRuleValue5.Condition = DevExpress.XtraEditors.FormatCondition.Between;
             formatConditionRuleValue5.PredefinedName = "Yellow Fill, Yellow Text";
-            formatConditionRuleValue5.Value1 = 1000;
+            formatConditionRuleValue5.Value1 = 1001;
             formatConditionRuleValue5.Value2 = 2000;
             gridFormatRule5.Rule = formatConditionRuleValue5;
             gridFormatRule6.Column = this.colConnectionQualityAvg;
@@ -233,7 +237,7 @@
             gridFormatRule6.Name = "FormatQualityAvg3000";
             formatConditionRuleValue6.Condition = DevExpress.XtraEditors.FormatCondition.Between;
             formatConditionRuleValue6.PredefinedName = "Red Fill, Red Text";
-            formatConditionRuleValue6.Value1 = 2000;
+            formatConditionRuleValue6.Value1 = 2001;
             formatConditionRuleValue6.Value2 = 99999;
             gridFormatRule6.Rule = formatConditionRuleValue6;
             this.GridMain.FormatRules.Add(gridFormatRule1);
@@ -243,10 +247,14 @@
             this.GridMain.FormatRules.Add(gridFormatRule5);
             this.GridMain.FormatRules.Add(gridFormatRule6);
             this.GridMain.GridControl = this.gridControlOverall;
+            this.GridMain.GroupCount = 1;
             this.GridMain.Name = "GridMain";
             this.GridMain.OptionsBehavior.ReadOnly = true;
             this.GridMain.OptionsView.ShowFooter = true;
             this.GridMain.OptionsView.ShowGroupPanel = false;
+            this.GridMain.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gcGroup, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCharName, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.GridMain.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.GridMain_PopupMenuShowing);
             // 
             // gridBand1
@@ -260,7 +268,7 @@
             this.gridBand1.Columns.Add(this.gcMP);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 351;
+            this.gridBand1.Width = 495;
             // 
             // colVisable
             // 
@@ -273,7 +281,7 @@
             this.colVisable.FieldName = "Visable";
             this.colVisable.Name = "colVisable";
             this.colVisable.Visible = true;
-            this.colVisable.Width = 24;
+            this.colVisable.Width = 41;
             // 
             // repositoryItemCheckEditVisable
             // 
@@ -295,7 +303,7 @@
             this.colCharName.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "CharName", "{0}")});
             this.colCharName.Visible = true;
-            this.colCharName.Width = 44;
+            this.colCharName.Width = 51;
             // 
             // gcGroup
             // 
@@ -309,7 +317,7 @@
             this.gcGroup.OptionsColumn.AllowEdit = false;
             this.gcGroup.OptionsColumn.ReadOnly = true;
             this.gcGroup.Visible = true;
-            this.gcGroup.Width = 47;
+            this.gcGroup.Width = 63;
             // 
             // colBotStatus
             // 
@@ -323,7 +331,7 @@
             this.colBotStatus.OptionsColumn.AllowEdit = false;
             this.colBotStatus.OptionsColumn.ReadOnly = true;
             this.colBotStatus.Visible = true;
-            this.colBotStatus.Width = 76;
+            this.colBotStatus.Width = 114;
             // 
             // gcHP
             // 
@@ -335,8 +343,10 @@
             this.gcHP.ColumnEdit = this.repositoryItemPictureEditBar;
             this.gcHP.FieldName = "HPBar";
             this.gcHP.Name = "gcHP";
+            this.gcHP.OptionsColumn.AllowEdit = false;
+            this.gcHP.OptionsColumn.ReadOnly = true;
             this.gcHP.Visible = true;
-            this.gcHP.Width = 73;
+            this.gcHP.Width = 111;
             // 
             // repositoryItemPictureEditBar
             // 
@@ -353,8 +363,10 @@
             this.gcMP.ColumnEdit = this.repositoryItemPictureEditBar;
             this.gcMP.FieldName = "MPBar";
             this.gcMP.Name = "gcMP";
+            this.gcMP.OptionsColumn.AllowEdit = false;
+            this.gcMP.OptionsColumn.ReadOnly = true;
             this.gcMP.Visible = true;
-            this.gcMP.Width = 87;
+            this.gcMP.Width = 115;
             // 
             // gridBand4
             // 
@@ -373,7 +385,7 @@
             this.gridBand4.Columns.Add(this.colDiedsess);
             this.gridBand4.Name = "gridBand4";
             this.gridBand4.VisibleIndex = 1;
-            this.gridBand4.Width = 698;
+            this.gridBand4.Width = 697;
             // 
             // colGoldLoop
             // 
@@ -393,7 +405,7 @@
             this.colGoldLoop.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "GoldLoop", "{0:c0}")});
             this.colGoldLoop.Visible = true;
-            this.colGoldLoop.Width = 76;
+            this.colGoldLoop.Width = 73;
             // 
             // colGoldPetHour
             // 
@@ -437,7 +449,7 @@
             this.colItemDrops.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ItemDrops", "{0:0.##}")});
             this.colItemDrops.Visible = true;
-            this.colItemDrops.Width = 55;
+            this.colItemDrops.Width = 48;
             // 
             // colXPGained
             // 
@@ -453,7 +465,7 @@
             this.colXPGained.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "XPGained", "{0:n0}")});
             this.colXPGained.Visible = true;
-            this.colXPGained.Width = 71;
+            this.colXPGained.Width = 69;
             // 
             // colXPH
             // 
@@ -469,7 +481,7 @@
             this.colXPH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "XPH", "{0:n0}")});
             this.colXPH.Visible = true;
-            this.colXPH.Width = 46;
+            this.colXPH.Width = 42;
             // 
             // colXPMin
             // 
@@ -485,7 +497,7 @@
             this.colXPMin.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "XPMin", "{0:0.##}")});
             this.colXPMin.Visible = true;
-            this.colXPMin.Width = 57;
+            this.colXPMin.Width = 51;
             // 
             // colSPGained
             // 
@@ -501,7 +513,7 @@
             this.colSPGained.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "SPGained", "{0:n0}")});
             this.colSPGained.Visible = true;
-            this.colSPGained.Width = 71;
+            this.colSPGained.Width = 69;
             // 
             // colSPH
             // 
@@ -517,7 +529,7 @@
             this.colSPH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "SPH", "{0:0.##}")});
             this.colSPH.Visible = true;
-            this.colSPH.Width = 39;
+            this.colSPH.Width = 51;
             // 
             // colSPMin
             // 
@@ -533,7 +545,7 @@
             this.colSPMin.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "SPMin", "{0:0.##}")});
             this.colSPMin.Visible = true;
-            this.colSPMin.Width = 50;
+            this.colSPMin.Width = 51;
             // 
             // colKills
             // 
@@ -549,7 +561,7 @@
             this.colKills.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Kills", "{0:n0}")});
             this.colKills.Visible = true;
-            this.colKills.Width = 38;
+            this.colKills.Width = 45;
             // 
             // colDied
             // 
@@ -565,7 +577,7 @@
             this.colDied.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Died", "{0:0.##}")});
             this.colDied.Visible = true;
-            this.colDied.Width = 38;
+            this.colDied.Width = 41;
             // 
             // colDiedsess
             // 
@@ -594,7 +606,7 @@
             this.gridBand3.Columns.Add(this.colPosY);
             this.gridBand3.Name = "gridBand3";
             this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 448;
+            this.gridBand3.Width = 352;
             // 
             // colSilkroadServerStatus
             // 
@@ -608,7 +620,7 @@
             this.colSilkroadServerStatus.OptionsColumn.AllowEdit = false;
             this.colSilkroadServerStatus.OptionsColumn.ReadOnly = true;
             this.colSilkroadServerStatus.Visible = true;
-            this.colSilkroadServerStatus.Width = 109;
+            this.colSilkroadServerStatus.Width = 76;
             // 
             // colLocationName
             // 
@@ -622,7 +634,7 @@
             this.colLocationName.OptionsColumn.AllowEdit = false;
             this.colLocationName.OptionsColumn.ReadOnly = true;
             this.colLocationName.Visible = true;
-            this.colLocationName.Width = 115;
+            this.colLocationName.Width = 79;
             // 
             // colPosX
             // 
@@ -636,7 +648,7 @@
             this.colPosX.OptionsColumn.AllowEdit = false;
             this.colPosX.OptionsColumn.ReadOnly = true;
             this.colPosX.Visible = true;
-            this.colPosX.Width = 52;
+            this.colPosX.Width = 44;
             // 
             // colPosY
             // 
@@ -650,7 +662,7 @@
             this.colPosY.OptionsColumn.AllowEdit = false;
             this.colPosY.OptionsColumn.ReadOnly = true;
             this.colPosY.Visible = true;
-            this.colPosY.Width = 62;
+            this.colPosY.Width = 42;
             // 
             // gridBand2
             // 
@@ -661,7 +673,7 @@
             this.gridBand2.Columns.Add(this.colGold);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 3;
-            this.gridBand2.Width = 305;
+            this.gridBand2.Width = 256;
             // 
             // colTotaltime
             // 
@@ -675,7 +687,7 @@
             this.colTotaltime.OptionsColumn.AllowEdit = false;
             this.colTotaltime.OptionsColumn.ReadOnly = true;
             this.colTotaltime.Visible = true;
-            this.colTotaltime.Width = 79;
+            this.colTotaltime.Width = 57;
             // 
             // colLevel
             // 
@@ -689,7 +701,7 @@
             this.colLevel.OptionsColumn.AllowEdit = false;
             this.colLevel.OptionsColumn.ReadOnly = true;
             this.colLevel.Visible = true;
-            this.colLevel.Width = 45;
+            this.colLevel.Width = 49;
             // 
             // colSkillPoint
             // 
@@ -703,7 +715,7 @@
             this.colSkillPoint.OptionsColumn.AllowEdit = false;
             this.colSkillPoint.OptionsColumn.ReadOnly = true;
             this.colSkillPoint.Visible = true;
-            this.colSkillPoint.Width = 73;
+            this.colSkillPoint.Width = 55;
             // 
             // colGold
             // 
@@ -720,7 +732,7 @@
             this.colGold.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Gold", "{0:c0}")});
             this.colGold.Visible = true;
-            this.colGold.Width = 108;
+            this.colGold.Width = 95;
             // 
             // TmrUIBotInfo
             // 
@@ -731,7 +743,11 @@
             // 
             this.popupMenuGrid.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiShowDetails),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiShowHide),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiShowAll),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiHideAll),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiClose),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiCloseAll),
             new DevExpress.XtraBars.LinkPersistInfo(this.bsiCommands)});
             this.popupMenuGrid.Manager = this.barManagerMain;
             this.popupMenuGrid.Name = "popupMenuGrid";
@@ -739,21 +755,63 @@
             // bbiShowDetails
             // 
             this.bbiShowDetails.Caption = "Show Details";
+            this.bbiShowDetails.Glyph = global::SbotControl.Properties.Resources.bar2_16x16;
             this.bbiShowDetails.Id = 0;
+            this.bbiShowDetails.LargeGlyph = global::SbotControl.Properties.Resources.bar2_32x32;
             this.bbiShowDetails.Name = "bbiShowDetails";
             this.bbiShowDetails.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiShowDetails_ItemClick);
+            // 
+            // bbiShowHide
+            // 
+            this.bbiShowHide.Caption = "Show/Hide";
+            this.bbiShowHide.Glyph = global::SbotControl.Properties.Resources.SBotW16;
+            this.bbiShowHide.Id = 13;
+            this.bbiShowHide.LargeGlyph = global::SbotControl.Properties.Resources.SBotW32;
+            this.bbiShowHide.Name = "bbiShowHide";
+            this.bbiShowHide.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiShowHide_ItemClick);
+            // 
+            // bbiShowAll
+            // 
+            this.bbiShowAll.Caption = "Show All";
+            this.bbiShowAll.Glyph = global::SbotControl.Properties.Resources.show_16x16;
+            this.bbiShowAll.Id = 14;
+            this.bbiShowAll.LargeGlyph = global::SbotControl.Properties.Resources.show_32x32;
+            this.bbiShowAll.Name = "bbiShowAll";
+            this.bbiShowAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiShowAll_ItemClick);
+            // 
+            // bbiHideAll
+            // 
+            this.bbiHideAll.Caption = "Hide All";
+            this.bbiHideAll.Glyph = global::SbotControl.Properties.Resources.hide_16x16;
+            this.bbiHideAll.Id = 15;
+            this.bbiHideAll.LargeGlyph = global::SbotControl.Properties.Resources.hide_32x32;
+            this.bbiHideAll.Name = "bbiHideAll";
+            this.bbiHideAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiHideAll_ItemClick);
             // 
             // bbiClose
             // 
             this.bbiClose.Caption = "Close";
+            this.bbiClose.Glyph = global::SbotControl.Properties.Resources.Delete;
             this.bbiClose.Id = 1;
+            this.bbiClose.LargeGlyph = global::SbotControl.Properties.Resources.Delete;
             this.bbiClose.Name = "bbiClose";
             this.bbiClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiClose_ItemClick);
+            // 
+            // bbiCloseAll
+            // 
+            this.bbiCloseAll.Caption = "Close All";
+            this.bbiCloseAll.Glyph = global::SbotControl.Properties.Resources.cancel_16x16;
+            this.bbiCloseAll.Id = 12;
+            this.bbiCloseAll.LargeGlyph = global::SbotControl.Properties.Resources.cancel_32x32;
+            this.bbiCloseAll.Name = "bbiCloseAll";
+            this.bbiCloseAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiCloseAll_ItemClick);
             // 
             // bsiCommands
             // 
             this.bsiCommands.Caption = "Commands";
+            this.bsiCommands.Glyph = global::SbotControl.Properties.Resources.initialstate_16x16;
             this.bsiCommands.Id = 2;
+            this.bsiCommands.LargeGlyph = global::SbotControl.Properties.Resources.initialstate_32x32;
             this.bsiCommands.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiStartGame),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiGoClientless),
@@ -792,6 +850,13 @@
             this.bbiResetStats.Id = 7;
             this.bbiResetStats.Name = "bbiResetStats";
             this.bbiResetStats.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiResetStats_ItemClick);
+            // 
+            // bbiSaveSettings
+            // 
+            this.bbiSaveSettings.Caption = "SaveSettings";
+            this.bbiSaveSettings.Id = 11;
+            this.bbiSaveSettings.Name = "bbiSaveSettings";
+            this.bbiSaveSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiSaveSettings_ItemClick);
             // 
             // bbiShowHideClient
             // 
@@ -832,8 +897,12 @@
             this.bbiShowHideClient,
             this.bbiStartTraining,
             this.bbiStopTraining,
-            this.bbiSaveSettings});
-            this.barManagerMain.MaxItemId = 12;
+            this.bbiSaveSettings,
+            this.bbiCloseAll,
+            this.bbiShowHide,
+            this.bbiShowAll,
+            this.bbiHideAll});
+            this.barManagerMain.MaxItemId = 16;
             // 
             // barDockControlTop
             // 
@@ -862,13 +931,6 @@
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(854, 0);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 451);
-            // 
-            // bbiSaveSettings
-            // 
-            this.bbiSaveSettings.Caption = "SaveSettings";
-            this.bbiSaveSettings.Id = 11;
-            this.bbiSaveSettings.Name = "bbiSaveSettings";
-            this.bbiSaveSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiSaveSettings_ItemClick);
             // 
             // OnlineBotUC
             // 
@@ -950,5 +1012,9 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
         private DevExpress.XtraBars.BarButtonItem bbiSaveSettings;
+        private DevExpress.XtraBars.BarButtonItem bbiCloseAll;
+        private DevExpress.XtraBars.BarButtonItem bbiShowHide;
+        private DevExpress.XtraBars.BarButtonItem bbiShowAll;
+        private DevExpress.XtraBars.BarButtonItem bbiHideAll;
     }
 }

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAccountFrm));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tbGroup = new DevExpress.XtraEditors.TextEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.ceActive = new DevExpress.XtraEditors.CheckEdit();
@@ -41,11 +42,11 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.ofd = new System.Windows.Forms.OpenFileDialog();
-            this.tbGroup = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ofd = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceActive.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beBotPath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCharName.Properties)).BeginInit();
@@ -55,7 +56,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,6 +74,14 @@
             this.layoutControl1.Size = new System.Drawing.Size(417, 146);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // tbGroup
+            // 
+            this.tbGroup.Location = new System.Drawing.Point(68, 60);
+            this.tbGroup.Name = "tbGroup";
+            this.tbGroup.Size = new System.Drawing.Size(337, 20);
+            this.tbGroup.StyleController = this.layoutControl1;
+            this.tbGroup.TabIndex = 9;
             // 
             // btnCancel
             // 
@@ -186,18 +194,6 @@
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
-            // ofd
-            // 
-            this.ofd.Filter = "sbot2*.exe|*.exe";
-            // 
-            // tbGroup
-            // 
-            this.tbGroup.Location = new System.Drawing.Point(68, 60);
-            this.tbGroup.Name = "tbGroup";
-            this.tbGroup.Size = new System.Drawing.Size(337, 20);
-            this.tbGroup.StyleController = this.layoutControl1;
-            this.tbGroup.TabIndex = 9;
-            // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.tbGroup;
@@ -207,6 +203,10 @@
             this.layoutControlItem6.Text = "Group";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(53, 13);
             // 
+            // ofd
+            // 
+            this.ofd.Filter = "sbot2*.exe|*.exe";
+            // 
             // AddAccountFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,9 +215,11 @@
             this.Controls.Add(this.layoutControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddAccountFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add/Edit Account";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceActive.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.beBotPath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbCharName.Properties)).EndInit();
@@ -227,7 +229,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             this.ResumeLayout(false);
 

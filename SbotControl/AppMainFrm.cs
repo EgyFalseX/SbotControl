@@ -86,6 +86,10 @@ namespace SbotControl
             {
                 e.Cancel = true;
             }
+            else
+            {
+                e.Document.Control.Dispose();
+            }
         }
         private void bbiAccount_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -166,6 +170,15 @@ namespace SbotControl
                 tabbedViewMain.ActivateDocument(nDoc.Control);
             }));
             
+        }
+        private void bbiAboutMe_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
+            new AboutUs().ShowDialog();
+        }
+        private void bbiOutput_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            OutputFrm dbug = new OutputFrm(); dbug.Show();
         }
     }
 }

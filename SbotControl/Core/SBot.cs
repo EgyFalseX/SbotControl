@@ -17,6 +17,7 @@ namespace SbotControl
         private DateTime StartupTime = DateTime.Now;
         public const string BOTPROOF = "ID_PANEL1!";
         public const string BotTitle = "by bot-cave.net";
+        public const string InventoryTitle = "Player inventory";
         private const string ProcessName = "SBot_2";
         private const string MapWindowTitle = "[iBot] Silkroad Map";
         public const string DisconnectedMSG = "Disconnected from server";
@@ -29,10 +30,11 @@ namespace SbotControl
         public const string ErrorStuckOnLogin = "Error_Stuck_On_Login";
         private Process _process;
         private Account _account;
-        private StatusType _status = StatusType.Unknown;
+        private StatusType _status = StatusType.Nothing;
         public System.Threading.Timer tmrPuls;
         public System.Threading.Timer tmrLogin;
         private int _LastLogLength = 0;
+        public int LoginTimerInterval = 1000 * 120;
         //public bool HSState = true;
 
         private double _StartupSkill, _StartupGold, _StartupExperience = 0;
@@ -87,12 +89,16 @@ namespace SbotControl
         private IntPtr BtnHieClientHandle { get; set; }
         private IntPtr BtnStartTrainingHandle { get; set; }
         private IntPtr BtnStopTrainingHandle { get; set; }
-        //Right Panal Ctr
+        //Buttom Panal Ctr
         private IntPtr BotLogsHandle { get; set; }
+        private IntPtr InventoryMainWindowHandle { get; set; }
+        private IntPtr InventoryMainTabHandle { get; set; }
+        private IntPtr InventoryGridHandle { get; set; }
+        private IntPtr InventoryGridRowsHandle { get; set; }
         # endregion
 
         # region Types
-        private enum CtrID : int
+        private enum CtrID : Int64
         {
             //MainTab = 0x000049D,
             MainTab = 0x00004A0,
@@ -141,6 +147,10 @@ namespace SbotControl
             BtnStopTraining = 0x000049C,
             //Buttom Panal Ctr
             BotLogs = 0x000049E,
+            //Inventory Panal Ctr
+            InventoryMainTab = 0x00000A9,
+            InventoryGrid = 0x00000A8,
+            InventoryGridRows = 0xFFFFFF0B,
         }
         public enum StatusType
         {
@@ -157,6 +167,9 @@ namespace SbotControl
         {
             //InitPulsTimer();
             //InitiTmrLogin();  
+            tmrPuls = new System.Threading.Timer(_ => tmrPuls_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            tmrLogin = new System.Threading.Timer(_ => tmrLogin_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            
         }
         public static SBot CreateSbot(Process botProcess = null)
         {
@@ -165,15 +178,29 @@ namespace SbotControl
             return bot;
         }
         
-        public void StartLoginTimer()
+        public void LoginTimerStart()
         {
-            if (tmrLogin == null)
-                tmrLogin = new System.Threading.Timer(_ => tmrLogin_Tick(), null, 1000 * 60 * 5, System.Threading.Timeout.Infinite);
+            tmrLogin.Change(LoginTimerInterval, System.Threading.Timeout.Infinite);
+            Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Online ... ", CharName));
         }
-        public void StartPlusTimer()
+        public void LoginTimerEnd()
         {
-            Console.WriteLine("Plus Starting");
-            tmrPuls = new System.Threading.Timer(_ => tmrPuls_Tick(), null, 1000, 1000 * 1);
+            if (tmrLogin != null)
+            {
+                tmrLogin.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Offline ... ", CharName));
+            }
+        }
+
+        public void PlusTimerStart()
+        {
+            tmrPuls.Change(1000, 1000 * 1);
+            Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Online ... ", CharName));
+        }
+        public void PlusTimerEnd()
+        {
+            tmrPuls.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Online ... ", CharName));
         }
         void tmrPuls_Tick()
         {
@@ -190,21 +217,18 @@ namespace SbotControl
         }
         void tmrLogin_Tick()
         {
-            tmrLogin.Dispose(); tmrLogin = null;
+            Program.Logger.AddLog(Log.LogType.Error, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login ... ", CharName));
+            LoginTimerEnd();
             if (_process == null || _process.HasExited)
                 return;
-
+            PerformRestartBot();
             //if (_status != StatusType.Login_Successful)
             //    AddClientlessLoginLogItem("[00:00:00] " + ErrorStuckOnLogin);
         }
 
-        public void PrepareHandlers()
+        public bool PrepareHandlers()
         {
-            MainWindowHandle = FindMainWindowInProcess(BOTPROOF);
-            if (MainWindowHandle != IntPtr.Zero)
-            {
-                string x = "";
-            }
+            MainWindowHandle = FindMainWindowInProcess(SBot.BotTitle);
             MainPanalHandle = Win32.GetDlgItem(MainWindowHandle, (int)CtrID.MainTab);
             
             BtnStartGameHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnStartGame);
@@ -229,6 +253,8 @@ namespace SbotControl
             PosXHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosX);
             PosYHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosY);
             CharNameHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.CharName);
+            if (CharNameHandle == IntPtr.Zero)
+                return false;
             LevelHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Level);
             GoldHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Gold);
             SkillPointHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SkillPoint);
@@ -252,6 +278,14 @@ namespace SbotControl
             BtnStopTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStopTraining);
             //RightPanal Ctr
             BotLogsHandle = Win32.GetDlgItem(ButtomPanalHandle, (int)CtrID.BotLogs);
+            //Inventory Handlers
+            InventoryMainWindowHandle = FindMainWindowInProcess(SBot.InventoryTitle);
+            InventoryMainTabHandle = Win32.GetDlgItem(InventoryMainWindowHandle, (int)CtrID.InventoryMainTab);
+            InventoryGridHandle = Win32.GetDlgItem(InventoryMainTabHandle, (int)CtrID.InventoryGrid);
+
+            InventoryGridRowsHandle = Win32.GetWindow(Win32.GetWindow(InventoryGridHandle, Win32.GetWindow_Cmd.GW_CHILD), Win32.GetWindow_Cmd.GW_HWNDLAST);
+            
+            return true;
         }
         public void InitiProperties()
         {
@@ -264,7 +298,8 @@ namespace SbotControl
             UpdateProperty(ConnectionQualityCurHandle, ref _connectionQualityCur, "ConnectionQualityCur");
             UpdateProperty(PosXHandle, ref _posX, "PosX");
             UpdateProperty(PosYHandle, ref _posY, "PosY");
-            UpdateProperty(CharNameHandle, ref _charName, "CharName");
+            if (_charName == null || _charName.Trim() == string.Empty || _charName == "none")
+                UpdateProperty(CharNameHandle, ref _charName, "CharName");
             UpdateProperty(LevelHandle, ref _level, "Level");
             UpdateProperty(GoldHandle, ref _gold, "Gold");
             UpdateProperty(SkillPointHandle, ref _skillPoint, "SkillPoint");
@@ -287,15 +322,18 @@ namespace SbotControl
             UpdateProperty(BtnStartTrainingHandle, ref _btnStartTraining, "BtnStartTraining");
             UpdateProperty(BtnStopTrainingHandle, ref _btnStopTraining, "BtnStopTraining");
             //HP Bar
-            Bitmap hpBar = new Bitmap(PrintWindow(CharHPProgressBarHandle));
-            if (!hpBar.Equals(_hpBar))
+            Bitmap hpBar = null;
+            try { hpBar = new Bitmap(PrintWindow(CharHPProgressBarHandle)); } catch { }
+            
+            if (hpBar != null && !hpBar.Equals(_hpBar))
             {
                 _hpBar = hpBar;
                 OnPropertyChanged("HPBar");
             }
             //MP Bar
-            Bitmap mpBar = new Bitmap(PrintWindow(CharMPProgressBarHandle));
-            if (!mpBar.Equals(_mpBar))
+            Bitmap mpBar = null;
+            try { mpBar = new Bitmap(PrintWindow(CharMPProgressBarHandle)); } catch { }
+            if (mpBar != null && !mpBar.Equals(_mpBar))
             {
                 _mpBar = mpBar;
                 OnPropertyChanged("MPBar");
@@ -641,8 +679,9 @@ namespace SbotControl
                 return;
             TimeSpan ts = DateTime.Now.Subtract(StartupTime);
             double gained = Convert.ToDouble(_gold) - _StartupGold;
-            int NewGoldPetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
-
+            int NewGoldPetHour = 0;
+            if (gained > 0)
+                NewGoldPetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
             //GoldPetHour = Misc.FormateNumber(NewGoldPetHour);
             GoldPetHour = NewGoldPetHour;
             OnPropertyChanged("GoldPetHour");
@@ -658,7 +697,9 @@ namespace SbotControl
                 return;
             TimeSpan ts = DateTime.Now.Subtract(StartupTime);
             double gained = Convert.ToDouble(_xPGained.Replace("%", "")) - _StartupExperience;
-            int NewExperiencePetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
+            int NewExperiencePetHour = 0;
+            if (gained > 0)
+                NewExperiencePetHour = Convert.ToInt32((gained / ts.TotalSeconds) * 60 * 60);
             //ExperiencePetHour = Misc.FormateNumber(NewExperiencePetHour);
             ExperiencePetHour = NewExperiencePetHour.ToString();
             OnPropertyChanged("ExperiencePetHour");
@@ -741,39 +782,49 @@ namespace SbotControl
             //Update Status
             if (name == "SilkroadServerStatus")
             {
-                _status = StatusAnalysis(SilkroadServerStatus);
-                OnPropertyChanged("Status");
-                if (StateChanged != null)
-                    StateChanged(this, _status);
+                StatusType NewStatusType = StatusAnalysis(SilkroadServerStatus);
+                if (_status != NewStatusType)
+                {
+                    _status = NewStatusType;
+                    OnPropertyChanged("Status");
+                    if (StateChanged != null)
+                        StateChanged(this, _status);
+                }
             }
             else if (name == "BotStatus")
             {
-                _status = StatusAnalysis(BotStatus);
-                OnPropertyChanged("Status");
-                if (StateChanged != null)
-                    StateChanged(this, _status);
+                StatusType NewStatusType = StatusAnalysis(BotStatus);
+                if (_status != NewStatusType)
+                {
+                    _status = NewStatusType;
+                    OnPropertyChanged("Status");
+                    if (StateChanged != null)
+                        StateChanged(this, _status);
+                }
             }
         }
         # endregion
 
         private StatusType StatusAnalysis(string stateString)
         {
-            StatusType typ = StatusType.Unknown;
+            stateString = stateString.Trim();
+            StatusType typ = StatusType.Nothing;
             if (stateString.Length == 0)
                 return typ;
             //string data = stateString.Substring(11);
             switch (stateString)
             {
                 case "Disconnected":
-                case "connecting":
+                case "Connecting":
                     typ = StatusType.Disconnected;
                     break;
                 case "Resolving hosts...":
                 case "Checking for updates":
-                case "Checking for updates ...":
+                case "Checking for updates...":
                 case "Check finished":
                 case "Logged in":
                 case "Gameserver login":
+                case "Connected":
                     typ = StatusType.Try_to_login;
                     break;
                 case "Login success":
@@ -782,37 +833,45 @@ namespace SbotControl
                 case "Arrived trainplace":
                     typ = StatusType.Online;
                     break;
+                case "none":
+                    typ = StatusType.Nothing;
+                    break;
                 default://
                     typ = StatusType.Online;
+                    //Program.Logger.AddLog(Log.LogType.Error, Log.LogLevel.Stander, string.Format("[{0}]- Unknown Status: " + stateString, CharName));
                     break;
             }
+            if (typ == StatusType.Disconnected || typ == StatusType.Try_to_login)
+                LoginTimerStart();
+            else if (typ == StatusType.Online)
+                LoginTimerEnd();
             return typ;
         }
 
         private void GetCharInventory()
         {
-            //bool InvChanded = false;
-            //Int32 size = Win32.SendMessage((int)CharInvListHandle, Win32.CB_GETCOUNT, 0, 0).ToInt32();
-            //if (_CharInventor.Count == 0)
-            //    _CharInventor = new List<string>(new string[size]);
+            bool InvChanded = false;
+            Int32 size = Win32.SendMessage((int)InventoryGridRowsHandle, Win32.CB_GETCOUNT, 0, 0).ToInt32();
+            if (_CharInventor.Count == 0)
+                _CharInventor = new List<string>(new string[size]);
 
-            //CharInventoryFreeSlot = 0;
-            //for (int i = 0; i < size; i++)
-            //{
-            //    int strLen = Win32.SendMessage((int)CharInvListHandle, Win32.CB_GETLBTEXTLEN, i, 0).ToInt32();
-            //    StringBuilder text = new StringBuilder(255);
-            //    Win32.SendMessage(CharInvListHandle, Win32.CB_GETLBTEXT, i, text);
-            //    if (text.ToString() != _CharInventor[i])
-            //        InvChanded = true;
-            //    _CharInventor[i] = text.ToString();
-            //    if (text.ToString() == EmptySlotTitle)
-            //        CharInventoryFreeSlot++;
-            //}
-            //if (InvChanded)
-            //{
-            //    Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, "Char Inv Changed");
-            //    OnPropertyChanged("CharInventory");
-            //}
+            CharInventoryFreeSlot = 0;
+            for (int i = 0; i < size; i++)
+            {
+                int strLen = Win32.SendMessage((int)InventoryGridRowsHandle, Win32.CB_GETLBTEXTLEN, i, 0).ToInt32();
+                StringBuilder text = new StringBuilder(255);
+                Win32.SendMessage(InventoryGridRowsHandle, Win32.CB_GETLBTEXT, i, text);
+                if (text.ToString() != _CharInventor[i])
+                    InvChanded = true;
+                _CharInventor[i] = text.ToString();
+                if (text.ToString() == EmptySlotTitle)
+                    CharInventoryFreeSlot++;
+            }
+            if (InvChanded)
+            {
+                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, "Char Inv Changed");
+                OnPropertyChanged("CharInventory");
+            }
         }
         private void GetPetInventory()
         {
@@ -878,7 +937,7 @@ namespace SbotControl
 
             foreach (ProcessThread t in _process.Threads)
             {
-                windowHandle = FindMainWindowInThread(t.Id);
+                windowHandle = FindMainWindowInThread(t.Id, compareTitle);
                 if (windowHandle != IntPtr.Zero)
                 {
                     break;
@@ -887,14 +946,14 @@ namespace SbotControl
 
             return windowHandle;
         }
-        private static IntPtr FindMainWindowInThread(int threadId)
+        private static IntPtr FindMainWindowInThread(int threadId, string compareTitle)
         {
             IntPtr windowHandle = IntPtr.Zero;
             Win32.EnumThreadWindows(threadId, (hWnd, lParam) =>
             {
                 StringBuilder text = new StringBuilder(200);
                 Win32.GetWindowText(hWnd, text, 200);
-                if (text.ToString().Contains(SBot.BotTitle))
+                if (text.ToString().Contains(compareTitle))
                 {
                     windowHandle = hWnd;
                     return false;
@@ -912,7 +971,8 @@ namespace SbotControl
             //ShowWindow(MainWindowHandle, SW_SHOWNORMAL);
             //SendMessage(MainWindowHandle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
         }
-        public static System.IO.MemoryStream PrintWindow(IntPtr hWnd)
+
+        public System.IO.MemoryStream PrintWindow(IntPtr hWnd)
         {
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
             Core.RECT rc;
@@ -928,7 +988,6 @@ namespace SbotControl
                     IntPtr hdcBitmap = gfxBmp.GetHdc();
                     try
                     {
-
                         Win32.PrintWindow(hWnd, hdcBitmap, 2);
                     }
                     finally
@@ -940,7 +999,6 @@ namespace SbotControl
                 bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
                 return ms;
             }
-
             //System.Drawing.Rectangle rctForm = System.Drawing.Rectangle.Empty;
             //using (System.Drawing.Graphics grfx = System.Drawing.Graphics.FromHdc(Win32.GetWindowDC(hwnd)))
             //{
@@ -980,12 +1038,28 @@ namespace SbotControl
             if (_process == null)
             {
                 _process = Runbot();
-                PrepareHandlers();
+                _process.Exited += _process_Exited;
+                System.Threading.ThreadPool.QueueUserWorkItem((o) => 
+                {
+                    if (_process.HasExited)
+                        return;
+                        IntPtr wHnd = FindMainWindowInProcess(SBot.BotTitle);
+                    while (!Win32.IsWindowVisible(wHnd.ToInt32()))
+                        System.Threading.Thread.Sleep(3000);
+                    PrepareHandlers();
+                    //this._status = StatusType.Nothing;
+                    PlusTimerStart();
+                    Visable = false;
+                    LoginTimerStart();//Timer if bot stuck in logging
+                });
             }
-            _process.Exited += _process_Exited;
-            StartPlusTimer();
-            System.Threading.Thread.Sleep(500);
-            //Visable = false;
+            else
+            {
+                _process.Exited += _process_Exited;
+                PlusTimerStart();
+                Visable = false;
+            }
+            
         }
         public void Stop()
         {
@@ -996,6 +1070,7 @@ namespace SbotControl
         }
         private void PerformClick(IntPtr hwnd)
         {
+            Win32.SendMessage(hwnd, Win32.WM_SETFOCUS, 0, 0);
             Win32.SendMessage(hwnd, Win32.BM_CLICK, 0, 0);
         }
         public void ClickStartGameButton()
@@ -1010,7 +1085,6 @@ namespace SbotControl
         {
             PerformClick(BtnDisconnectHandle);
         }
-
         public void ClickResetButton()
         {
             PerformClick(BtnResetStatusHandle);
@@ -1033,7 +1107,6 @@ namespace SbotControl
         }
         public void PerformRestartBot()
         {
-            //_process_Exited(null, EventArgs.Empty);
             if (_process != null && !_process.HasExited)
             {
                 _process.Kill();
@@ -1061,6 +1134,8 @@ namespace SbotControl
         {
             if (disposing)
             {
+                PlusTimerEnd();
+                LoginTimerEnd();
                 if (_process != null)
                 {
                     _process.Exited -= _process_Exited;
@@ -1068,7 +1143,6 @@ namespace SbotControl
                         _process.Kill();
                     _process.Dispose();
                     _process = null;
-
                 }
                 //_ClientlessLoginLogList.Clear();
                 _StatusLogList.Clear();

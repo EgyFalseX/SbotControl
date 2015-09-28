@@ -16,6 +16,7 @@ namespace SbotControl
         public static string ServerListPath { get { return Application.StartupPath + "\\ServersList.txt"; } }
         public List<Account> Accounts = new List<Account>();
         public static Dictionary<string, string> ServerList = new Dictionary<string, string>();
+        private static Datasource.dsDataTableAdapters.ExceptionTableAdapter adpEx = new Datasource.dsDataTableAdapters.ExceptionTableAdapter();
 
         public bool SaveSettings()
         {
@@ -136,6 +137,10 @@ namespace SbotControl
             }
 
             return objectOut;
+        }
+        public static void AddEx(Exception ex, string ClassType)
+        {
+            adpEx.Insert(DateTime.Now, ClassType, ex.Message, ex.StackTrace);
         }
 
     }

@@ -43,7 +43,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>..\Releases\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -82,6 +82,7 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -103,6 +104,12 @@
     <Compile Include="Core\Account.cs" />
     <Compile Include="Core\BotLogUnit.cs" />
     <Compile Include="Core\Rect.cs" />
+    <Compile Include="Core\ThreadedBindingList.cs" />
+    <Compile Include="Datasource\dsData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsData.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Test.cs" />
     <Compile Include="AppMainFrm.cs">
       <SubType>Form</SubType>
@@ -165,6 +172,17 @@
       <DependentUpon>OptionsUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Datasource\dsData.xsc">
+      <DependentUpon>dsData.xsd</DependentUpon>
+    </None>
+    <None Include="Datasource\dsData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsData.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Datasource\dsData.xss">
+      <DependentUpon>dsData.xsd</DependentUpon>
+    </None>
     <None Include="Properties\DataSources\Account.datasource" />
     <None Include="Properties\DataSources\SBot.datasource" />
     <None Include="Resources\GreenBall.png" />
@@ -191,6 +209,27 @@
     <None Include="Resources\pageorientation_32x32.png" />
     <None Include="Resources\technology_16x16.png" />
     <None Include="Resources\technology_32x32.png" />
+    <None Include="Resources\show_16x16.png" />
+    <None Include="Resources\show_32x32.png" />
+    <None Include="Resources\bar2_16x16.png" />
+    <None Include="Resources\bar2_32x32.png" />
+    <None Include="Resources\SBotW16.png" />
+    <None Include="Resources\SBotW32.png" />
+    <None Include="Resources\hide_16x16.png" />
+    <None Include="Resources\hide_32x32.png" />
+    <None Include="Resources\cancel_16x16.png" />
+    <None Include="Resources\cancel_32x32.png" />
+    <None Include="Resources\initialstate_16x16.png" />
+    <None Include="Resources\initialstate_32x32.png" />
+    <None Include="Resources\logical_16x16.png" />
+    <None Include="Resources\logical_32x32.png" />
+    <None Include="Resources\borole_16x16.png" />
+    <None Include="Resources\borole_32x32.png" />
+    <None Include="Resources\bugreport_16x16.png" />
+    <None Include="Resources\bugreport_32x32.png" />
+    <None Include="LogData">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />

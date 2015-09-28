@@ -22,16 +22,22 @@ namespace SbotControl
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
+            DevExpress.Utils.Drawing.Helpers.Win32SubclasserException.Allow = false;
             Init();
             try
             {
                 //Application.Run(new MainFrm());
-                //OutputFrm dbug = new OutputFrm(); dbug.Show();
+                //new OutputFrm().Show();
+
                 Application.Run(new AppMainFrm());
+
+                //Test.XXX();
+                
+                //MessageBox.Show("Done");
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                DataManager.AddEx(ex, "Program");
                 //Application.Restart();
             }
         }
@@ -39,7 +45,7 @@ namespace SbotControl
         {
             DM = new DataManager();
             BM = new BotsManager();
-            DM.LoadServerList();
+            //DM.LoadServerList();
             DM.LoadSettings();
         }
         public static void AddRemoveStartup(bool AddReg)

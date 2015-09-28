@@ -44,6 +44,7 @@ namespace SbotControl
 
         public void AddAccount(string Charname, bool Start, bool DCRestart, bool ScrollUnknowSpot, string SbotFilePath)
         {
+            
             Account acc = new Account(Charname, true, true, Start, DCRestart, ScrollUnknowSpot, SbotFilePath);
             //Program.DM.Accounts.Add(acc);
             AddAccount(acc);
@@ -54,6 +55,8 @@ namespace SbotControl
             if (AccountListChanged != null)
                 AccountListChanged(account, ChangesType.Added);
 
+            //should replace ManagerOnline with 
+            //_managerStatus == ManagerStatusType.Started
             if (account.Start && ManagerOnline)
                 AddBot(account);
         }
@@ -131,7 +134,7 @@ namespace SbotControl
             bot.LogAdded += Bot_LogAdded;
             bot.PropertyChanged += bot_PropertyChanged;
 
-            Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Ready", bot.CharName));
+            Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Start Login ... ", bot.CharName));
             if (BotListChanged != null)
                 BotListChanged(bot, ChangesType.Added);
             bot.Start();
@@ -238,22 +241,9 @@ namespace SbotControl
                     sender.Stop();
                     if (sender.BotAccount == null || !sender.BotAccount.Start)
                         RemoveBot(sender);
-                    else if (sender.BotAccount.DCRestart)
+                    else
                         sender.Start();
                     break;
-                //case SBot.StatusType.Error_Stuck_On_Login:
-                //    logtyp = Log.LogType.Error;
-                //    loglvl = Log.LogLevel.Debug;
-                //    try
-                //    {
-                //        sender.Stop();
-                //        if (!sender.BotAccount.Start)
-                //            RemoveBot(sender);
-                //        else
-                //            sender.Start();
-                //    }
-                //    catch { }
-                //    break;
                 case SBot.StatusType.Unknown:
                     logtyp = Log.LogType.Error;
                     loglvl = Log.LogLevel.Stander;
