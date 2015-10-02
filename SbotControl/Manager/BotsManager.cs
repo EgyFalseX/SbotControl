@@ -15,6 +15,7 @@ namespace SbotControl
             //ManagerOnline = true;
             //GetStartedIBots();
             BotLogs = new List<Core.BotLogUnit>();
+            tmrSearch = new System.Threading.Timer(_ => tmrSearch_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
         }
         public List<SBot> Bots = new List<SBot>();
         public List<Core.BotLogUnit> BotLogs { get; set; }
@@ -34,6 +35,7 @@ namespace SbotControl
         public event BotListChangedEventhandler BotListChanged;
         public event BotListChangedEventhandler AccountListChanged;
         public event ManagerStatusChangedEventhandler ManagerStatusChanged;
+        public System.Threading.Timer tmrSearch;
         private bool ManagerOnline;
 
         ManagerStatusType _managerStatus;
@@ -97,6 +99,10 @@ namespace SbotControl
             }
             return acc;
         }
+        void tmrSearch_Tick()
+        {
+            GetStartedBots();
+        }
 
         public void AddBot(Account account)
         {
@@ -143,6 +149,8 @@ namespace SbotControl
         private void Bot_LogAdded(SBot sender, string Log)
         {
             BotLogs.Add(new Core.BotLogUnit(sender.CharName, DateTime.Now.ToShortDateString(), Log));
+            //Save Log
+            Program.dbOperations.SaveToLog(Core.db.LogType.BotLog, sender.CharName, Log.Trim());
         }
 
         public void RemoveBot(SBot bot)
@@ -225,7 +233,6 @@ namespace SbotControl
                 case SBot.StatusType.Disconnected:
                      logtyp = Log.LogType.Info;
                      loglvl = Log.LogLevel.Debug;
-                    ///////////////////////////////////////////////////sender.StartLoginTimer();
                     break;
                 case SBot.StatusType.Try_to_login:
                      logtyp = Log.LogType.Info;
@@ -253,6 +260,8 @@ namespace SbotControl
                 Program.Logger.AddLog(logtyp, loglvl, string.Format("[{0}]-{1}", sender.CharName, e.ToString()));
             else
                 Program.Logger.AddLog(logtyp, loglvl, string.Format("[{0}]-{1}", sender.BotAccount.charName, e.ToString()));
+            //Save Log
+            Program.dbOperations.SaveToLog( Core.db.LogType.StatusLog, sender.CharName.ToString(), e.ToString());
         }
         void bot_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -297,6 +306,8 @@ namespace SbotControl
                 _managerStatus = ManagerStatusType.Started;
                 if (ManagerStatusChanged != null)
                     ManagerStatusChanged(this, ManagerStatusType.Started);
+
+                tmrSearch.Change(1000 * 5, System.Threading.Timeout.Infinite);
             });
             
         }
@@ -306,6 +317,8 @@ namespace SbotControl
             _managerStatus = ManagerStatusType.Stoped;
             if (ManagerStatusChanged != null)
                 ManagerStatusChanged(this, ManagerStatusType.Stoped);
+
+            tmrSearch.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
         }
 
     }

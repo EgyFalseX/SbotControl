@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Core\Account.cs" />
     <Compile Include="Core\BotLogUnit.cs" />
+    <Compile Include="Core\db.cs" />
     <Compile Include="Core\Rect.cs" />
     <Compile Include="Core\ThreadedBindingList.cs" />
     <Compile Include="Datasource\dsData.Designer.cs">
@@ -141,6 +142,12 @@
     <Compile Include="UI\BotLogUC.Designer.cs">
       <DependentUpon>BotLogUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\HistoryUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\HistoryUC.Designer.cs">
+      <DependentUpon>HistoryUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OnlineBotUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,6 +159,12 @@
     </Compile>
     <Compile Include="UI\OptionsUC.Designer.cs">
       <DependentUpon>OptionsUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OutputUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\OutputUC.Designer.cs">
+      <DependentUpon>OutputUC.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="UI\AccountUC.resx">
       <DependentUpon>AccountUC.cs</DependentUpon>
@@ -165,11 +178,17 @@
     <EmbeddedResource Include="UI\BotLogUC.resx">
       <DependentUpon>BotLogUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\HistoryUC.resx">
+      <DependentUpon>HistoryUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\OnlineBotUC.resx">
       <DependentUpon>OnlineBotUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OptionsUC.resx">
       <DependentUpon>OptionsUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OutputUC.resx">
+      <DependentUpon>OutputUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Datasource\dsData.xsc">
@@ -228,7 +247,7 @@
     <None Include="Resources\bugreport_16x16.png" />
     <None Include="Resources\bugreport_32x32.png" />
     <None Include="LogData">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
@@ -252,6 +271,7 @@
     <Content Include="ServersList.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Features.txt" />
     <Content Include="Temp.txt" />
     <Compile Include="Manager\BotsManager.cs" />
     <Compile Include="Manager\DataManager.cs" />

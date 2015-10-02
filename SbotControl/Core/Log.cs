@@ -63,6 +63,8 @@ namespace SbotControl
             for (int i = 0; i < OutPutUI.Count; i++)
             {
                 RichTextBox ctl = OutPutUI[i].LogControl;
+                if (!ctl.Created)
+                    continue;
                 LogLevel ctllvl = OutPutUI[i].LogLvl;
                 if (ctllvl < lvl)
                     continue;

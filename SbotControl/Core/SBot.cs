@@ -18,7 +18,9 @@ namespace SbotControl
         public const string BOTPROOF = "ID_PANEL1!";
         public const string BotTitle = "by bot-cave.net";
         public const string InventoryTitle = "Player inventory";
-        private const string ProcessName = "SBot_2";
+        private const string ProcessName = "SBot_2.0.14";
+        private const string BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
+
         private const string MapWindowTitle = "[iBot] Silkroad Map";
         public const string DisconnectedMSG = "Disconnected from server";
         public const string LoginSuccessfulMSG = "Login Successful";
@@ -160,6 +162,7 @@ namespace SbotControl
             Try_to_login,
             Online,
             bot_Process_Terminated,
+            BotStuck_NPC,
         }
         # endregion
 
@@ -228,62 +231,140 @@ namespace SbotControl
 
         public bool PrepareHandlers()
         {
-            MainWindowHandle = FindMainWindowInProcess(SBot.BotTitle);
-            MainPanalHandle = Win32.GetDlgItem(MainWindowHandle, (int)CtrID.MainTab);
             
-            BtnStartGameHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnStartGame);
-            BtnGoClientlessHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnGoClientless);
-            BtnDisconnectHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnDisconnect);
+            
+            MainWindowHandle = FindMainWindowInProcess(SBot.BotTitle);
 
-            TopPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.TopPanal);
-            RightPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.RightPanal);
-            ButtomPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.ButtomPanal);
+            IntPtr MainPanalHandle = Win32.GetWindow(MainWindowHandle, Win32.GetWindow_Cmd.GW_CHILD);
+            TopPanalHandle = Win32.GetWindow(MainPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);
+            BtnStartGameHandle = Win32.GetWindow(TopPanalHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnGoClientlessHandle = Win32.GetWindow(BtnStartGameHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnDisconnectHandle = Win32.GetWindow(BtnGoClientlessHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr ListView = Win32.GetWindow(BtnDisconnectHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            RightPanalHandle = Win32.GetWindow(ListView, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            ButtomPanalHandle = Win32.GetWindow(RightPanalHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+
+            //MainPanalHandle = Win32.GetDlgItem(MainWindowHandle, (int)CtrID.MainTab);
+            //BtnStartGameHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnStartGame);
+            //BtnGoClientlessHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnGoClientless);
+            //BtnDisconnectHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.BtnDisconnect);
+            //TopPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.TopPanal);
+            //RightPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.RightPanal);
+            //ButtomPanalHandle = Win32.GetDlgItem(MainPanalHandle, (int)CtrID.ButtomPanal);
 
             //TopPanal Ctr
-            BotVersionHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotVersion);
-            CharHPProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharHPProgressBar);
-            CharMPProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharMPProgressBar);
-            CharExpProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharExpProgressBar);
-            BotServerStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotServerStatus);
-            SilkroadServerStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.SilkroadServerStatus);
-            BotStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotStatus);
-            ConnectionQualityAvgHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.ConnectionQualityAvg);
-            ConnectionQualityCurHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.ConnectionQualityCur);
+            IntPtr Tmp_VersionText = Win32.GetWindow(TopPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
+            BotVersionHandle = Win32.GetWindow(Tmp_VersionText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_HPText = Win32.GetWindow(BotVersionHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            CharHPProgressBarHandle = Win32.GetWindow(Tmp_HPText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_MPText = Win32.GetWindow(CharHPProgressBarHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            CharMPProgressBarHandle = Win32.GetWindow(Tmp_MPText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_XpText = Win32.GetWindow(CharMPProgressBarHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            IntPtr Tmp_XpBar = Win32.GetWindow(Tmp_XpText, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            IntPtr Tmp_BotServerStatusText = Win32.GetWindow(Tmp_XpBar, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            BotServerStatusHandle = Win32.GetWindow(Tmp_BotServerStatusText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SilkroadServerStatusText = Win32.GetWindow(BotServerStatusHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            SilkroadServerStatusHandle = Win32.GetWindow(Tmp_SilkroadServerStatusText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_BotStatusText = Win32.GetWindow(SilkroadServerStatusHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            BotStatusHandle = Win32.GetWindow(Tmp_BotStatusText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_ConnectionQua = Win32.GetWindow(BotStatusHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            IntPtr Tmp_AvgText = Win32.GetWindow(Tmp_ConnectionQua, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            ConnectionQualityAvgHandle = Win32.GetWindow(Tmp_AvgText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_CurText = Win32.GetWindow(ConnectionQualityAvgHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            ConnectionQualityCurHandle = Win32.GetWindow(Tmp_CurText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            //BotVersionHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotVersion);
+            //CharHPProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharHPProgressBar);
+            //CharMPProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharMPProgressBar);
+            //CharExpProgressBarHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.CharExpProgressBar);
+            //BotServerStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotServerStatus);
+            //SilkroadServerStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.SilkroadServerStatus);
+            //BotStatusHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.BotStatus);
+            //ConnectionQualityAvgHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.ConnectionQualityAvg);
+            //ConnectionQualityCurHandle = Win32.GetDlgItem(TopPanalHandle, (int)CtrID.ConnectionQualityCur);
+
             //RightPanal Ctr
-            PosXHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosX);
-            PosYHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosY);
-            CharNameHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.CharName);
+            IntPtr Tmp_XText = Win32.GetWindow(RightPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
+            PosXHandle = Win32.GetWindow(Tmp_XText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_YText = Win32.GetWindow(PosXHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            PosYHandle = Win32.GetWindow(Tmp_YText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_CharLine = Win32.GetWindow(PosYHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            IntPtr Tmp_CharText = Win32.GetWindow(Tmp_CharLine, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            CharNameHandle = Win32.GetWindow(Tmp_CharText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
             if (CharNameHandle == IntPtr.Zero)
                 return false;
-            LevelHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Level);
-            GoldHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Gold);
-            SkillPointHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SkillPoint);
-            LocationNameHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.LocationName);
-            TotaltimeHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Totaltime);
-            KillsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Kills);
-            XPGainedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPGained);
-            XPMinHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPMin);
-            XPHHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPH);
-            SPGainedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPGained);
-            SPMinHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPMin);
-            SPHHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPH);
-            DiedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Died);
-            DiedsessHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Diedsess);
-            ItemDropsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.ItemDrops);
-            GoldLoopHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.GoldLoop);
-            BtnResetStatusHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnResetStatus);
-            BtnSaveSettingsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnSaveSettings);
-            BtnHieClientHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnHieClient);
-            BtnStartTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStartTraining);
-            BtnStopTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStopTraining);
-            //RightPanal Ctr
-            BotLogsHandle = Win32.GetDlgItem(ButtomPanalHandle, (int)CtrID.BotLogs);
-            //Inventory Handlers
-            InventoryMainWindowHandle = FindMainWindowInProcess(SBot.InventoryTitle);
-            InventoryMainTabHandle = Win32.GetDlgItem(InventoryMainWindowHandle, (int)CtrID.InventoryMainTab);
-            InventoryGridHandle = Win32.GetDlgItem(InventoryMainTabHandle, (int)CtrID.InventoryGrid);
+            //PosXHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosX);
+            //PosYHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.PosY);
+            //CharNameHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.CharName);
+            //LevelHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Level);
+            //GoldHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Gold);
+            //SkillPointHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SkillPoint);
+            //LocationNameHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.LocationName);
+            //TotaltimeHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Totaltime);
+            //KillsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Kills);
+            //XPGainedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPGained);
+            //XPMinHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPMin);
+            //XPHHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.XPH);
+            //SPGainedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPGained);
+            //SPMinHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPMin);
+            //SPHHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.SPH);
+            //DiedHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Died);
+            //DiedsessHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.Diedsess);
+            //ItemDropsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.ItemDrops);
+            //GoldLoopHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.GoldLoop);
+            //BtnResetStatusHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnResetStatus);
+            //BtnSaveSettingsHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnSaveSettings);
+            //BtnHieClientHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnHieClient);
+            //BtnStartTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStartTraining);
+            //BtnStopTrainingHandle = Win32.GetDlgItem(RightPanalHandle, (int)CtrID.BtnStopTraining);
+            IntPtr Tmp_LevelText = Win32.GetWindow(CharNameHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            LevelHandle = Win32.GetWindow(Tmp_LevelText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_GoldText = Win32.GetWindow(LevelHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            GoldHandle = Win32.GetWindow(Tmp_GoldText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SPText = Win32.GetWindow(GoldHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            SkillPointHandle = Win32.GetWindow(Tmp_SPText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_LocationText = Win32.GetWindow(SkillPointHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            LocationNameHandle = Win32.GetWindow(Tmp_LocationText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_TotalTimeLine = Win32.GetWindow(LocationNameHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            IntPtr Tmp_TotalTimeText = Win32.GetWindow(Tmp_TotalTimeLine, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            TotaltimeHandle = Win32.GetWindow(Tmp_TotalTimeText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_KillsText = Win32.GetWindow(TotaltimeHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            KillsHandle = Win32.GetWindow(Tmp_KillsText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_XPGainedText = Win32.GetWindow(KillsHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            XPGainedHandle = Win32.GetWindow(Tmp_XPGainedText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_XPMinText = Win32.GetWindow(XPGainedHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            XPMinHandle = Win32.GetWindow(Tmp_XPMinText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_XPHText = Win32.GetWindow(XPMinHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            XPHHandle = Win32.GetWindow(Tmp_XPHText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SPGainedText = Win32.GetWindow(XPHHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            SPGainedHandle = Win32.GetWindow(Tmp_SPGainedText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SPMinText = Win32.GetWindow(SPGainedHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            SPMinHandle = Win32.GetWindow(Tmp_SPMinText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SPHText = Win32.GetWindow(SPMinHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            SPHHandle = Win32.GetWindow(Tmp_SPHText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_DiedText = Win32.GetWindow(SPHHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            DiedHandle = Win32.GetWindow(Tmp_DiedText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_DiedsessText = Win32.GetWindow(DiedHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            DiedsessHandle = Win32.GetWindow(Tmp_DiedsessText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_ItemDropsText = Win32.GetWindow(DiedsessHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            ItemDropsHandle = Win32.GetWindow(Tmp_ItemDropsText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_GoldLoopText = Win32.GetWindow(ItemDropsHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            GoldLoopHandle = Win32.GetWindow(Tmp_GoldLoopText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnResetStatusHandle = Win32.GetWindow(GoldLoopHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            IntPtr Tmp_SaveSettingLine = Win32.GetWindow(BtnResetStatusHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+            BtnSaveSettingsHandle = Win32.GetWindow(Tmp_SaveSettingLine, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnHieClientHandle = Win32.GetWindow(BtnSaveSettingsHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnStartTrainingHandle = Win32.GetWindow(BtnHieClientHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+            BtnStopTrainingHandle = Win32.GetWindow(BtnStartTrainingHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
 
-            InventoryGridRowsHandle = Win32.GetWindow(Win32.GetWindow(InventoryGridHandle, Win32.GetWindow_Cmd.GW_CHILD), Win32.GetWindow_Cmd.GW_HWNDLAST);
+            //RightPanal Ctr
+            //BotLogsHandle = Win32.GetDlgItem(ButtomPanalHandle, (int)CtrID.BotLogs);
+            BotLogsHandle = Win32.GetWindow(ButtomPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);
+            
+            //Inventory Handlers
+            //InventoryMainWindowHandle = FindMainWindowInProcess(SBot.InventoryTitle);
+            //InventoryMainTabHandle = Win32.GetDlgItem(InventoryMainWindowHandle, (int)CtrID.InventoryMainTab);
+            //InventoryGridHandle = Win32.GetDlgItem(InventoryMainTabHandle, (int)CtrID.InventoryGrid);
+            //InventoryGridRowsHandle = Win32.GetWindow(Win32.GetWindow(InventoryGridHandle, Win32.GetWindow_Cmd.GW_CHILD), Win32.GetWindow_Cmd.GW_HWNDLAST);
             
             return true;
         }
@@ -414,7 +495,7 @@ namespace SbotControl
         }
         public string Group { get; set; }
 
-        string _botVersion;
+        string _botVersion; 
         
         public string BotVersion
         {
@@ -814,6 +895,7 @@ namespace SbotControl
             //string data = stateString.Substring(11);
             switch (stateString)
             {
+                case "none":
                 case "Disconnected":
                 case "Connecting":
                     typ = StatusType.Disconnected;
@@ -833,17 +915,14 @@ namespace SbotControl
                 case "Arrived trainplace":
                     typ = StatusType.Online;
                     break;
-                case "none":
-                    typ = StatusType.Nothing;
-                    break;
                 default://
                     typ = StatusType.Online;
                     //Program.Logger.AddLog(Log.LogType.Error, Log.LogLevel.Stander, string.Format("[{0}]- Unknown Status: " + stateString, CharName));
                     break;
             }
-            if (typ == StatusType.Disconnected || typ == StatusType.Try_to_login)
+            if ((typ == StatusType.Disconnected || typ == StatusType.Try_to_login) && _account != null)
                 LoginTimerStart();
-            else if (typ == StatusType.Online)
+            else if (typ == StatusType.Online && _status != StatusType.Online && _account != null)
                 LoginTimerEnd();
             return typ;
         }
@@ -900,14 +979,14 @@ namespace SbotControl
             _StatusLogList.Add(item);
             if (LogAdded != null)
                 LogAdded(this, item);// Rise event LogAdded
-            //if (item.Contains(ErrorScriptSteps))
-            //{
-            //    //AddClientlessLoginLogItem("[00:00:00] " + ErrorScriptSteps);
-            //}
-            //else if (item.Contains(ErrorHSIsDown))
-            //{
-            //    //AddClientlessLoginLogItem("[00:00:00] " + ErrorHSIsDown);
-            //}
+            //Log Ayalysis
+            if (item.Contains(BotStuck_NPC))
+            {
+                Program.Logger.AddLog(Log.LogType.Error, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while Deal with NPC ... ", CharName));
+                if (_process == null || _process.HasExited || _account == null)
+                    return;
+                PerformRestartBot();
+            }
         }
         
         private void GetStatusLogList()

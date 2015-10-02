@@ -55,7 +55,7 @@ namespace SbotControl.UI
             lblDiedsess.DataBindings.Add("Text", bindSrc, "Diedsess");
             lblItemDrops.DataBindings.Add("Text", bindSrc, "ItemDrops");
             lblGoldLoop.DataBindings.Add("Text", bindSrc, "GoldLoop");
-            layoutControlItem25.DataBindings.Add("Text", bindSrc, "GoldPetHour");
+            lblGoldPetHour.DataBindings.Add("Text", bindSrc, "GoldPetHour");
             //Log Binding
             foreach (string item in _sbot.StatusLogList)
             {

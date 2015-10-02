@@ -10,23 +10,6 @@ namespace SbotControl
 {
     public static class Test
     {
-        public static void XXX()
-        {
-            Process pro = Process.Start(@"d:\Remove me\Bots\SBot\MyRarEIteM\SBot_2.0.13.exe");
-            pro.WaitForInputIdle();
-            IntPtr wHnd = FindMainWindowInProcess(pro, "by bot-cave.net");
-            if (wHnd == IntPtr.Zero)
-            {
-                System.Windows.Forms.MessageBox.Show("Test");
-            }
-            while (true)
-            {
-                System.Console.WriteLine(Win32.IsWindowVisible(wHnd.ToInt32()).ToString());
-                System.Threading.Thread.Sleep(3000);
-
-            }
-        }
-
         private static IntPtr FindMainWindowInProcess(Process _process, string compareTitle)
         {
             IntPtr windowHandle = IntPtr.Zero;

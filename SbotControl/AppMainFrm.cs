@@ -16,6 +16,7 @@ namespace SbotControl
         UI.OptionsUC docOptionCtr = new UI.OptionsUC();
         UI.OnlineBotUC docOnlineCtr = new UI.OnlineBotUC();
         UI.BotLogUC docBotLogCtr = new UI.BotLogUC();
+        UI.OutputUC docOutputCtr = new UI.OutputUC();
         public AppMainFrm()
         {
             InitializeComponent();
@@ -42,6 +43,10 @@ namespace SbotControl
             else if (e.Document.ControlName == "docBotLog")
             {
                 e.Control = docBotLogCtr;
+            }
+            else if (e.Document.ControlName == "docOutput")
+            {
+                e.Control = docOutputCtr;
             }
             else if (e.Document.Tag != null && e.Document.Tag.GetType() == typeof(SBot))
             {
@@ -149,6 +154,20 @@ namespace SbotControl
             docOptionCtr = new UI.OptionsUC();
             tabbedViewMain.Documents.Add(nDoc);
         }
+        private void bbiOutput_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            foreach (var doc in tabbedViewMain.Documents)
+            {
+                if (doc.ControlName == "docOutput")
+                    return;
+            }
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.Document nDoc = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            nDoc.Caption = "Output";
+            nDoc.ControlName = "docOutput";
+            nDoc.Image = global::SbotControl.Properties.Resources.bugreport_16x16;
+            docOutputCtr = new UI.OutputUC();
+            tabbedViewMain.Documents.Add(nDoc);
+        }
         public void ShowBotDetailsTab(SBot sbot)
         {
             foreach (var doc in tabbedViewMain.Documents)
@@ -176,9 +195,6 @@ namespace SbotControl
             //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
             new AboutUs().ShowDialog();
         }
-        private void bbiOutput_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            OutputFrm dbug = new OutputFrm(); dbug.Show();
-        }
+        
     }
 }

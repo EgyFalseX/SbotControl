@@ -55,6 +55,7 @@
             this.docAccount = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOnline = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOption = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.docOutput = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.documentGroup2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.docBotLog = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.notifyIconApp = new System.Windows.Forms.NotifyIcon(this.components);
@@ -69,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docOutput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).BeginInit();
             this.contextMenuStripTray.SuspendLayout();
@@ -291,7 +293,8 @@
             this.docOnline,
             this.docAccount,
             this.docBotLog,
-            this.docOption});
+            this.docOption,
+            this.docOutput});
             this.tabbedViewMain.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tabbedViewMain.DocumentClosing += new DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventHandler(this.tabbedViewMain_DocumentClosing);
             this.tabbedViewMain.QueryControl += new DevExpress.XtraBars.Docking2010.Views.QueryControlEventHandler(this.tabbedViewMain_QueryControl);
@@ -325,10 +328,19 @@
             this.docOption.FloatSize = new System.Drawing.Size(985, 170);
             this.docOption.Image = global::SbotControl.Properties.Resources.technology_16x16;
             // 
+            // docOutput
+            // 
+            this.docOutput.Caption = "Output";
+            this.docOutput.ControlName = "docOutput";
+            this.docOutput.FloatLocation = new System.Drawing.Point(-148, 445);
+            this.docOutput.FloatSize = new System.Drawing.Size(978, 237);
+            this.docOutput.Image = global::SbotControl.Properties.Resources.bugreport_16x16;
+            // 
             // documentGroup2
             // 
             this.documentGroup2.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
-            this.docBotLog});
+            this.docBotLog,
+            this.docOutput});
             // 
             // docBotLog
             // 
@@ -381,6 +393,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docAccount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOnline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docOutput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).EndInit();
             this.contextMenuStripTray.ResumeLayout(false);
@@ -421,5 +434,6 @@
         private DevExpress.XtraBars.BarSubItem bsiAbout;
         private DevExpress.XtraBars.BarButtonItem bbiAboutMe;
         private DevExpress.XtraBars.BarButtonItem bbiOutput;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docOutput;
     }
 }

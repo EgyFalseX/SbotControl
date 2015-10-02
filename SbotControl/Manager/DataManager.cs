@@ -138,10 +138,11 @@ namespace SbotControl
 
             return objectOut;
         }
-        public static void AddEx(Exception ex, string ClassType)
-        {
-            adpEx.Insert(DateTime.Now, ClassType, ex.Message, ex.StackTrace);
-        }
+        //Replaced with db.SaveToEx
+        //public static void AddEx(Exception ex, string ClassType)
+        //{
+        //    adpEx.Insert(DateTime.Now, ClassType, ex.Message, ex.StackTrace);
+        //}
 
     }
 }

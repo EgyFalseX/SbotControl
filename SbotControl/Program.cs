@@ -11,6 +11,7 @@ namespace SbotControl
         public static DataManager DM;
         public static BotsManager BM;
         public static Log Logger = new Log();
+        public static Core.db dbOperations;
 
         /// <summary>
         /// The main entry point for the application.
@@ -26,19 +27,11 @@ namespace SbotControl
             Init();
             try
             {
-                //Application.Run(new MainFrm());
-                //new OutputFrm().Show();
-
                 Application.Run(new AppMainFrm());
-
-                //Test.XXX();
-                
-                //MessageBox.Show("Done");
             }
             catch(Exception ex)
             {
-                DataManager.AddEx(ex, "Program");
-                //Application.Restart();
+                dbOperations.SaveToEx("Program", ex.Message, ex.StackTrace);
             }
         }
         static void Init()
@@ -47,6 +40,7 @@ namespace SbotControl
             BM = new BotsManager();
             //DM.LoadServerList();
             DM.LoadSettings();
+            dbOperations = new Core.db();
         }
         public static void AddRemoveStartup(bool AddReg)
         {

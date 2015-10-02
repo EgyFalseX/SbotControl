@@ -33,10 +33,11 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.okButton = new System.Windows.Forms.Button();
+            this.textBoxDescription = new DevExpress.XtraEditors.MemoEdit();
+            this.okButton = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxDescription.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -128,16 +129,14 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxDescription.EditValue = "Description";
             this.textBoxDescription.Location = new System.Drawing.Point(251, 107);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxDescription.Properties.ReadOnly = true;
             this.textBoxDescription.Size = new System.Drawing.Size(163, 126);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "Description";
             // 
             // okButton
             // 
@@ -166,8 +165,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About us";
             this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxDescription.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,7 +179,7 @@
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Button okButton;
+        private DevExpress.XtraEditors.MemoEdit textBoxDescription;
+        private DevExpress.XtraEditors.SimpleButton okButton;
     }
 }

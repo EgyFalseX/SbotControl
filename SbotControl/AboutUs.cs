@@ -5,10 +5,11 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
 namespace SbotControl
 {
-    partial class AboutUs : Form
+    partial class AboutUs : DevExpress.XtraEditors.XtraForm
     {
         public AboutUs()
         {

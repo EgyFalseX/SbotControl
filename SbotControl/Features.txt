@@ -1,0 +1,10 @@
+﻿* Auto Login managed characters
+* Auto restart stuck bot while login after 120 sec
+* Auto restart stuck bot while deal with npc
+* Show information about all bots at once in details view
+* puch multi commands to invisible bots
+---------------------* save status informations and log informations into a database
+
+
+Bugs can't fix it
+* can't get HP,MP and Exp bars for invisible/minimized bot window
