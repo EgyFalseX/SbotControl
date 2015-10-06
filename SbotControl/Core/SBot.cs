@@ -18,7 +18,7 @@ namespace SbotControl
         public const string BOTPROOF = "ID_PANEL1!";
         public const string BotTitle = "by bot-cave.net";
         public const string InventoryTitle = "Player inventory";
-        private const string ProcessName = "SBot_2.0.14";
+        private const string ProcessName = "SBot_2.0.15";
         private const string BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
 
         private const string MapWindowTitle = "[iBot] Silkroad Map";
@@ -180,7 +180,6 @@ namespace SbotControl
             bot._process = botProcess;
             return bot;
         }
-        
         public void LoginTimerStart()
         {
             tmrLogin.Change(LoginTimerInterval, System.Threading.Timeout.Infinite);
@@ -194,7 +193,6 @@ namespace SbotControl
                 Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Offline ... ", CharName));
             }
         }
-
         public void PlusTimerStart()
         {
             tmrPuls.Change(1000, 1000 * 1);
@@ -228,11 +226,8 @@ namespace SbotControl
             //if (_status != StatusType.Login_Successful)
             //    AddClientlessLoginLogItem("[00:00:00] " + ErrorStuckOnLogin);
         }
-
         public bool PrepareHandlers()
         {
-            
-            
             MainWindowHandle = FindMainWindowInProcess(SBot.BotTitle);
 
             IntPtr MainPanalHandle = Win32.GetWindow(MainWindowHandle, Win32.GetWindow_Cmd.GW_CHILD);
@@ -926,7 +921,6 @@ namespace SbotControl
                 LoginTimerEnd();
             return typ;
         }
-
         private void GetCharInventory()
         {
             bool InvChanded = false;
@@ -973,7 +967,6 @@ namespace SbotControl
             //if (InvChanded)
             //    OnPropertyChanged("PetInventory");
         }
-
         private void AddStatusLogListItem(string item)
         {
             _StatusLogList.Add(item);
@@ -988,7 +981,6 @@ namespace SbotControl
                 PerformRestartBot();
             }
         }
-        
         private void GetStatusLogList()
         {
             Int32 size = Win32.SendMessage((int)BotLogsHandle, Win32.WM_GETTEXTLENGTH, 0, 0).ToInt32();
@@ -1006,10 +998,13 @@ namespace SbotControl
                 _LastLogLength = data.Length;
                 return;
             }
-            AddStatusLogListItem(data.ToString().Substring(_LastLogLength).Trim());
+            string[] Lines = data.ToString().Substring(_LastLogLength).Trim().Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (string line in Lines)
+            {
+                AddStatusLogListItem(line);
+            }
             _LastLogLength = size;
         }
-
         private IntPtr FindMainWindowInProcess(string compareTitle)
         {
             IntPtr windowHandle = IntPtr.Zero;
@@ -1050,7 +1045,6 @@ namespace SbotControl
             //ShowWindow(MainWindowHandle, SW_SHOWNORMAL);
             //SendMessage(MainWindowHandle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
         }
-
         public System.IO.MemoryStream PrintWindow(IntPtr hWnd)
         {
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
@@ -1100,7 +1094,6 @@ namespace SbotControl
             //pImage.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             //return ms;
         }
-
         private Process Runbot()
         {
             Process process = new Process();
@@ -1122,8 +1115,7 @@ namespace SbotControl
                 {
                     if (_process.HasExited)
                         return;
-                        IntPtr wHnd = FindMainWindowInProcess(SBot.BotTitle);
-                    while (!Win32.IsWindowVisible(wHnd.ToInt32()))
+                    while (!IsWindowVisible())
                         System.Threading.Thread.Sleep(3000);
                     PrepareHandlers();
                     //this._status = StatusType.Nothing;
@@ -1139,6 +1131,11 @@ namespace SbotControl
                 Visable = false;
             }
             
+        }
+        public bool IsWindowVisible()
+        {
+            IntPtr wHnd = FindMainWindowInProcess(SBot.BotTitle);
+            return Win32.IsWindowVisible(wHnd.ToInt32());
         }
         public void Stop()
         {
@@ -1193,7 +1190,6 @@ namespace SbotControl
             }
             //Start();
         }
-
         void _process_Exited(object sender, EventArgs e)
         {
             //AddClientlessLoginLogItem("[00:00:00] " + botTerminatedString);

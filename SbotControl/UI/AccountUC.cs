@@ -28,7 +28,7 @@ namespace SbotControl.UI
             AddAccountFrm frm = new AddAccountFrm(acc);
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                Program.DM.Accounts.Add(acc);
+                Program.DM.AddAccount(acc);
                 Program.DM.SaveSettings();
             }
             ReloadData();
@@ -48,16 +48,30 @@ namespace SbotControl.UI
             SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
             if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
-            Program.DM.Accounts.Remove(acc);
+            Program.DM.RemoveAccount(acc);
             Program.DM.SaveSettings();
             ReloadData();
         }
-
         private void btnReset_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
             Program.DM.LoadSettings();
+            ReloadData();
+        }
+
+        private void repositoryItemCheckEditActive_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.DM.SaveSettings();
+        }
+
+        private void repositoryItemCheckEditActive_Click(object sender, EventArgs e)
+        {
+            CheckEdit ce = (CheckEdit)sender;
+            SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
+            acc.Start = !acc.Start; ce.Checked = !ce.Checked;
+            
+            Program.DM.SaveSettings();
             ReloadData();
         }
     }

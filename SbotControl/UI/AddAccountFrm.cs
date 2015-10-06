@@ -12,12 +12,12 @@ namespace SbotControl.UI
 {
     public partial class AddAccountFrm : DevExpress.XtraEditors.XtraForm
     {
+        Core.CtrLayout layout;
         string _src_charname;
         bool _src_active;
         string _src_group;
         string _src_botpath;
         SbotControl.Account _account;
-
         public AddAccountFrm(SbotControl.Account account)
         {
             InitializeComponent();
@@ -32,7 +32,16 @@ namespace SbotControl.UI
             beBotPath.DataBindings.Add("EditValue", _account, "BotFilePath");
             tbGroup.DataBindings.Add("EditValue", _account, "Group");
             ceActive.DataBindings.Add("EditValue", _account, "Start");
+            LayoutInti();
         }
+        private void LayoutInti()
+        {
+            System.IO.MemoryStream DefaultLayout = new System.IO.MemoryStream();
+            layoutControlMain.SaveLayoutToStream(DefaultLayout);
+            layout = Program.LM.GetLayout(this.GetType().ToString() + "." + layoutControlMain.Name, Convert.ToInt32(layoutControlMain.LayoutVersion == null ? "1" : layoutControlMain.LayoutVersion), DefaultLayout.ToArray());
+            layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutUser));//Load Layout From File
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             _account.charName = _src_charname;
@@ -50,6 +59,17 @@ namespace SbotControl.UI
             if (ofd.ShowDialog() == DialogResult.Cancel)
                 return;
             beBotPath.EditValue = ofd.FileName;
+        }
+        private void bbiSaveLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+            layoutControlMain.SaveLayoutToStream(ms); layout.LayoutUser = ms.ToArray();
+            Program.LM.SaveLayout();//Save Layout into File
+        }
+        private void bbiLoadLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutDefault));
+            Program.LM.SaveLayout();//Save Layout into File
         }
     }
 }

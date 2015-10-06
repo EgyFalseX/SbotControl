@@ -12,18 +12,36 @@ namespace SbotControl
 {
     public partial class AppMainFrm : DevExpress.XtraEditors.XtraForm
     {
+        Core.CtrLayout tabbedViewMainlayout;
+        Core.CtrLayout dockManagerMainlayout;
         UI.AccountUC docAccountCtr = new UI.AccountUC();
         UI.OptionsUC docOptionCtr = new UI.OptionsUC();
         UI.OnlineBotUC docOnlineCtr = new UI.OnlineBotUC();
         UI.BotLogUC docBotLogCtr = new UI.BotLogUC();
         UI.OutputUC docOutputCtr = new UI.OutputUC();
-        public AppMainFrm()
+        UI.HistoryUC docHistoryCtr = new UI.HistoryUC();
+        bool _autoStart = false;
+        public AppMainFrm(bool AutoStart)
         {
             InitializeComponent();
-
+            LayoutInti();
             //docAccount.Control = new UI.AccountUC();
+            _autoStart = AutoStart;
         }
-
+       
+        private void LayoutInti()
+        {
+            //tabbedViewMain
+            System.IO.MemoryStream tabbedViewMainDefaultLayout = new System.IO.MemoryStream();
+            tabbedViewMain.SaveLayoutToStream(tabbedViewMainDefaultLayout);
+            tabbedViewMainlayout = Program.LM.GetLayout(this.GetType().ToString() + ".tabbedViewMain", Convert.ToInt32(tabbedViewMain.OptionsLayout.LayoutVersion == null ? "1" : tabbedViewMain.OptionsLayout.LayoutVersion), tabbedViewMainDefaultLayout.ToArray());
+            tabbedViewMain.RestoreLayoutFromStream(new System.IO.MemoryStream(tabbedViewMainlayout.LayoutUser));//Load Layout From File
+            //dockManagerMain
+            System.IO.MemoryStream dockManagerMainDefaultLayout = new System.IO.MemoryStream();
+            dockManagerMain.SaveLayoutToStream(dockManagerMainDefaultLayout);
+            dockManagerMainlayout = Program.LM.GetLayout(this.GetType().ToString() + ".dockManagerMain", Convert.ToInt32(dockManagerMain.LayoutVersion == null ? "1" : dockManagerMain.LayoutVersion), dockManagerMainDefaultLayout.ToArray());
+            dockManagerMain.RestoreLayoutFromStream(new System.IO.MemoryStream(dockManagerMainlayout.LayoutUser));//Load Layout From File
+        }
         private void tabbedViewMain_QueryControl(object sender, DevExpress.XtraBars.Docking2010.Views.QueryControlEventArgs e)
         {
             if (e.Control != null)
@@ -48,11 +66,14 @@ namespace SbotControl
             {
                 e.Control = docOutputCtr;
             }
+            else if (e.Document.ControlName == "docHistory")
+            {
+                e.Control = docHistoryCtr;
+            }
             else if (e.Document.Tag != null && e.Document.Tag.GetType() == typeof(SBot))
             {
                 e.Control = new UI.BotInfoUC((SBot)e.Document.Tag);
             }
-            
         }
         private void bbiStart_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -93,7 +114,8 @@ namespace SbotControl
             }
             else
             {
-                e.Document.Control.Dispose();
+                if (e.Document.Control != null && !e.Document.Control.IsDisposed)
+                    e.Document.Control.Dispose();
             }
         }
         private void bbiAccount_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -168,6 +190,45 @@ namespace SbotControl
             docOutputCtr = new UI.OutputUC();
             tabbedViewMain.Documents.Add(nDoc);
         }
+        private void bbiHistory_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            foreach (var doc in tabbedViewMain.Documents)
+            {
+                if (doc.ControlName == "docHistory")
+                    return;
+            }
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.Document nDoc = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            nDoc.Caption = "History";
+            nDoc.ControlName = "docHistory";
+            nDoc.Image = global::SbotControl.Properties.Resources.historyitem_16x16;
+            docHistoryCtr = new UI.HistoryUC();
+            tabbedViewMain.Documents.Add(nDoc);
+        }
+        private void bbiAboutMe_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
+            new AboutUs().ShowDialog();
+        }
+        private void bbiSaveLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //tabbedViewMain
+            System.IO.MemoryStream msTab = new System.IO.MemoryStream();
+            tabbedViewMain.SaveLayoutToStream(msTab); tabbedViewMainlayout.LayoutUser = msTab.ToArray();
+            //dockManagerMain
+            System.IO.MemoryStream msDoc = new System.IO.MemoryStream();
+            dockManagerMain.SaveLayoutToStream(msDoc); dockManagerMainlayout.LayoutUser = msDoc.ToArray();
+
+            Program.LM.SaveLayout();//Save Layout into File
+        }
+        private void bbiLoadLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //tabbedViewMain
+            tabbedViewMain.RestoreLayoutFromStream(new System.IO.MemoryStream(tabbedViewMainlayout.LayoutDefault));
+            Program.LM.SaveLayout();//Save Layout into File
+            //dockManagerMain
+            dockManagerMain.RestoreLayoutFromStream(new System.IO.MemoryStream(dockManagerMainlayout.LayoutDefault));
+            Program.LM.SaveLayout();//Save Layout into File
+        }
         public void ShowBotDetailsTab(SBot sbot)
         {
             foreach (var doc in tabbedViewMain.Documents)
@@ -178,7 +239,7 @@ namespace SbotControl
                     return;
                 }
             }
-            this.Invoke(new MethodInvoker(() => 
+            this.Invoke(new MethodInvoker(() =>
             {
                 DevExpress.XtraBars.Docking2010.Views.Tabbed.Document nDoc = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
                 nDoc.Caption = sbot.CharName;
@@ -188,13 +249,15 @@ namespace SbotControl
                 tabbedViewMain.Documents.Add(nDoc);
                 tabbedViewMain.ActivateDocument(nDoc.Control);
             }));
-            
+
         }
-        private void bbiAboutMe_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+
+        private void AppMainFrm_Shown(object sender, EventArgs e)
         {
-            //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
-            new AboutUs().ShowDialog();
+            if (_autoStart)
+            {
+                bbiStart_ItemClick(bbiStart, null);
+            }
         }
-        
     }
 }

@@ -44,6 +44,8 @@ namespace SbotControl.UI
         }
         private void TmrUIBotInfo_Tick(object sender, EventArgs e)
         {
+            if (_lastLogRecord == 0)
+                _lastLogRecord = Program.BM.BotLogs.Count;
             for (int i = _lastLogRecord; i < Program.BM.BotLogs.Count; i++)
             {
                 _lastLogRecord++;

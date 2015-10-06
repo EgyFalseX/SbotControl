@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.ceRunAtStartup = new DevExpress.XtraEditors.CheckEdit();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.galleryControlMain = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
+            this.ceRunAtStartup = new DevExpress.XtraEditors.CheckEdit();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceRunAtStartup.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryControlMain)).BeginInit();
             this.galleryControlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceRunAtStartup.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,36 +58,6 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // layoutControlGroup1
-            // 
-            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-            this.layoutControlGroup1.GroupBordersVisible = false;
-            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1,
-            this.layoutControlItem2});
-            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(581, 306);
-            this.layoutControlGroup1.TextVisible = false;
-            // 
-            // ceRunAtStartup
-            // 
-            this.ceRunAtStartup.Location = new System.Drawing.Point(12, 12);
-            this.ceRunAtStartup.Name = "ceRunAtStartup";
-            this.ceRunAtStartup.Properties.Caption = "Start with windows [Automation]";
-            this.ceRunAtStartup.Size = new System.Drawing.Size(557, 19);
-            this.ceRunAtStartup.StyleController = this.layoutControl1;
-            this.ceRunAtStartup.TabIndex = 4;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.ceRunAtStartup;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(561, 23);
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem1.TextVisible = false;
-            // 
             // galleryControlMain
             // 
             this.galleryControlMain.Controls.Add(this.galleryControlClient1);
@@ -97,6 +67,7 @@
             // 
             // 
             this.galleryControlMain.Gallery.ShowItemText = true;
+            this.galleryControlMain.Gallery.ItemClick += new DevExpress.XtraBars.Ribbon.GalleryItemClickEventHandler(this.galleryControlMain_Gallery_ItemClick);
             this.galleryControlMain.Location = new System.Drawing.Point(12, 35);
             this.galleryControlMain.Name = "galleryControlMain";
             this.galleryControlMain.Size = new System.Drawing.Size(557, 259);
@@ -109,6 +80,37 @@
             this.galleryControlClient1.GalleryControl = this.galleryControlMain;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
             this.galleryControlClient1.Size = new System.Drawing.Size(536, 255);
+            // 
+            // ceRunAtStartup
+            // 
+            this.ceRunAtStartup.Location = new System.Drawing.Point(12, 12);
+            this.ceRunAtStartup.Name = "ceRunAtStartup";
+            this.ceRunAtStartup.Properties.Caption = "Start with windows [Automation]";
+            this.ceRunAtStartup.Size = new System.Drawing.Size(557, 19);
+            this.ceRunAtStartup.StyleController = this.layoutControl1;
+            this.ceRunAtStartup.TabIndex = 4;
+            this.ceRunAtStartup.CheckedChanged += new System.EventHandler(this.ceRunAtStartup_CheckedChanged);
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1,
+            this.layoutControlItem2});
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(581, 306);
+            this.layoutControlGroup1.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.ceRunAtStartup;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(561, 23);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
@@ -128,11 +130,11 @@
             this.Size = new System.Drawing.Size(581, 306);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceRunAtStartup.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.galleryControlMain)).EndInit();
             this.galleryControlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ceRunAtStartup.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 

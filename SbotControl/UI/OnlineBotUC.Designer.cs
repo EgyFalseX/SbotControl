@@ -96,6 +96,9 @@
             this.bbiStartTraining = new DevExpress.XtraBars.BarButtonItem();
             this.bbiStopTraining = new DevExpress.XtraBars.BarButtonItem();
             this.barManagerMain = new DevExpress.XtraBars.BarManager(this.components);
+            this.bar2 = new DevExpress.XtraBars.Bar();
+            this.bbiSaveLayout = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiLoadLayout = new DevExpress.XtraBars.BarButtonItem();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -151,7 +154,7 @@
             this.repositoryItemCheckEditVisable,
             this.repositoryItemTextEditn0,
             this.repositoryItemPictureEditBar});
-            this.gridControlOverall.Size = new System.Drawing.Size(854, 451);
+            this.gridControlOverall.Size = new System.Drawing.Size(820, 451);
             this.gridControlOverall.TabIndex = 1;
             this.gridControlOverall.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GridMain});
@@ -250,6 +253,13 @@
             this.GridMain.GroupCount = 1;
             this.GridMain.Name = "GridMain";
             this.GridMain.OptionsBehavior.ReadOnly = true;
+            this.GridMain.OptionsLayout.Columns.StoreAllOptions = true;
+            this.GridMain.OptionsLayout.Columns.StoreAppearance = true;
+            this.GridMain.OptionsLayout.LayoutVersion = "1";
+            this.GridMain.OptionsLayout.StoreAllOptions = true;
+            this.GridMain.OptionsLayout.StoreAppearance = true;
+            this.GridMain.OptionsLayout.StoreFormatRules = true;
+            this.GridMain.OptionsSelection.MultiSelect = true;
             this.GridMain.OptionsView.ShowFooter = true;
             this.GridMain.OptionsView.ShowGroupPanel = false;
             this.GridMain.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
@@ -881,6 +891,8 @@
             // 
             // barManagerMain
             // 
+            this.barManagerMain.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.bar2});
             this.barManagerMain.DockControls.Add(this.barDockControlTop);
             this.barManagerMain.DockControls.Add(this.barDockControlBottom);
             this.barManagerMain.DockControls.Add(this.barDockControlLeft);
@@ -901,8 +913,41 @@
             this.bbiCloseAll,
             this.bbiShowHide,
             this.bbiShowAll,
-            this.bbiHideAll});
-            this.barManagerMain.MaxItemId = 16;
+            this.bbiHideAll,
+            this.bbiSaveLayout,
+            this.bbiLoadLayout});
+            this.barManagerMain.MainMenu = this.bar2;
+            this.barManagerMain.MaxItemId = 18;
+            // 
+            // bar2
+            // 
+            this.bar2.BarName = "Custom 3";
+            this.bar2.DockCol = 0;
+            this.bar2.DockRow = 0;
+            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Right;
+            this.bar2.FloatLocation = new System.Drawing.Point(886, 236);
+            this.bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiSaveLayout),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiLoadLayout)});
+            this.bar2.OptionsBar.MultiLine = true;
+            this.bar2.OptionsBar.UseWholeRow = true;
+            this.bar2.Text = "Custom 3";
+            // 
+            // bbiSaveLayout
+            // 
+            this.bbiSaveLayout.Caption = "SaveLayout";
+            this.bbiSaveLayout.Glyph = global::SbotControl.Properties.Resources.apply_16x16;
+            this.bbiSaveLayout.Id = 16;
+            this.bbiSaveLayout.Name = "bbiSaveLayout";
+            this.bbiSaveLayout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiSaveLayout_ItemClick);
+            // 
+            // bbiLoadLayout
+            // 
+            this.bbiLoadLayout.Caption = "LoadLayout";
+            this.bbiLoadLayout.Glyph = global::SbotControl.Properties.Resources.cancel_16x16;
+            this.bbiLoadLayout.Id = 17;
+            this.bbiLoadLayout.Name = "bbiLoadLayout";
+            this.bbiLoadLayout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiLoadLayout_ItemClick);
             // 
             // barDockControlTop
             // 
@@ -929,8 +974,8 @@
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(854, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 451);
+            this.barDockControlRight.Location = new System.Drawing.Point(820, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(34, 451);
             // 
             // OnlineBotUC
             // 
@@ -1016,5 +1061,8 @@
         private DevExpress.XtraBars.BarButtonItem bbiShowHide;
         private DevExpress.XtraBars.BarButtonItem bbiShowAll;
         private DevExpress.XtraBars.BarButtonItem bbiHideAll;
+        private DevExpress.XtraBars.Bar bar2;
+        private DevExpress.XtraBars.BarButtonItem bbiSaveLayout;
+        private DevExpress.XtraBars.BarButtonItem bbiLoadLayout;
     }
 }

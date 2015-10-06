@@ -156,3 +156,10 @@ ServerList = new System.Data.DataTable();
         }
 
 _____________________________________________________________________________________________________________________________
+
+[done need check]stop stuck timer if bot have no account
+[done need check]timer for any new starting bots
+[done]save logs
+[done]multi command
+[done]change Start check without go to edit form
+[done]stop auto refrsh form history tab when its not active

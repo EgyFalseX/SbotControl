@@ -12,9 +12,79 @@ namespace SbotControl.UI
 {
     public partial class HistoryUC : DevExpress.XtraEditors.XtraUserControl
     {
+        public System.Threading.Timer tmrPuls;
         public HistoryUC()
         {
             InitializeComponent();
+            XPSCSData.Session.ConnectionString = Properties.Settings.Default.LogDataConnectionString;
+            tmrPuls = new System.Threading.Timer(_ => tmrPuls_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+        }
+        void tmrPuls_Tick()
+        {
+            if (!gridControlHistory.Created)
+                return;
+            this.Invoke(new MethodInvoker(() => 
+            {
+                //Save Focused row
+                object id = gridViewHistory.GetRowCellValue(gridViewHistory.FocusedRowHandle, gridViewHistory.Columns["AutoId"]);
+
+                XPSCSData.Session.DropIdentityMap();
+                XPSCSData.Reload();
+                //gridControlHistory.RefreshDataSource();
+                gridViewHistory.RefreshData();
+                
+                //Reselect Focused row
+                gridViewHistory.LocateByValue(0, gridViewHistory.Columns["AutoId"], id);
+                gridViewHistory.MakeRowVisible(gridViewHistory.FocusedRowHandle, false);
+            }));
+        }
+        public void AutoRefreshSwitch(bool On)
+        {
+            if (On)
+                tmrPuls.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            else
+                tmrPuls.Change(1000 * 5, 1000 * 5);
+        }
+        private void bbiExportExcel_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (sfd.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = sfd.FileName;
+            if (!filename.Contains(".xlsx"))
+                filename += ".xlsx";
+            gridControlHistory.ExportToXlsx(filename);
+        }
+        private void bbiExportCSV_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (sfd.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = sfd.FileName;
+            if (!filename.Contains(".csv"))
+                filename += ".csv";
+            gridControlHistory.ExportToCsv(filename);
+        }
+        private void bbiExportPDF_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (sfd.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = sfd.FileName;
+            if (!filename.Contains(".pdf"))
+                filename += ".pdf";
+            gridControlHistory.ExportToPdf(filename);
+        }
+        private void bbiExportText_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (sfd.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filename = sfd.FileName;
+            if (!filename.Contains(".Text"))
+                filename += ".Text";
+            gridControlHistory.ExportToText(filename);
+        }
+        private void btsiAutoRefresh_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            DevExpress.XtraBars.BarToggleSwitchItem obj = (DevExpress.XtraBars.BarToggleSwitchItem)e.Item;
+            AutoRefreshSwitch(obj.Checked);
         }
     }
 }

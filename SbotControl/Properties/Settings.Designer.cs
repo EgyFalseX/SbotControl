@@ -69,5 +69,17 @@ namespace SbotControl.Properties {
                 return ((string)(this["LogDataConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Visual Studio 2013 Dark")]
+        public string SkinName {
+            get {
+                return ((string)(this["SkinName"]));
+            }
+            set {
+                this["SkinName"] = value;
+            }
+        }
     }
 }

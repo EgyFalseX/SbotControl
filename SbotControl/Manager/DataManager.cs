@@ -10,12 +10,22 @@ using System.Data;
 
 namespace SbotControl
 {
-    class DataManager
+    public class DataManager
     {
         public static string DataPath { get { return Application.StartupPath + "\\Data.xml" ;} }
+        public static string LayoutDataPath { get { return Application.StartupPath + "\\LayoutData"; } }
         public static string ServerListPath { get { return Application.StartupPath + "\\ServersList.txt"; } }
         public List<Account> Accounts = new List<Account>();
         public static Dictionary<string, string> ServerList = new Dictionary<string, string>();
+        public enum ChangesType
+        {
+            Added,
+            Deleted,
+            ActiveTrue,
+            ActiveFalse,
+        }
+        public delegate void AccountListChangedEventhandler(Account sender, ChangesType e);
+        public event AccountListChangedEventhandler AccountListChanged;
         private static Datasource.dsDataTableAdapters.ExceptionTableAdapter adpEx = new Datasource.dsDataTableAdapters.ExceptionTableAdapter();
 
         public bool SaveSettings()
@@ -40,6 +50,8 @@ namespace SbotControl
                 Accounts = DeSerializeObject<List<Account>>(DataPath);
                 if (Accounts == null)
                     Accounts = new List<Account>();
+                foreach (Account item in Accounts)
+                    item.PropertyChanged += Account_PropertyChanged;
             }
             catch (Exception ex)
             {
@@ -68,7 +80,32 @@ namespace SbotControl
                 sr.Close();
             }
         }
-        
+
+        public void AddAccount(Account account)
+        {
+            Accounts.Add(account);
+            account.PropertyChanged += Account_PropertyChanged;
+            if (AccountListChanged != null)
+                AccountListChanged(account, ChangesType.Added);
+        }
+        private void Account_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "Start")
+                return;
+            if (AccountListChanged != null)
+            {
+                if (((Account)sender).Start)
+                    AccountListChanged((Account)sender, ChangesType.ActiveTrue);
+                else
+                    AccountListChanged((Account)sender, ChangesType.ActiveFalse);
+            }
+        }
+        public void RemoveAccount(Account account)
+        {
+            Accounts.Remove(account);
+            if (AccountListChanged != null)
+                AccountListChanged(account, ChangesType.Deleted);
+        }
         /// <summary>
         /// Serializes an object.
         /// </summary>

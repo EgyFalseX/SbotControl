@@ -165,6 +165,7 @@
             // 
             this.repositoryItemCheckEditActive.AutoHeight = false;
             this.repositoryItemCheckEditActive.Name = "repositoryItemCheckEditActive";
+            this.repositoryItemCheckEditActive.Click += new System.EventHandler(this.repositoryItemCheckEditActive_Click);
             // 
             // colIbotFilePath
             // 

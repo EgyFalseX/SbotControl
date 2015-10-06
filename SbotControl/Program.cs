@@ -10,6 +10,7 @@ namespace SbotControl
     {
         public static DataManager DM;
         public static BotsManager BM;
+        public static Manager.CtrLayoutManager LM;
         public static Log Logger = new Log();
         public static Core.db dbOperations;
 
@@ -17,9 +18,9 @@ namespace SbotControl
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] Args)
         {
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark";
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = Properties.Settings.Default.SkinName;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DevExpress.Data.CurrencyDataController.DisableThreadingProblemsDetection = true;
@@ -27,17 +28,26 @@ namespace SbotControl
             Init();
             try
             {
-                Application.Run(new AppMainFrm());
+                //Test();
+                bool AutoStart = false;
+                foreach (string item in Args)
+                {
+                    if (item == "AutoStart")
+                        AutoStart = true;
+                }
+                Application.Run(new AppMainFrm(AutoStart));
             }
             catch(Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 dbOperations.SaveToEx("Program", ex.Message, ex.StackTrace);
             }
         }
         static void Init()
         {
             DM = new DataManager();
-            BM = new BotsManager();
+            BM = new BotsManager(DM);
+            LM = new Manager.CtrLayoutManager(DataManager.LayoutDataPath);
             //DM.LoadServerList();
             DM.LoadSettings();
             dbOperations = new Core.db();
@@ -47,12 +57,23 @@ namespace SbotControl
             RegistryKey add = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (AddReg)
             {
-               add.SetValue(Application.ProductName, "\"" + Application.ExecutablePath.ToString() + "\"");
+               add.SetValue(Application.ProductName, "\"" + Application.ExecutablePath.ToString() + "\" AutoStart");
             }
             else
             {
                 if (add.GetValue(Application.ProductName) != null)
                     add.DeleteValue(Application.ProductName);
+            }
+        }
+        private  static void Test()
+        {
+            MessageBox.Show(Environment.NewLine.ToString());
+            string x = @"r. 
+[20:02:00] * Weapon switching failed! Trying again later.";
+
+            foreach (char item in x)
+            {
+                MessageBox.Show(Convert.ToString(item));
             }
         }
 

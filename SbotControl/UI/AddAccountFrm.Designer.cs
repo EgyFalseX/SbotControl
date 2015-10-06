@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAccountFrm));
-            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.layoutControlMain = new DevExpress.XtraLayout.LayoutControl();
             this.tbGroup = new DevExpress.XtraEditors.TextEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
@@ -44,8 +44,16 @@
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
-            this.layoutControl1.SuspendLayout();
+            this.barManagerMain = new DevExpress.XtraBars.BarManager();
+            this.barLayout = new DevExpress.XtraBars.Bar();
+            this.bbiSaveLayout = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiLoadLayout = new DevExpress.XtraBars.BarButtonItem();
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlMain)).BeginInit();
+            this.layoutControlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceActive.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.beBotPath.Properties)).BeginInit();
@@ -57,39 +65,41 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).BeginInit();
             this.SuspendLayout();
             // 
-            // layoutControl1
+            // layoutControlMain
             // 
-            this.layoutControl1.Controls.Add(this.tbGroup);
-            this.layoutControl1.Controls.Add(this.btnCancel);
-            this.layoutControl1.Controls.Add(this.btnSave);
-            this.layoutControl1.Controls.Add(this.ceActive);
-            this.layoutControl1.Controls.Add(this.beBotPath);
-            this.layoutControl1.Controls.Add(this.tbCharName);
-            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutControl1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(417, 146);
-            this.layoutControl1.TabIndex = 0;
-            this.layoutControl1.Text = "layoutControl1";
+            this.layoutControlMain.Controls.Add(this.tbGroup);
+            this.layoutControlMain.Controls.Add(this.btnCancel);
+            this.layoutControlMain.Controls.Add(this.btnSave);
+            this.layoutControlMain.Controls.Add(this.ceActive);
+            this.layoutControlMain.Controls.Add(this.beBotPath);
+            this.layoutControlMain.Controls.Add(this.tbCharName);
+            this.layoutControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControlMain.LayoutVersion = "2";
+            this.layoutControlMain.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlMain.Name = "layoutControlMain";
+            this.layoutControlMain.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(650, 390, 412, 473);
+            this.layoutControlMain.Root = this.layoutControlGroup1;
+            this.layoutControlMain.Size = new System.Drawing.Size(383, 143);
+            this.layoutControlMain.TabIndex = 0;
             // 
             // tbGroup
             // 
             this.tbGroup.Location = new System.Drawing.Point(68, 60);
             this.tbGroup.Name = "tbGroup";
-            this.tbGroup.Size = new System.Drawing.Size(337, 20);
-            this.tbGroup.StyleController = this.layoutControl1;
+            this.tbGroup.Size = new System.Drawing.Size(303, 20);
+            this.tbGroup.StyleController = this.layoutControlMain;
             this.tbGroup.TabIndex = 9;
             // 
             // btnCancel
             // 
             this.btnCancel.Image = global::SbotControl.Properties.Resources.Delete;
-            this.btnCancel.Location = new System.Drawing.Point(313, 107);
+            this.btnCancel.Location = new System.Drawing.Point(287, 107);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(92, 22);
-            this.btnCancel.StyleController = this.layoutControl1;
+            this.btnCancel.Size = new System.Drawing.Size(84, 22);
+            this.btnCancel.StyleController = this.layoutControlMain;
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -99,8 +109,8 @@
             this.btnSave.Image = global::SbotControl.Properties.Resources.Edit;
             this.btnSave.Location = new System.Drawing.Point(12, 107);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(297, 22);
-            this.btnSave.StyleController = this.layoutControl1;
+            this.btnSave.Size = new System.Drawing.Size(271, 22);
+            this.btnSave.StyleController = this.layoutControlMain;
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -110,8 +120,8 @@
             this.ceActive.Location = new System.Drawing.Point(12, 84);
             this.ceActive.Name = "ceActive";
             this.ceActive.Properties.Caption = "Active";
-            this.ceActive.Size = new System.Drawing.Size(393, 19);
-            this.ceActive.StyleController = this.layoutControl1;
+            this.ceActive.Size = new System.Drawing.Size(359, 19);
+            this.ceActive.StyleController = this.layoutControlMain;
             this.ceActive.TabIndex = 6;
             // 
             // beBotPath
@@ -120,8 +130,8 @@
             this.beBotPath.Name = "beBotPath";
             this.beBotPath.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.beBotPath.Size = new System.Drawing.Size(337, 20);
-            this.beBotPath.StyleController = this.layoutControl1;
+            this.beBotPath.Size = new System.Drawing.Size(303, 20);
+            this.beBotPath.StyleController = this.layoutControlMain;
             this.beBotPath.TabIndex = 5;
             this.beBotPath.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.beBotPath_ButtonClick);
             // 
@@ -129,8 +139,8 @@
             // 
             this.tbCharName.Location = new System.Drawing.Point(68, 12);
             this.tbCharName.Name = "tbCharName";
-            this.tbCharName.Size = new System.Drawing.Size(337, 20);
-            this.tbCharName.StyleController = this.layoutControl1;
+            this.tbCharName.Size = new System.Drawing.Size(303, 20);
+            this.tbCharName.StyleController = this.layoutControlMain;
             this.tbCharName.TabIndex = 4;
             // 
             // layoutControlGroup1
@@ -145,8 +155,8 @@
             this.layoutControlItem5,
             this.layoutControlItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(417, 146);
+            this.layoutControlGroup1.Name = "Root";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(383, 143);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -154,7 +164,7 @@
             this.layoutControlItem1.Control = this.tbCharName;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(397, 24);
+            this.layoutControlItem1.Size = new System.Drawing.Size(363, 24);
             this.layoutControlItem1.Text = "Char Name";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(53, 13);
             // 
@@ -163,7 +173,7 @@
             this.layoutControlItem2.Control = this.beBotPath;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(397, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(363, 24);
             this.layoutControlItem2.Text = "Bot Path";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(53, 13);
             // 
@@ -172,7 +182,7 @@
             this.layoutControlItem3.Control = this.ceActive;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(397, 23);
+            this.layoutControlItem3.Size = new System.Drawing.Size(363, 23);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -181,16 +191,16 @@
             this.layoutControlItem4.Control = this.btnSave;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 95);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(301, 31);
+            this.layoutControlItem4.Size = new System.Drawing.Size(275, 28);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnCancel;
-            this.layoutControlItem5.Location = new System.Drawing.Point(301, 95);
+            this.layoutControlItem5.Location = new System.Drawing.Point(275, 95);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(96, 31);
+            this.layoutControlItem5.Size = new System.Drawing.Size(88, 28);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -199,7 +209,7 @@
             this.layoutControlItem6.Control = this.tbGroup;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(397, 24);
+            this.layoutControlItem6.Size = new System.Drawing.Size(363, 24);
             this.layoutControlItem6.Text = "Group";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(53, 13);
             // 
@@ -207,18 +217,95 @@
             // 
             this.ofd.Filter = "sbot2*.exe|*.exe";
             // 
+            // barManagerMain
+            // 
+            this.barManagerMain.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.barLayout});
+            this.barManagerMain.DockControls.Add(this.barDockControlTop);
+            this.barManagerMain.DockControls.Add(this.barDockControlBottom);
+            this.barManagerMain.DockControls.Add(this.barDockControlLeft);
+            this.barManagerMain.DockControls.Add(this.barDockControlRight);
+            this.barManagerMain.Form = this;
+            this.barManagerMain.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.bbiSaveLayout,
+            this.bbiLoadLayout});
+            this.barManagerMain.MainMenu = this.barLayout;
+            this.barManagerMain.MaxItemId = 4;
+            // 
+            // barLayout
+            // 
+            this.barLayout.BarName = "Main menu";
+            this.barLayout.DockCol = 0;
+            this.barLayout.DockRow = 0;
+            this.barLayout.DockStyle = DevExpress.XtraBars.BarDockStyle.Right;
+            this.barLayout.FloatLocation = new System.Drawing.Point(459, 228);
+            this.barLayout.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiSaveLayout),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiLoadLayout)});
+            this.barLayout.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.All;
+            this.barLayout.OptionsBar.UseWholeRow = true;
+            this.barLayout.Text = "Main menu";
+            // 
+            // bbiSaveLayout
+            // 
+            this.bbiSaveLayout.Caption = "Save Layout";
+            this.bbiSaveLayout.Glyph = global::SbotControl.Properties.Resources.apply_16x16;
+            this.bbiSaveLayout.Id = 0;
+            this.bbiSaveLayout.Name = "bbiSaveLayout";
+            this.bbiSaveLayout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiSaveLayout_ItemClick);
+            // 
+            // bbiLoadLayout
+            // 
+            this.bbiLoadLayout.Caption = "Load Layout";
+            this.bbiLoadLayout.Glyph = global::SbotControl.Properties.Resources.cancel_16x16;
+            this.bbiLoadLayout.Id = 1;
+            this.bbiLoadLayout.Name = "bbiLoadLayout";
+            this.bbiLoadLayout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiLoadLayout_ItemClick);
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(417, 0);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 143);
+            this.barDockControlBottom.Size = new System.Drawing.Size(417, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 143);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(383, 0);
+            this.barDockControlRight.Size = new System.Drawing.Size(34, 143);
+            // 
             // AddAccountFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 146);
-            this.Controls.Add(this.layoutControl1);
+            this.ClientSize = new System.Drawing.Size(417, 143);
+            this.Controls.Add(this.layoutControlMain);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddAccountFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add/Edit Account";
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
-            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlMain)).EndInit();
+            this.layoutControlMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbGroup.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ceActive.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.beBotPath.Properties)).EndInit();
@@ -230,13 +317,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControl layoutControlMain;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.SimpleButton btnSave;
@@ -251,5 +340,13 @@
         private System.Windows.Forms.OpenFileDialog ofd;
         private DevExpress.XtraEditors.TextEdit tbGroup;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraBars.BarManager barManagerMain;
+        private DevExpress.XtraBars.Bar barLayout;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem bbiSaveLayout;
+        private DevExpress.XtraBars.BarButtonItem bbiLoadLayout;
     }
 }

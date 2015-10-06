@@ -10,12 +10,13 @@ namespace SbotControl
 {
     public class BotsManager
     {
-        public BotsManager()
+        public BotsManager(SbotControl.DataManager dm)
         {
             //ManagerOnline = true;
             //GetStartedIBots();
             BotLogs = new List<Core.BotLogUnit>();
             tmrSearch = new System.Threading.Timer(_ => tmrSearch_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+            dm.AccountListChanged += Dm_AccountListChanged;
         }
         public List<SBot> Bots = new List<SBot>();
         public List<Core.BotLogUnit> BotLogs { get; set; }
@@ -43,7 +44,25 @@ namespace SbotControl
         {
             get { return _managerStatus; }
         }
-
+        private void Dm_AccountListChanged(Account sender, DataManager.ChangesType e)
+        {
+            switch (e)
+            {
+                case DataManager.ChangesType.Added:
+                    AddAccount(sender);
+                    break;
+                case DataManager.ChangesType.Deleted:
+                    RemoveAccount(sender);
+                    break;
+                case DataManager.ChangesType.ActiveTrue:
+                    AddBot(sender);
+                    break;
+                case DataManager.ChangesType.ActiveFalse:
+                    break;
+                default:
+                    break;
+            }
+        }
         public void AddAccount(string Charname, bool Start, bool DCRestart, bool ScrollUnknowSpot, string SbotFilePath)
         {
             
@@ -86,6 +105,17 @@ namespace SbotControl
                 AccountListChanged(Program.DM.Accounts[index], ChangesType.Deleted);
             Program.DM.Accounts.RemoveAt(index);
         }
+        public void RemoveAccount(Account account)
+        {
+            if (account.bot != null)
+            {
+                MessageBox.Show("Can't delete bot already processed.", "Warning...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (AccountListChanged != null)
+                AccountListChanged(account, ChangesType.Deleted);
+            Program.DM.Accounts.Remove(account);
+        }
         public Account SearchAccount(string charName)
         {
             Account acc = null;
@@ -108,6 +138,8 @@ namespace SbotControl
         {
             lock (this)
             {
+                if (SearchBot(account.charName) != null)
+                    return;
                 SBot bot = SBot.CreateSbot();
                 account.bot = bot; bot.BotAccount = account;
                 AddBot(bot);
@@ -118,6 +150,9 @@ namespace SbotControl
             lock (this)
             {
                 SBot bot = SBot.CreateSbot(botprocess);
+                while (!bot.BotProcess.Responding)
+                    return;
+
                 bot.PrepareHandlers(); bot.InitiProperties(); //bot.GetClientlessLoginLog();
                 if (bot.CharName == string.Empty)
                     return;
@@ -148,11 +183,13 @@ namespace SbotControl
 
         private void Bot_LogAdded(SBot sender, string Log)
         {
-            BotLogs.Add(new Core.BotLogUnit(sender.CharName, DateTime.Now.ToShortDateString(), Log));
+            lock (BotLogs)
+            {
+                BotLogs.Add(new Core.BotLogUnit(sender.CharName, DateTime.Now.ToShortDateString(), Log));
+            }
             //Save Log
             Program.dbOperations.SaveToLog(Core.db.LogType.BotLog, sender.CharName, Log.Trim());
         }
-
         public void RemoveBot(SBot bot)
         {
             if (BotListChanged != null)
@@ -201,7 +238,7 @@ namespace SbotControl
                     process.Kill();
             }
         }
-        public SBot SearchBot(string CharName, string ServerName)
+        public SBot SearchBot(string CharName)
         {
             SBot bot = null;
             for (int i = 0; i < Bots.Count; i++)
@@ -307,7 +344,7 @@ namespace SbotControl
                 if (ManagerStatusChanged != null)
                     ManagerStatusChanged(this, ManagerStatusType.Started);
 
-                tmrSearch.Change(1000 * 5, System.Threading.Timeout.Infinite);
+                tmrSearch.Change(1000 * 10, 1000 * 10);
             });
             
         }
