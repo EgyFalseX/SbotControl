@@ -15,12 +15,22 @@ namespace SbotControl.UI
         public OutputUC()
         {
             InitializeComponent();
-            this.Disposed += OutputUC_Disposed;
-            Program.Logger.AddUI(rtbLogs, Log.LogLevel.Debug);
+            try
+            {
+                this.Disposed += OutputUC_Disposed;
+                Program.Logger.AddUI(rtbLogs, Log.LogLevel.Debug);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void OutputUC_Disposed(object sender, EventArgs e)
         {
-            Program.Logger.RemoveUI(rtbLogs, Log.LogLevel.Debug);
+            try
+            {
+                Program.Logger.RemoveUI(rtbLogs, Log.LogLevel.Debug);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
     }
 }

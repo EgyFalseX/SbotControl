@@ -52,8 +52,11 @@
             this.gcGroup = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colBotStatus = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gcHP = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.repositoryItemPictureEditBar = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
+            this.repositoryItemProgressBarHP = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.gcMP = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemProgressBarMP = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
+            this.gcExp = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemProgressBarExp = new DevExpress.XtraEditors.Repository.RepositoryItemProgressBar();
             this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colGoldLoop = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colGoldPetHour = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
@@ -78,6 +81,7 @@
             this.colLevel = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colSkillPoint = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colGold = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.repositoryItemPictureEditBar = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.TmrUIBotInfo = new System.Windows.Forms.Timer(this.components);
             this.popupMenuGrid = new DevExpress.XtraBars.PopupMenu(this.components);
             this.bbiShowDetails = new DevExpress.XtraBars.BarButtonItem();
@@ -106,8 +110,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarHP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarMP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarExp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).BeginInit();
             this.SuspendLayout();
@@ -153,7 +160,10 @@
             this.gridControlOverall.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEditVisable,
             this.repositoryItemTextEditn0,
-            this.repositoryItemPictureEditBar});
+            this.repositoryItemPictureEditBar,
+            this.repositoryItemProgressBarHP,
+            this.repositoryItemProgressBarMP,
+            this.repositoryItemProgressBarExp});
             this.gridControlOverall.Size = new System.Drawing.Size(820, 451);
             this.gridControlOverall.TabIndex = 1;
             this.gridControlOverall.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -194,7 +204,8 @@
             this.colGoldLoop,
             this.colGoldPetHour,
             this.gcHP,
-            this.gcMP});
+            this.gcMP,
+            this.gcExp});
             gridFormatRule1.Column = this.colConnectionQualityCur;
             gridFormatRule1.ColumnApplyTo = this.colConnectionQualityCur;
             gridFormatRule1.Name = "FormatQualityCur0_1000";
@@ -276,9 +287,10 @@
             this.gridBand1.Columns.Add(this.colBotStatus);
             this.gridBand1.Columns.Add(this.gcHP);
             this.gridBand1.Columns.Add(this.gcMP);
+            this.gridBand1.Columns.Add(this.gcExp);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 495;
+            this.gridBand1.Width = 570;
             // 
             // colVisable
             // 
@@ -350,18 +362,22 @@
             this.gcHP.AppearanceHeader.Options.UseTextOptions = true;
             this.gcHP.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gcHP.Caption = "HP";
-            this.gcHP.ColumnEdit = this.repositoryItemPictureEditBar;
-            this.gcHP.FieldName = "HPBar";
+            this.gcHP.ColumnEdit = this.repositoryItemProgressBarHP;
+            this.gcHP.FieldName = "CharHPProgressBar";
             this.gcHP.Name = "gcHP";
             this.gcHP.OptionsColumn.AllowEdit = false;
             this.gcHP.OptionsColumn.ReadOnly = true;
             this.gcHP.Visible = true;
-            this.gcHP.Width = 111;
+            this.gcHP.Width = 88;
             // 
-            // repositoryItemPictureEditBar
+            // repositoryItemProgressBarHP
             // 
-            this.repositoryItemPictureEditBar.Name = "repositoryItemPictureEditBar";
-            this.repositoryItemPictureEditBar.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.Image;
+            this.repositoryItemProgressBarHP.EndColor = System.Drawing.Color.Pink;
+            this.repositoryItemProgressBarHP.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
+            this.repositoryItemProgressBarHP.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBarHP.Name = "repositoryItemProgressBarHP";
+            this.repositoryItemProgressBarHP.ShowTitle = true;
+            this.repositoryItemProgressBarHP.StartColor = System.Drawing.Color.DarkRed;
             // 
             // gcMP
             // 
@@ -370,13 +386,46 @@
             this.gcMP.AppearanceHeader.Options.UseTextOptions = true;
             this.gcMP.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gcMP.Caption = "MP";
-            this.gcMP.ColumnEdit = this.repositoryItemPictureEditBar;
-            this.gcMP.FieldName = "MPBar";
+            this.gcMP.ColumnEdit = this.repositoryItemProgressBarMP;
+            this.gcMP.FieldName = "CharMPProgressBar";
             this.gcMP.Name = "gcMP";
             this.gcMP.OptionsColumn.AllowEdit = false;
             this.gcMP.OptionsColumn.ReadOnly = true;
             this.gcMP.Visible = true;
-            this.gcMP.Width = 115;
+            this.gcMP.Width = 93;
+            // 
+            // repositoryItemProgressBarMP
+            // 
+            this.repositoryItemProgressBarMP.EndColor = System.Drawing.Color.CornflowerBlue;
+            this.repositoryItemProgressBarMP.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
+            this.repositoryItemProgressBarMP.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBarMP.Name = "repositoryItemProgressBarMP";
+            this.repositoryItemProgressBarMP.ShowTitle = true;
+            this.repositoryItemProgressBarMP.StartColor = System.Drawing.Color.DarkBlue;
+            // 
+            // gcExp
+            // 
+            this.gcExp.AppearanceCell.Options.UseTextOptions = true;
+            this.gcExp.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcExp.AppearanceHeader.Options.UseTextOptions = true;
+            this.gcExp.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gcExp.Caption = "Exp";
+            this.gcExp.ColumnEdit = this.repositoryItemProgressBarExp;
+            this.gcExp.FieldName = "CharExpProgressBar";
+            this.gcExp.Name = "gcExp";
+            this.gcExp.OptionsColumn.AllowEdit = false;
+            this.gcExp.OptionsColumn.ReadOnly = true;
+            this.gcExp.Visible = true;
+            this.gcExp.Width = 120;
+            // 
+            // repositoryItemProgressBarExp
+            // 
+            this.repositoryItemProgressBarExp.EndColor = System.Drawing.Color.Lime;
+            this.repositoryItemProgressBarExp.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
+            this.repositoryItemProgressBarExp.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.repositoryItemProgressBarExp.Name = "repositoryItemProgressBarExp";
+            this.repositoryItemProgressBarExp.ShowTitle = true;
+            this.repositoryItemProgressBarExp.StartColor = System.Drawing.Color.DarkGreen;
             // 
             // gridBand4
             // 
@@ -744,6 +793,11 @@
             this.colGold.Visible = true;
             this.colGold.Width = 95;
             // 
+            // repositoryItemPictureEditBar
+            // 
+            this.repositoryItemPictureEditBar.Name = "repositoryItemPictureEditBar";
+            this.repositoryItemPictureEditBar.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.Image;
+            // 
             // TmrUIBotInfo
             // 
             this.TmrUIBotInfo.Interval = 1000;
@@ -992,8 +1046,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOverall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEditVisable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarHP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarMP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemProgressBarExp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditn0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEditBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).EndInit();
             this.ResumeLayout(false);
@@ -1052,10 +1109,6 @@
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
-        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
         private DevExpress.XtraBars.BarButtonItem bbiSaveSettings;
         private DevExpress.XtraBars.BarButtonItem bbiCloseAll;
         private DevExpress.XtraBars.BarButtonItem bbiShowHide;
@@ -1064,5 +1117,13 @@
         private DevExpress.XtraBars.Bar bar2;
         private DevExpress.XtraBars.BarButtonItem bbiSaveLayout;
         private DevExpress.XtraBars.BarButtonItem bbiLoadLayout;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBarHP;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand1;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gcExp;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBarMP;
+        private DevExpress.XtraEditors.Repository.RepositoryItemProgressBar repositoryItemProgressBarExp;
     }
 }

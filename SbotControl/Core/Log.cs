@@ -10,7 +10,6 @@ namespace SbotControl
 {
     class Log
     {
-
         public enum LogType
         {
             Info,
@@ -40,6 +39,7 @@ namespace SbotControl
         public Color ErrorColor = Color.Red;
         public Color StanderColor = Color.Gray;
         public Color DebugColor = Color.Blue;
+        const int LogMaxSize = 1000;
 
         public void AddUI(RichTextBox ctl, LogLevel lvl)
         {
@@ -49,57 +49,68 @@ namespace SbotControl
         {
             foreach (LogProvider item in OutPutUI)
             {
-                if (item.LogControl == ctl && item.LogLvl == lvl)
+                try
                 {
-                    OutPutUI.Remove(item);
-                    break;
+                    if (item.LogControl == ctl && item.LogLvl == lvl)
+                    {
+                        OutPutUI.Remove(item);
+                        break;
+                    }
                 }
+                catch (Exception ex)
+                { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
             }
         }
         public void AddLog(LogType typ, LogLevel lvl, string LogText)
         {
-            string str = string.Format("[{0}] {1}.", DateTime.Now.ToLongTimeString(), LogText);
-            Logs.Add(new LogItem() { LogType = typ, LogText = str });
-            for (int i = 0; i < OutPutUI.Count; i++)
+            try
             {
-                RichTextBox ctl = OutPutUI[i].LogControl;
-                if (!ctl.Created)
-                    continue;
-                LogLevel ctllvl = OutPutUI[i].LogLvl;
-                if (ctllvl < lvl)
-                    continue;
-                if (ctl.IsDisposed)
+                string str = string.Format("[{0}] {1}.", DateTime.Now.ToLongTimeString(), LogText);
+                if (Logs.Count > LogMaxSize)
+                    Logs.Clear();
+                Logs.Add(new LogItem() { LogType = typ, LogText = str });
+                for (int i = 0; i < OutPutUI.Count; i++)
                 {
-                    OutPutUI.RemoveAt(i);
-                    continue;
-                }
-                MethodInvoker action = delegate
-                {
-                    int length = ctl.TextLength + (str.Length - LogText.Length);  // at end of text
-                    ctl.AppendText(str + Environment.NewLine);
-                    ctl.SelectionStart = length - 1;
-                    ctl.SelectionLength = LogText.Length;
-                    switch (typ)
+                    RichTextBox ctl = OutPutUI[i].LogControl;
+                    if (!ctl.Created)
+                        continue;
+                    LogLevel ctllvl = OutPutUI[i].LogLvl;
+                    if (ctllvl < lvl)
+                        continue;
+                    if (ctl.IsDisposed)
                     {
-                        case LogType.Error:
-                            ctl.SelectionColor = ErrorColor;
-                            break;
-                        case LogType.Info:
-                            ctl.SelectionColor = InfoColor;
-                            break;
-                        case LogType.Debug:
-                            ctl.SelectionColor = DebugColor;
-                            break;
-                        case LogType.Stander:
-                            ctl.SelectionColor = StanderColor;
-                            break;
+                        OutPutUI.RemoveAt(i);
+                        continue;
                     }
-                    ctl.SelectionLength = 0;
-                    ctl.ScrollToCaret();
-                };
-                ctl.BeginInvoke(action);
-                
+                    MethodInvoker action = delegate
+                    {
+                        int length = ctl.TextLength + (str.Length - LogText.Length);  // at end of text
+                    ctl.AppendText(str + Environment.NewLine);
+                        ctl.SelectionStart = length - 1;
+                        ctl.SelectionLength = LogText.Length;
+                        switch (typ)
+                        {
+                            case LogType.Error:
+                                ctl.SelectionColor = ErrorColor;
+                                break;
+                            case LogType.Info:
+                                ctl.SelectionColor = InfoColor;
+                                break;
+                            case LogType.Debug:
+                                ctl.SelectionColor = DebugColor;
+                                break;
+                            case LogType.Stander:
+                                ctl.SelectionColor = StanderColor;
+                                break;
+                        }
+                        ctl.SelectionLength = 0;
+                        ctl.ScrollToCaret();
+                    };
+                    ctl.BeginInvoke(action);
+                }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
 
     }

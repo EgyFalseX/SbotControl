@@ -32,19 +32,24 @@ namespace SbotControl.Manager
         }
         public Core.CtrLayout GetLayout(string layoutName, int layoutVersion, byte[] layoutDefault)
         {
-            foreach (Core.CtrLayout lay in _layoutList)
+            try
             {
-                if (lay.LayoutName == layoutName)
+                foreach (Core.CtrLayout lay in _layoutList)
                 {
-                    if (lay.LayoutVersion < layoutVersion)
+                    if (lay.LayoutName == layoutName)
                     {
-                        lay.LayoutDefault = lay.LayoutUser = layoutDefault;
-                        lay.LayoutVersion = layoutVersion;
-                        SaveLayout();
+                        if (lay.LayoutVersion < layoutVersion)
+                        {
+                            lay.LayoutDefault = lay.LayoutUser = layoutDefault;
+                            lay.LayoutVersion = layoutVersion;
+                            SaveLayout();
+                        }
+                        return lay;
                     }
-                    return lay;
                 }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
             Core.CtrLayout Newlay = AddLayout(layoutName, layoutVersion, layoutDefault);
             SaveLayout();
             return Newlay;

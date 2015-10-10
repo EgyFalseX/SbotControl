@@ -14,21 +14,27 @@ namespace SbotControl.UI
     public partial class BotLogUC : DevExpress.XtraEditors.XtraUserControl
     {
         int _lastLogRecord = 0;
+        int LogCurrentSize = 0;
+        const int LogMaxSize = 1000;
         private string LogTemplate = "<p style=\"text-align:left;text-indent:0pt;margin:0pt 0pt 0pt 0pt;\"><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">[</span><span style=\"color:#808080;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">{0}</span><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">][</span><span style=\"color:#BFBFBF;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:bold;font-style:normal;text-decoration: underline;\">{1}</span><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">]: </span><span style=\"color:#00B050;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">{2}</span></p>";
         public BotLogUC()
         {
             InitializeComponent();
             this.rec.Views.SimpleView.AllowDisplayLineNumbers = true;
-
         }
         private void BotLogUC_Load(object sender, EventArgs e)
         {
-            if (Program.BM != null)
+            try
             {
-                Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
-                BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
+                if (Program.BM != null)
+                {
+                    Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
+                    BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
+                }
+                this.Disposed += BotLogUC_Disposed;
             }
-            this.Disposed += BotLogUC_Disposed;
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void BM_ManagerStatusChanged(object sender, BotsManager.ManagerStatusType e)
         {
@@ -44,7 +50,7 @@ namespace SbotControl.UI
         }
         private void TmrUIBotInfo_Tick(object sender, EventArgs e)
         {
-            if (_lastLogRecord == 0)
+            if (_lastLogRecord == 0 || _lastLogRecord > Program.BM.BotLogs.Count)
                 _lastLogRecord = Program.BM.BotLogs.Count;
             for (int i = _lastLogRecord; i < Program.BM.BotLogs.Count; i++)
             {
@@ -59,12 +65,23 @@ namespace SbotControl.UI
         }
         private void AddLog(Core.BotLogUnit unit)
         {
-             rec.Document.AppendHtmlText("&#13;&#10;" + string.Format(LogTemplate, unit.Time, unit.CharName, unit.LogData.Replace("\n", "&#13;&#10;")));
+            if (LogCurrentSize > LogMaxSize)
+            {
+                rec.Document.HtmlText = string.Empty;
+                LogCurrentSize = 0;
+            }
+            rec.Document.AppendHtmlText("&#13;&#10;" + string.Format(LogTemplate, unit.Time, unit.CharName, unit.LogData.Replace("\n", "&#13;&#10;")));
+            LogCurrentSize++;
         }
         private void BotLogUC_Disposed(object sender, EventArgs e)
         {
-            Program.BM.ManagerStatusChanged -= BM_ManagerStatusChanged;
-            TmrUIBotInfo.Tick -= TmrUIBotInfo_Tick;
+            try
+            {
+                Program.BM.ManagerStatusChanged -= BM_ManagerStatusChanged;
+                TmrUIBotInfo.Tick -= TmrUIBotInfo_Tick;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
     }
 }

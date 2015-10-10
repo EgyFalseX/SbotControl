@@ -43,7 +43,6 @@ namespace SbotControl
 
             return windowHandle;
         }
-
         public static void PrintTest()
         {
             //IntPtr Whnd = new IntPtr(276868);
@@ -205,7 +204,28 @@ namespace SbotControl
                 bmp.Save("C:\\163138.bmp");
             }
         }
-        
+
+        public static void ReadMemoryAddress(int Address)
+        {
+            
+            Process process = Process.GetProcessById(1292);
+            System.Windows.Forms.MessageBox.Show(process.ProcessName);
+            IntPtr processHandle = Win32.OpenProcess(Win32.ProcessAccessFlags.VMRead, false, process.Id);
+
+            int bytesRead = 0;
+            byte[] buffer = new byte[6]; //'Hello World!' takes 12*2 bytes because of Unicode 
+
+            
+            // 0x0046A3B8 is the address where I found the string, replace it with what you found
+            Win32.ReadProcessMemory((int)processHandle, 0x00BEDE34, buffer, buffer.Length, ref bytesRead);
+            ulong result = Misc.ConvertoToULong(buffer);
+            System.Windows.Forms.MessageBox.Show(result.ToString());
+
+           // Console.WriteLine(Encoding.Unicode.GetString(buffer) +
+           //" (" + bytesRead.ToString() + "bytes)");
+
+        }
+
     }
 
 }

@@ -39,7 +39,7 @@ namespace SbotControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace);
                 return false;
             }
         }
@@ -55,7 +55,7 @@ namespace SbotControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace);
                 Accounts = new List<Account>();
             }
         }
@@ -72,9 +72,7 @@ namespace SbotControl
                 }
             }
             catch (Exception ex)
-            {
-                MessageBox.Show("Cant read server list" + Environment.NewLine +  ex.Message);
-            }
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
             finally
             {
                 sr.Close();
@@ -83,28 +81,43 @@ namespace SbotControl
 
         public void AddAccount(Account account)
         {
-            Accounts.Add(account);
-            account.PropertyChanged += Account_PropertyChanged;
-            if (AccountListChanged != null)
-                AccountListChanged(account, ChangesType.Added);
+            try
+            {
+                Accounts.Add(account);
+                account.PropertyChanged += Account_PropertyChanged;
+                if (AccountListChanged != null)
+                    AccountListChanged(account, ChangesType.Added);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void Account_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != "Start")
-                return;
-            if (AccountListChanged != null)
+            try
             {
-                if (((Account)sender).Start)
-                    AccountListChanged((Account)sender, ChangesType.ActiveTrue);
-                else
-                    AccountListChanged((Account)sender, ChangesType.ActiveFalse);
+                if (e.PropertyName != "Start")
+                    return;
+                if (AccountListChanged != null)
+                {
+                    if (((Account)sender).Start)
+                        AccountListChanged((Account)sender, ChangesType.ActiveTrue);
+                    else
+                        AccountListChanged((Account)sender, ChangesType.ActiveFalse);
+                }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         public void RemoveAccount(Account account)
         {
-            Accounts.Remove(account);
-            if (AccountListChanged != null)
-                AccountListChanged(account, ChangesType.Deleted);
+            try
+            {
+                Accounts.Remove(account);
+                if (AccountListChanged != null)
+                    AccountListChanged(account, ChangesType.Deleted);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         /// <summary>
         /// Serializes an object.

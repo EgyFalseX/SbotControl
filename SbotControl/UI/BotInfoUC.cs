@@ -15,6 +15,7 @@ namespace SbotControl.UI
         Core.ThreadedBindingList<SBot> bind = new Core.ThreadedBindingList<SBot>();
         SBot _sbot;
         int _lastLogRecord = 0;
+        int _logmaxsize = 1000;
         private string LogTemplate = "<p style=\"text-align:left;text-indent:0pt;margin:0pt 0pt 0pt 0pt;\"><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">[</span><span style=\"color:#808080;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">{0}</span><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">][</span><span style=\"color:#BFBFBF;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:bold;font-style:normal;text-decoration: underline;\">{1}</span><span style=\"color:#000000;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">]: </span><span style=\"color:#00B050;background-color:transparent;font-family:Calibri;font-size:9pt;font-weight:normal;font-style:normal;\">{2}</span></p>";
         public BotInfoUC(SBot sbot)
         {
@@ -31,8 +32,11 @@ namespace SbotControl.UI
             lblCharName.DataBindings.Add("Text", bindSrc, "CharName");
             ceVisable.DataBindings.Add("EditValue", bindSrc, "Visable");
             lblGroup.DataBindings.Add("Text", bindSrc, "Group");
-            peHPBar.DataBindings.Add("EditValue", bindSrc, "HPBar");
-            peMPBar.DataBindings.Add("EditValue", bindSrc, "MPBar");
+
+            peHPBar.DataBindings.Add("EditValue", bindSrc, "CharHPProgressBar");
+            peMPBar.DataBindings.Add("EditValue", bindSrc, "CharMPProgressBar");
+            peExpBar.DataBindings.Add("EditValue", bindSrc, "CharExpProgressBar");
+
             lblSilkroadServerStatus.DataBindings.Add("Text", bindSrc, "SilkroadServerStatus");
             lblBotStatus.DataBindings.Add("Text", bindSrc, "BotStatus");
             lblConnectionQualityAvg.DataBindings.Add("Text", bindSrc, "ConnectionQualityAvg");
@@ -74,14 +78,25 @@ namespace SbotControl.UI
         }
         private void AddLog(string Time, string log)
         {
-            rec.Invoke(new MethodInvoker(() => 
+            rec.Invoke(new MethodInvoker(() =>
             {
+                if (_lastLogRecord > _logmaxsize)
+                {
+                    rec.Document.HtmlText = string.Empty;
+                    _lastLogRecord = 0;
+                }
                 rec.Document.AppendHtmlText("&#13;&#10;" + string.Format(LogTemplate, Time, _sbot.CharName, log.Replace("\n", "&#13;&#10;")));
+                _lastLogRecord++;
             }));
         }
         private void BotInfoUC_Disposed(object sender, EventArgs e)
         {
-            _sbot.LogAdded -= _sbot_LogAdded;
+            try
+            {
+                _sbot.LogAdded -= _sbot_LogAdded;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void beCommands_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -102,7 +117,6 @@ namespace SbotControl.UI
             else if (e.Button.Caption == "End Training")
                 _sbot.ClickStopTrainingButton();
         }
-
         
     }
 }

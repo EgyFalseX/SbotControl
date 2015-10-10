@@ -16,14 +16,24 @@ namespace SbotControl.UI
         {
             InitializeComponent();
 
-            ceRunAtStartup.Checked = Properties.Settings.Default.RunAtStartup;
-            DevExpress.XtraBars.Helpers.SkinHelper.InitSkinGallery(galleryControlMain, true);
+            try
+            {
+                ceRunAtStartup.Checked = Properties.Settings.Default.RunAtStartup;
+                DevExpress.XtraBars.Helpers.SkinHelper.InitSkinGallery(galleryControlMain, true);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void ceRunAtStartup_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default["RunAtStartup"] = ceRunAtStartup.Checked;
-            Properties.Settings.Default.Save();
-            Program.AddRemoveStartup(Properties.Settings.Default.RunAtStartup);
+            try
+            {
+                Properties.Settings.Default["RunAtStartup"] = ceRunAtStartup.Checked;
+                Properties.Settings.Default.Save();
+                Program.AddRemoveStartup(Properties.Settings.Default.RunAtStartup);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void galleryControlMain_Gallery_ItemClick(object sender, DevExpress.XtraBars.Ribbon.GalleryItemClickEventArgs e)
         {

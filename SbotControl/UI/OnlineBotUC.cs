@@ -22,63 +22,97 @@ namespace SbotControl.UI
         }
         private void OnlineBotUC_Load(object sender, EventArgs e)
         {
-            if (Program.BM != null)
+            try
             {
-                //Binding Gridcontrol
-                gridControlOverall.DataSource = Program.BM.Bots;
-                Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
-                BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
-                
+                if (Program.BM != null)
+                {
+                    //Binding Gridcontrol
+                    gridControlOverall.DataSource = Program.BM.Bots;
+                    Program.BM.ManagerStatusChanged += BM_ManagerStatusChanged;
+                    BM_ManagerStatusChanged(Program.BM, Program.BM.ManagerStatus);
+                }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void BM_ManagerStatusChanged(object sender, BotsManager.ManagerStatusType e)
         {
-            if (e == BotsManager.ManagerStatusType.Started)
+            try
             {
-                this.Invoke(new MethodInvoker(() => 
+                if (e == BotsManager.ManagerStatusType.Started)
                 {
-                    TmrUIBotInfo.Start();
-                }));
-                
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        TmrUIBotInfo.Start();
+                    }));
+
+                }
+                else if (e == BotsManager.ManagerStatusType.Stoped)
+                {
+                    TmrUIBotInfo.Enabled = false;
+                }
             }
-            else if (e == BotsManager.ManagerStatusType.Stoped)
-            {
-                TmrUIBotInfo.Enabled = false;
-            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void TmrUIBotInfo_Tick(object sender, EventArgs e)
         {
-            gridControlOverall.Invoke(new MethodInvoker(() =>
+            try
             {
-                gridControlOverall.RefreshDataSource();
-            }));
+                gridControlOverall.Invoke(new MethodInvoker(() =>
+                    {
+                        gridControlOverall.RefreshDataSource();
+                    }));
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void repositoryItemCheckEditVisable_Click(object sender, EventArgs e)
         {
-            SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
-            if (bot == null)
-                return;
-            DevExpress.XtraEditors.CheckEdit ctr = (DevExpress.XtraEditors.CheckEdit)sender;
-            bot.Visable = !bot.Visable;
-            ctr.Checked = !ctr.Checked;
+            try
+            {
+                SBot bot = (SBot)GridMain.GetRow(GridMain.FocusedRowHandle);
+                if (bot == null)
+                    return;
+                DevExpress.XtraEditors.CheckEdit ctr = (DevExpress.XtraEditors.CheckEdit)sender;
+                bot.Visable = !bot.Visable;
+                ctr.Checked = !ctr.Checked;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void LayoutInti()
         {
-            System.IO.MemoryStream DefaultLayout = new System.IO.MemoryStream();
-            GridMain.SaveLayoutToStream(DefaultLayout);
-            layout = Program.LM.GetLayout(this.GetType().ToString() + "." + GridMain.Name, Convert.ToInt32(GridMain.OptionsLayout.LayoutVersion == null ? "1" : GridMain.OptionsLayout.LayoutVersion), DefaultLayout.ToArray());
-            GridMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutUser));//Load Layout From File
+            try
+            {
+                System.IO.MemoryStream DefaultLayout = new System.IO.MemoryStream();
+                GridMain.SaveLayoutToStream(DefaultLayout);
+                layout = Program.LM.GetLayout(this.GetType().ToString() + "." + GridMain.Name, Convert.ToInt32(GridMain.OptionsLayout.LayoutVersion == null ? "1" : GridMain.OptionsLayout.LayoutVersion), DefaultLayout.ToArray());
+                GridMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutUser));//Load Layout From File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiSaveLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            GridMain.SaveLayoutToStream(ms); layout.LayoutUser = ms.ToArray();
-            Program.LM.SaveLayout();//Save Layout into File
+            try
+            {
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                GridMain.SaveLayoutToStream(ms); layout.LayoutUser = ms.ToArray();
+                Program.LM.SaveLayout();//Save Layout into File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiLoadLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            GridMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutDefault));
-            Program.LM.SaveLayout();//Save Layout into File
+            try
+            {
+                GridMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutDefault));
+                Program.LM.SaveLayout();//Save Layout into File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         #region ContextMenu
         private void GridMain_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -92,168 +126,268 @@ namespace SbotControl.UI
         }
         private void bbiShowDetails_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                AppMainFrm frm = (AppMainFrm)this.ParentForm;
-                frm.ShowBotDetailsTab(bot);
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        return;
+                    AppMainFrm frm = (AppMainFrm)this.ParentForm;
+                    frm.ShowBotDetailsTab(bot);
+                }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.Stop();
-                Program.BM.RemoveBot(bot);
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                {
+                    bot.Stop();
+                    Program.BM.RemoveBot(bot);
+                }
+                gridControlOverall.RefreshDataSource();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiCloseAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            foreach (SBot bot in Program.BM.Bots)
+            try
             {
-                bot.Stop();
-                Program.BM.RemoveBot(bot);
+                foreach (SBot bot in Program.BM.Bots)
+                {
+                    bot.Stop();
+                    Program.BM.RemoveBot(bot);
+                }
+                gridControlOverall.RefreshDataSource();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiShowHide_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.Visable = !bot.Visable;
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        return;
+                    bot.Visable = !bot.Visable;
+                }
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiShowAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            foreach (SBot bot in Program.BM.Bots)
-                bot.Visable = true;
+            try
+            {
+                foreach (SBot bot in Program.BM.Bots)
+                    bot.Visable = true;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiHideAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            foreach (SBot bot in Program.BM.Bots)
-                bot.Visable = false;
+            try
+            {
+                foreach (SBot bot in Program.BM.Bots)
+                    bot.Visable = false;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiStartGame_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickStartGameButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickStartGameButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiGoClientless_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickGoClienlessButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickGoClienlessButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiDisconnect_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickDisconnectButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickDisconnectButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiResetStats_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickResetButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickResetButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiSaveSettings_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickSaveSettingsButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickSaveSettingsButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiShowHideClient_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickShowHideClientButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickShowHideClientButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiStartTraining_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickStartTrainingButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickStartTrainingButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiStopTraining_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            int[] selected = GridMain.GetSelectedRows();
-            if (selected.Length == 0)
-                return;
-            for (int i = 0; i < selected.Length; i++)
+            try
             {
-                SBot bot = (SBot)GridMain.GetRow(selected[i]);
-                if (bot == null)
+                int[] selected = GridMain.GetSelectedRows();
+                if (selected.Length == 0)
                     return;
-                bot.ClickStopTrainingButton();
+                List<SBot> lst = new List<SBot>();
+                for (int i = 0; i < selected.Length; i++)
+                {
+                    SBot bot = (SBot)GridMain.GetRow(selected[i]);
+                    if (bot == null)
+                        continue;
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
+                    bot.ClickStopTrainingButton();
             }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
 
         #endregion
         

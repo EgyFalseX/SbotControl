@@ -36,10 +36,15 @@ namespace SbotControl.UI
         }
         private void LayoutInti()
         {
-            System.IO.MemoryStream DefaultLayout = new System.IO.MemoryStream();
-            layoutControlMain.SaveLayoutToStream(DefaultLayout);
-            layout = Program.LM.GetLayout(this.GetType().ToString() + "." + layoutControlMain.Name, Convert.ToInt32(layoutControlMain.LayoutVersion == null ? "1" : layoutControlMain.LayoutVersion), DefaultLayout.ToArray());
-            layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutUser));//Load Layout From File
+            try
+            {
+                System.IO.MemoryStream DefaultLayout = new System.IO.MemoryStream();
+                layoutControlMain.SaveLayoutToStream(DefaultLayout);
+                layout = Program.LM.GetLayout(this.GetType().ToString() + "." + layoutControlMain.Name, Convert.ToInt32(layoutControlMain.LayoutVersion == null ? "1" : layoutControlMain.LayoutVersion), DefaultLayout.ToArray());
+                layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutUser));//Load Layout From File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -62,14 +67,24 @@ namespace SbotControl.UI
         }
         private void bbiSaveLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-            layoutControlMain.SaveLayoutToStream(ms); layout.LayoutUser = ms.ToArray();
-            Program.LM.SaveLayout();//Save Layout into File
+            try
+            {
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                layoutControlMain.SaveLayoutToStream(ms); layout.LayoutUser = ms.ToArray();
+                Program.LM.SaveLayout();//Save Layout into File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void bbiLoadLayout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutDefault));
-            Program.LM.SaveLayout();//Save Layout into File
+            try
+            {
+                layoutControlMain.RestoreLayoutFromStream(new System.IO.MemoryStream(layout.LayoutDefault));
+                Program.LM.SaveLayout();//Save Layout into File
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
     }
 }

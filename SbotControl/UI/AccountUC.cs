@@ -15,64 +15,93 @@ namespace SbotControl.UI
         public AccountUC()
         {
             InitializeComponent();
-            gridControlMain.DataSource = Program.DM.Accounts;
+            try
+            {
+                gridControlMain.DataSource = Program.DM.Accounts;
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void ReloadData()
         {
-            gridControlMain.DataSource = Program.DM.Accounts;
-            gridControlMain.RefreshDataSource();
+            try
+            {
+                gridControlMain.DataSource = Program.DM.Accounts;
+                gridControlMain.RefreshDataSource();
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void btnAddAccount_Click(object sender, EventArgs e)
         {
-            SbotControl.Account acc = new SbotControl.Account(string.Empty, true, true, true, true, true, string.Empty);
-            AddAccountFrm frm = new AddAccountFrm(acc);
-            if (frm.ShowDialog() == DialogResult.OK)
+            try
             {
-                Program.DM.AddAccount(acc);
-                Program.DM.SaveSettings();
+                SbotControl.Account acc = new SbotControl.Account(string.Empty, true, true, true, true, true, string.Empty);
+                AddAccountFrm frm = new AddAccountFrm(acc);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    Program.DM.AddAccount(acc);
+                    Program.DM.SaveSettings();
+                }
+                ReloadData();
             }
-            ReloadData();
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void repositoryItemButtonEditEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
-            AddAccountFrm frm = new AddAccountFrm(acc);
-            if (frm.ShowDialog() == DialogResult.OK)
+            try
             {
-                Program.DM.SaveSettings();
+                SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
+                AddAccountFrm frm = new AddAccountFrm(acc);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    Program.DM.SaveSettings();
+                }
+                ReloadData();
             }
-            ReloadData();
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void repositoryItemButtonEditDelete_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
-            if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                return;
-            Program.DM.RemoveAccount(acc);
-            Program.DM.SaveSettings();
-            ReloadData();
+            try
+            {
+                SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
+                if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+                Program.DM.RemoveAccount(acc);
+                Program.DM.SaveSettings();
+                ReloadData();
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         private void btnReset_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure ?", "warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
-            Program.DM.LoadSettings();
-            ReloadData();
+            try
+            {
+                Program.DM.LoadSettings();
+                ReloadData();
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
-        private void repositoryItemCheckEditActive_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.DM.SaveSettings();
-        }
-
         private void repositoryItemCheckEditActive_Click(object sender, EventArgs e)
         {
-            CheckEdit ce = (CheckEdit)sender;
-            SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
-            acc.Start = !acc.Start; ce.Checked = !ce.Checked;
-            
-            Program.DM.SaveSettings();
-            ReloadData();
+            try
+            {
+                CheckEdit ce = (CheckEdit)sender;
+                SbotControl.Account acc = (SbotControl.Account)gridViewMain.GetRow(gridViewMain.FocusedRowHandle);
+                acc.Start = !acc.Start; ce.Checked = !ce.Checked;
+
+                Program.DM.SaveSettings();
+                ReloadData();
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
     }
 }

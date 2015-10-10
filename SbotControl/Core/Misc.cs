@@ -38,7 +38,21 @@ namespace SbotControl
             }
 
         }
-
+        public static ulong ConvertoToULong(byte[] buffer)
+        {
+            int pos = 0;
+            ulong result = 0;
+            foreach (byte byt in buffer)
+            {
+                result += (ulong)(byt << pos);
+                pos += 8;
+            }
+            return result;
+        }
+        public static long ConvertoToLong(byte[] buffer)
+        {
+            return BitConverter.ToInt64(buffer, 0);
+        }
          public uint COLORREF(Color color)
          {
              return (uint)color.R + (((uint)color.G) << 8) + (((uint)color.B) << 16);
