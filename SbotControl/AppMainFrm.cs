@@ -20,6 +20,7 @@ namespace SbotControl
         UI.BotLogUC docBotLogCtr = new UI.BotLogUC();
         UI.OutputUC docOutputCtr = new UI.OutputUC();
         UI.HistoryUC docHistoryCtr = new UI.HistoryUC();
+        UI.MapUC docMapCtr = new UI.MapUC();
         bool _autoStart = false;
         public AppMainFrm(bool AutoStart)
         {
@@ -76,6 +77,10 @@ namespace SbotControl
                 else if (e.Document.ControlName == "docHistory")
                 {
                     e.Control = docHistoryCtr;
+                }
+                else if (e.Document.ControlName == "docMap")
+                {
+                    e.Control = docMapCtr;
                 }
                 else if (e.Document.Tag != null && e.Document.Tag.GetType() == typeof(SBot))
                 {

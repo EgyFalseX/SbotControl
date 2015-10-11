@@ -157,6 +157,12 @@
     <Compile Include="UI\HistoryUC.Designer.cs">
       <DependentUpon>HistoryUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MapUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MapUC.Designer.cs">
+      <DependentUpon>MapUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OnlineBotUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\HistoryUC.resx">
       <DependentUpon>HistoryUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MapUC.resx">
+      <DependentUpon>MapUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OnlineBotUC.resx">
       <DependentUpon>OnlineBotUC.cs</DependentUpon>
@@ -274,6 +283,7 @@
     <None Include="Resources\apply_32x32.png" />
     <None Include="Resources\cancel_16x161.png" />
     <None Include="Resources\cancel_32x321.png" />
+    <None Include="Resources\shapelabels_16x16.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />

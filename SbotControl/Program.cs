@@ -13,6 +13,7 @@ namespace SbotControl
         public static Manager.CtrLayoutManager LM;
         public static Log Logger = new Log();
         public static Core.db dbOperations;
+        public static string WorldMapPath = Application.StartupPath + "\\Maps\\WorldMap.jpg";
 
         /// <summary>
         /// The main entry point for the application.
