@@ -13,6 +13,7 @@ namespace SbotControl.UI
     public partial class HistoryUC : DevExpress.XtraEditors.XtraUserControl
     {
         public System.Threading.Timer tmrPuls;
+        private int AutoRefreshInterval = 1000 * 10;
         public HistoryUC()
         {
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace SbotControl.UI
                 if (On)
                     tmrPuls.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
                 else
-                    tmrPuls.Change(1000 * 5, 1000 * 5);
+                    tmrPuls.Change(AutoRefreshInterval, AutoRefreshInterval);
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }

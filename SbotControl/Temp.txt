@@ -163,3 +163,10 @@ ________________________________________________________________________________
 [done]multi command
 [done]change Start check without go to edit form
 [done]stop auto refrsh form history tab when its not active
+______________________________________________________
+World Map Cord
+Start X		-17098
+End X		8262
+Start Y		4185
+End Y		-4200
+______________________

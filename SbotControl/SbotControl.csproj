@@ -284,6 +284,7 @@
     <None Include="Resources\cancel_16x161.png" />
     <None Include="Resources\cancel_32x321.png" />
     <None Include="Resources\shapelabels_16x16.png" />
+    <None Include="Resources\geopoint_16x16.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />
