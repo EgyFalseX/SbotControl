@@ -269,6 +269,25 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
+        private void bbiWorldMap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                foreach (var doc in tabbedViewMain.Documents)
+                {
+                    if (doc.ControlName == "docMap")
+                        return;
+                }
+                DevExpress.XtraBars.Docking2010.Views.Tabbed.Document nDoc = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+                nDoc.Caption = "World Map";
+                nDoc.ControlName = "docMap";
+                nDoc.Image = global::SbotControl.Properties.Resources.shapelabels_16x16;
+                docMapCtr = new UI.MapUC();
+                tabbedViewMain.Documents.Add(nDoc);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
+        }
         private void bbiAboutMe_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
@@ -331,7 +350,6 @@ namespace SbotControl
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
 
         }
-
         private void AppMainFrm_Shown(object sender, EventArgs e)
         {
             try
@@ -344,5 +362,7 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
+
+        
     }
 }

@@ -17,6 +17,7 @@ namespace SbotControl.UI
         bool _src_active;
         string _src_group;
         string _src_botpath;
+        int _src_connectionTimeout;
         SbotControl.Account _account;
         public AddAccountFrm(SbotControl.Account account)
         {
@@ -27,11 +28,13 @@ namespace SbotControl.UI
             _src_active = _account.Start;
             _src_group = _account.Group;
             _src_botpath = _account.BotFilePath;
+            _src_connectionTimeout = _account.ConnectionTimeout;
 
             tbCharName.DataBindings.Add("EditValue", _account, "CharName");
             beBotPath.DataBindings.Add("EditValue", _account, "BotFilePath");
             tbGroup.DataBindings.Add("EditValue", _account, "Group");
             ceActive.DataBindings.Add("EditValue", _account, "Start");
+            seConnectionTimeout.DataBindings.Add("EditValue", _account, "ConnectionTimeout");
             LayoutInti();
         }
         private void LayoutInti()
@@ -53,6 +56,7 @@ namespace SbotControl.UI
             _account.Group = _src_group;
             _account.Start = _src_active;
             _account.BotFilePath = _src_botpath;
+            _account.ConnectionTimeout = _src_connectionTimeout;
             DialogResult = DialogResult.Cancel;
         }
         private void btnSave_Click(object sender, EventArgs e)

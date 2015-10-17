@@ -51,7 +51,12 @@ namespace SbotControl
                 if (Accounts == null)
                     Accounts = new List<Account>();
                 foreach (Account item in Accounts)
+                {
                     item.PropertyChanged += Account_PropertyChanged;
+                    if (item.ConnectionTimeout < 120)
+                        item.ConnectionTimeout = 300;
+                }
+                SaveSettings();
             }
             catch (Exception ex)
             {

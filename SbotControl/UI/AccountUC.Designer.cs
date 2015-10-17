@@ -39,6 +39,7 @@
             this.colStart = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEditActive = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.colIbotFilePath = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colConnectionTimeout = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcGroup = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEdit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemButtonEditEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
@@ -126,6 +127,7 @@
             this.colcharName,
             this.colStart,
             this.colIbotFilePath,
+            this.colConnectionTimeout,
             this.gcGroup,
             this.colEdit,
             this.colDelete});
@@ -144,7 +146,7 @@
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "charName", "{0}")});
             this.colcharName.Visible = true;
             this.colcharName.VisibleIndex = 0;
-            this.colcharName.Width = 276;
+            this.colcharName.Width = 179;
             // 
             // colStart
             // 
@@ -159,7 +161,7 @@
             this.colStart.OptionsColumn.ReadOnly = true;
             this.colStart.Visible = true;
             this.colStart.VisibleIndex = 1;
-            this.colStart.Width = 101;
+            this.colStart.Width = 76;
             // 
             // repositoryItemCheckEditActive
             // 
@@ -175,7 +177,21 @@
             this.colIbotFilePath.OptionsColumn.ReadOnly = true;
             this.colIbotFilePath.Visible = true;
             this.colIbotFilePath.VisibleIndex = 2;
-            this.colIbotFilePath.Width = 487;
+            this.colIbotFilePath.Width = 260;
+            // 
+            // colConnectionTimeout
+            // 
+            this.colConnectionTimeout.AppearanceCell.Options.UseTextOptions = true;
+            this.colConnectionTimeout.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colConnectionTimeout.AppearanceHeader.Options.UseTextOptions = true;
+            this.colConnectionTimeout.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colConnectionTimeout.Caption = "Connection Timeout (sec)";
+            this.colConnectionTimeout.FieldName = "ConnectionTimeout";
+            this.colConnectionTimeout.Name = "colConnectionTimeout";
+            this.colConnectionTimeout.OptionsColumn.ReadOnly = true;
+            this.colConnectionTimeout.Visible = true;
+            this.colConnectionTimeout.VisibleIndex = 3;
+            this.colConnectionTimeout.Width = 131;
             // 
             // gcGroup
             // 
@@ -188,7 +204,8 @@
             this.gcGroup.Name = "gcGroup";
             this.gcGroup.OptionsColumn.ReadOnly = true;
             this.gcGroup.Visible = true;
-            this.gcGroup.VisibleIndex = 3;
+            this.gcGroup.VisibleIndex = 4;
+            this.gcGroup.Width = 65;
             // 
             // colEdit
             // 
@@ -200,7 +217,8 @@
             this.colEdit.ColumnEdit = this.repositoryItemButtonEditEdit;
             this.colEdit.Name = "colEdit";
             this.colEdit.Visible = true;
-            this.colEdit.VisibleIndex = 4;
+            this.colEdit.VisibleIndex = 5;
+            this.colEdit.Width = 77;
             // 
             // repositoryItemButtonEditEdit
             // 
@@ -221,7 +239,8 @@
             this.colDelete.ColumnEdit = this.repositoryItemButtonEditDelete;
             this.colDelete.Name = "colDelete";
             this.colDelete.Visible = true;
-            this.colDelete.VisibleIndex = 5;
+            this.colDelete.VisibleIndex = 6;
+            this.colDelete.Width = 76;
             // 
             // repositoryItemButtonEditDelete
             // 
@@ -330,5 +349,6 @@
         private DevExpress.XtraEditors.SimpleButton btnReset;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraGrid.Columns.GridColumn gcGroup;
+        private DevExpress.XtraGrid.Columns.GridColumn colConnectionTimeout;
     }
 }

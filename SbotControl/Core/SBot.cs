@@ -13,13 +13,14 @@ namespace SbotControl
     public class SBot : IDisposable , INotifyPropertyChanged
     {
         #region Vars
-        public int ID = new Random().Next(60000);
+        public int ID = new Random().Next(0, 60000);
         private DateTime StartupTime = DateTime.Now;
         public const string BOTPROOF = "ID_PANEL1!";
         public const string BotTitle = "by bot-cave.net";
         public const string InventoryTitle = "Player inventory";
-        private const string ProcessName = "SBot_2.0.16";
-        private const string BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
+        private const string ProcessName = "SBot_2.0.";
+        private const string msg_BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
+        private const string msg_ServerCrowded = "Trying again in a moment";
         public const string EmptySlotTitle = "[Empty]";
         public const int LogListMaxSize = 1000;
 
@@ -29,7 +30,8 @@ namespace SbotControl
         public System.Threading.Timer tmrPuls;
         public System.Threading.Timer tmrLogin;
         private int _LastLogLength = 0;
-        public int LoginTimerInterval = 1000 * 120;
+        public int DefaultLoginTimerInterval = 1000 * 300;
+
         //public bool HSState = true;
 
         private double _StartupSkill, _StartupGold, _StartupExperience = 0;
@@ -149,12 +151,12 @@ namespace SbotControl
         }
         private enum MemoryAddress : Int64
         {
-            HP_Max = 0x00BEDE24,
-            HP_Val = 0x00BEDE30,
-            MP_Max = 0x00BEDE28,
-            MP_Val = 0x00BEDE34,
-            XP_Max = 0x00BEDE60,
-            XP_Val = 0x00BEDD78,
+            HP_Max = 0x00BF1E84,
+            HP_Val = 0x00BF1E90,
+            MP_Max = 0x00BF1E88,
+            MP_Val = 0x00BF1E94,
+            XP_Max = 0x00BF1EC0,
+            XP_Val = 0x00BF1DD8,
         }
         public enum StatusType
         {
@@ -183,7 +185,11 @@ namespace SbotControl
         {
             try
             {
-                tmrLogin.Change(LoginTimerInterval, System.Threading.Timeout.Infinite);
+                if (_account != null)
+                    tmrLogin.Change(_account.ConnectionTimeout * 1000, System.Threading.Timeout.Infinite);
+                else
+                    tmrLogin.Change(DefaultLoginTimerInterval, System.Threading.Timeout.Infinite);
+                
                 Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Online ... ", CharName));
             }
             catch (Exception ex)
@@ -1010,13 +1016,15 @@ namespace SbotControl
                 if (LogAdded != null)
                     LogAdded(this, item);// Rise event LogAdded
                                          //Log Ayalysis
-                if (item.Contains(BotStuck_NPC))
+                if (item.Contains(msg_BotStuck_NPC))
                 {
                     Program.Logger.AddLog(Log.LogType.Error, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while Deal with NPC ... ", CharName));
                     if (_process == null || _process.HasExited || _account == null)
                         return;
                     PerformRestartBot();
                 }
+                else if (item.Contains(msg_ServerCrowded))
+                    StatusAnalysis(msg_ServerCrowded);//reset login timer
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -1197,8 +1205,8 @@ namespace SbotControl
                         while (!IsWindowVisible())
                             System.Threading.Thread.Sleep(3000);
                         PrepareHandlers();
-                    //this._status = StatusType.Nothing;
-                    PlusTimerStart();
+                        //this._status = StatusType.Nothing;
+                        PlusTimerStart();
                         Visable = false;
                         LoginTimerStart();//Timer if bot stuck in logging
                 });

@@ -50,6 +50,16 @@ namespace SbotControl
                 OnPropertyChanged("Group");
             }
         }
+        private int _connectionTimeout;
+        public int ConnectionTimeout
+        {
+            get { return _connectionTimeout; }
+            set
+            {
+                _connectionTimeout = value;
+                OnPropertyChanged("ConnectionTimeout");
+            }
+        }
         [Browsable(false)]
         public bool DCRestart { get; set; }
         [Browsable(false)]
@@ -80,7 +90,7 @@ namespace SbotControl
         public Account()
         {
         }
-        public Account(string AutoSelectChar, bool AutoConnect, bool HideSBot, bool start, bool dcRestart, bool scrollUnknowSpot, string ibotFilePath)
+        public Account(string AutoSelectChar, bool AutoConnect, bool HideSBot, bool start, bool dcRestart, bool scrollUnknowSpot, string botFilePath, int connectionTimeout)
         {
             charName = AutoSelectChar;
             autoConnect = AutoConnect;
@@ -88,7 +98,8 @@ namespace SbotControl
             Start = start;
             DCRestart = dcRestart;
             RestartUnknowSpot = scrollUnknowSpot;
-            BotFilePath = ibotFilePath;
+            BotFilePath = botFilePath;
+            ConnectionTimeout = connectionTimeout;
         }
         public void Dispose()
         {

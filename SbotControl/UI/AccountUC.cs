@@ -36,7 +36,7 @@ namespace SbotControl.UI
         {
             try
             {
-                SbotControl.Account acc = new SbotControl.Account(string.Empty, true, true, true, true, true, string.Empty);
+                SbotControl.Account acc = new SbotControl.Account(string.Empty, true, true, true, true, true, string.Empty, 300);
                 AddAccountFrm frm = new AddAccountFrm(acc);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {

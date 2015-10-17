@@ -72,11 +72,6 @@ namespace SbotControl
                 Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace);
             }
         }
-        public void AddAccount(string Charname, bool Start, bool DCRestart, bool ScrollUnknowSpot, string SbotFilePath)
-        {
-            Account acc = new Account(Charname, true, true, Start, DCRestart, ScrollUnknowSpot, SbotFilePath);
-            AddAccount(acc);
-        }
         public void AddAccount(Account account)
         {
             try
