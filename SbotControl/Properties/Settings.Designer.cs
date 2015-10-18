@@ -81,5 +81,29 @@ namespace SbotControl.Properties {
                 this["SkinName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Alert_Connect_Disconnect {
+            get {
+                return ((bool)(this["Alert_Connect_Disconnect"]));
+            }
+            set {
+                this["Alert_Connect_Disconnect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Alert_Died {
+            get {
+                return ((bool)(this["Alert_Died"]));
+            }
+            set {
+                this["Alert_Died"] = value;
+            }
+        }
     }
 }

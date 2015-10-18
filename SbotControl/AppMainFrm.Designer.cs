@@ -42,6 +42,7 @@
             this.bbiOutput = new DevExpress.XtraBars.BarButtonItem();
             this.bbiHistory = new DevExpress.XtraBars.BarButtonItem();
             this.bbiWorldMap = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiAdvMap = new DevExpress.XtraBars.BarButtonItem();
             this.bsiLayout = new DevExpress.XtraBars.BarSubItem();
             this.bbiSaveLayout = new DevExpress.XtraBars.BarButtonItem();
             this.bbiLoadLayout = new DevExpress.XtraBars.BarButtonItem();
@@ -62,6 +63,7 @@
             this.docOption = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docHistory = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docMap = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.docAdvMap = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.documentGroup2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.docBotLog = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.docOutput = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -79,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docAdvMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOutput)).BeginInit();
@@ -112,9 +115,10 @@
             this.bsiLayout,
             this.bbiSaveLayout,
             this.bbiLoadLayout,
-            this.bbiWorldMap});
+            this.bbiWorldMap,
+            this.bbiAdvMap});
             this.barManagerMain.MainMenu = this.bar2;
-            this.barManagerMain.MaxItemId = 16;
+            this.barManagerMain.MaxItemId = 17;
             // 
             // bar2
             // 
@@ -167,7 +171,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiOption),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiOutput),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiHistory),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bbiWorldMap)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiWorldMap),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiAdvMap)});
             this.bsiViews.Name = "bsiViews";
             this.bsiViews.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
@@ -234,6 +239,15 @@
             this.bbiWorldMap.Name = "bbiWorldMap";
             this.bbiWorldMap.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.bbiWorldMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiWorldMap_ItemClick);
+            // 
+            // bbiAdvMap
+            // 
+            this.bbiAdvMap.Caption = "Adv Map";
+            this.bbiAdvMap.Glyph = global::SbotControl.Properties.Resources.defaultmap_16x16;
+            this.bbiAdvMap.Id = 16;
+            this.bbiAdvMap.LargeGlyph = global::SbotControl.Properties.Resources.defaultmap_32x32;
+            this.bbiAdvMap.Name = "bbiAdvMap";
+            this.bbiAdvMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAdvMap_ItemClick);
             // 
             // bsiLayout
             // 
@@ -331,7 +345,7 @@
             // dockManagerMain
             // 
             this.dockManagerMain.Form = this;
-            this.dockManagerMain.LayoutVersion = "2";
+            this.dockManagerMain.LayoutVersion = "3";
             this.dockManagerMain.MenuManager = this.barManagerMain;
             this.dockManagerMain.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
@@ -363,8 +377,9 @@
             this.docOption,
             this.docOutput,
             this.docHistory,
-            this.docMap});
-            this.tabbedViewMain.OptionsLayout.LayoutVersion = "2";
+            this.docMap,
+            this.docAdvMap});
+            this.tabbedViewMain.OptionsLayout.LayoutVersion = "3";
             this.tabbedViewMain.OptionsLayout.PropertiesRestoreMode = DevExpress.XtraBars.Docking2010.Views.PropertiesRestoreMode.All;
             this.tabbedViewMain.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tabbedViewMain.DocumentClosing += new DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventHandler(this.tabbedViewMain_DocumentClosing);
@@ -377,7 +392,8 @@
             this.docOnline,
             this.docOption,
             this.docHistory,
-            this.docMap});
+            this.docMap,
+            this.docAdvMap});
             // 
             // docAccount
             // 
@@ -412,6 +428,12 @@
             this.docMap.Caption = "World Map";
             this.docMap.ControlName = "docMap";
             this.docMap.Image = global::SbotControl.Properties.Resources.shapelabels_16x16;
+            // 
+            // docAdvMap
+            // 
+            this.docAdvMap.Caption = "Adv Map";
+            this.docAdvMap.ControlName = "docAdvMap";
+            this.docAdvMap.Image = global::SbotControl.Properties.Resources.defaultmap_16x16;
             // 
             // documentGroup2
             // 
@@ -481,6 +503,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docOption)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.docAdvMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docBotLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docOutput)).EndInit();
@@ -530,5 +553,7 @@
         private DevExpress.XtraBars.BarButtonItem bbiLoadLayout;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docMap;
         private DevExpress.XtraBars.BarButtonItem bbiWorldMap;
+        private DevExpress.XtraBars.BarButtonItem bbiAdvMap;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document docAdvMap;
     }
 }

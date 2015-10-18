@@ -349,6 +349,7 @@ namespace SbotControl
                 switch (e)
                 {
                     case SBot.StatusType.Disconnected:
+                        Manager.NotifyManager.ShowAlert(sender.CharName, "Diconnected ..!", Manager.NotifyManager.MSG_Type.Disconnect);
                         logtyp = Log.LogType.Info;
                         loglvl = Log.LogLevel.Debug;
                         break;
@@ -357,6 +358,7 @@ namespace SbotControl
                         loglvl = Log.LogLevel.Debug;
                         break;
                     case SBot.StatusType.Online:
+                        Manager.NotifyManager.ShowAlert(sender.CharName, "Online", Manager.NotifyManager.MSG_Type.Connect);
                         logtyp = Log.LogType.Info;
                         loglvl = Log.LogLevel.Debug;
                         break;

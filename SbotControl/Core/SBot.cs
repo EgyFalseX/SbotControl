@@ -21,6 +21,7 @@ namespace SbotControl
         private const string ProcessName = "SBot_2.0.";
         private const string msg_BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
         private const string msg_ServerCrowded = "Trying again in a moment";
+        private const string msg_YOUDIED = "YOUDIED";
         public const string EmptySlotTitle = "[Empty]";
         public const int LogListMaxSize = 1000;
 
@@ -190,7 +191,7 @@ namespace SbotControl
                 else
                     tmrLogin.Change(DefaultLoginTimerInterval, System.Threading.Timeout.Infinite);
                 
-                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Online ... ", CharName));
+                //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Online ... ", CharName));
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -202,7 +203,7 @@ namespace SbotControl
                 if (tmrLogin != null)
                 {
                     tmrLogin.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
-                    Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Offline ... ", CharName));
+                    //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Stuck while login Provider Offline ... ", CharName));
                 }
             }
             catch (Exception ex)
@@ -213,7 +214,7 @@ namespace SbotControl
             try
             {
                 tmrPuls.Change(1000, 1000 * 1);
-                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Online ... ", CharName));
+                //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Online ... ", CharName));
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -223,7 +224,7 @@ namespace SbotControl
             try
             {
                 tmrPuls.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
-                Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Online ... ", CharName));
+                //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Stander, string.Format("[{0}]- Puls Offline ... ", CharName));
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -943,7 +944,7 @@ namespace SbotControl
                         typ = StatusType.Online;
                         break;
                     default://
-                        typ = StatusType.Online;
+                        typ = _status;
                         break;
                 }
                 if ((typ == StatusType.Disconnected || typ == StatusType.Try_to_login) && _account != null)
@@ -1025,6 +1026,8 @@ namespace SbotControl
                 }
                 else if (item.Contains(msg_ServerCrowded))
                     StatusAnalysis(msg_ServerCrowded);//reset login timer
+                else if (item.Contains(msg_YOUDIED))
+                    Manager.NotifyManager.ShowAlert(_charName, "You died ..!", Manager.NotifyManager.MSG_Type.Died);
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }

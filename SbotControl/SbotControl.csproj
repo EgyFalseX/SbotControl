@@ -59,6 +59,7 @@
     <Reference Include="DevExpress.Data.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="DevExpress.Map.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -80,6 +81,7 @@
     <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="DevExpress.XtraMap.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -100,6 +102,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutUs.cs">
@@ -112,6 +115,7 @@
     <Compile Include="Core\BotLogUnit.cs" />
     <Compile Include="Core\CtrLayout.cs" />
     <Compile Include="Core\db.cs" />
+    <Compile Include="Core\LocalProvider.cs" />
     <Compile Include="Core\Rect.cs" />
     <Compile Include="Core\ThreadedBindingList.cs" />
     <Compile Include="Datasource\dsData.Designer.cs">
@@ -120,6 +124,7 @@
       <DependentUpon>dsData.xsd</DependentUpon>
     </Compile>
     <Compile Include="Manager\CtrLayoutManager.cs" />
+    <Compile Include="Manager\NotifyManager.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="AppMainFrm.cs">
       <SubType>Form</SubType>
@@ -138,6 +143,12 @@
     </Compile>
     <Compile Include="UI\AddAccountFrm.Designer.cs">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AdvMapUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AdvMapUC.Designer.cs">
+      <DependentUpon>AdvMapUC.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\BotInfoUC.cs">
       <SubType>UserControl</SubType>
@@ -186,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AddAccountFrm.resx">
       <DependentUpon>AddAccountFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AdvMapUC.resx">
+      <DependentUpon>AdvMapUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\BotInfoUC.resx">
       <DependentUpon>BotInfoUC.cs</DependentUpon>
@@ -287,6 +301,8 @@
     <None Include="Resources\geopoint_16x16.png" />
     <None Include="Resources\shapelabels_32x32.png" />
     <None Include="Resources\shapelabels_16x161.png" />
+    <None Include="Resources\defaultmap_16x16.png" />
+    <None Include="Resources\defaultmap_32x32.png" />
     <Content Include="SbotIcon.ico" />
     <None Include="Resources\Add.png" />
     <None Include="Resources\Delete.png" />

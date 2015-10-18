@@ -25,7 +25,6 @@ namespace SbotControl
             {
                 //Test.ReadMemoryAddress(1);
                 //return;
-
                 DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = Properties.Settings.Default.SkinName;
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

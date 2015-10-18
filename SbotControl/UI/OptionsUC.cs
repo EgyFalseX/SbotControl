@@ -40,5 +40,13 @@ namespace SbotControl.UI
             Properties.Settings.Default["SkinName"] = e.Item.Caption;
             Properties.Settings.Default.Save();
         }
+        private void ceAlert_Connect_Disconnect_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+        private void ceAlert_Died_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace SbotControl
         UI.OutputUC docOutputCtr = new UI.OutputUC();
         UI.HistoryUC docHistoryCtr = new UI.HistoryUC();
         UI.MapUC docMapCtr = new UI.MapUC();
+        UI.AdvMapUC docAdvMapCtr = new UI.AdvMapUC();
         bool _autoStart = false;
         public AppMainFrm(bool AutoStart)
         {
@@ -81,6 +82,10 @@ namespace SbotControl
                 else if (e.Document.ControlName == "docMap")
                 {
                     e.Control = docMapCtr;
+                }
+                else if (e.Document.ControlName == "docAdvMap")
+                {
+                    e.Control = docAdvMapCtr;
                 }
                 else if (e.Document.Tag != null && e.Document.Tag.GetType() == typeof(SBot))
                 {
@@ -288,6 +293,25 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
+        private void bbiAdvMap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            try
+            {
+                foreach (var doc in tabbedViewMain.Documents)
+                {
+                    if (doc.ControlName == "docAdvMap")
+                        return;
+                }
+                DevExpress.XtraBars.Docking2010.Views.Tabbed.Document nDoc = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+                nDoc.Caption = "Adv Map";
+                nDoc.ControlName = "docAdvMap";
+                nDoc.Image = global::SbotControl.Properties.Resources.defaultmap_16x16;
+                docAdvMapCtr = new UI.AdvMapUC();
+                tabbedViewMain.Documents.Add(nDoc);
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
+        }
         private void bbiAboutMe_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             //MessageBox.Show("BETA TEST" + Environment.NewLine + "Programmed by: [Egy]FalseX" + Environment.NewLine + "mohamed.aly.omer@gmail.com" + Environment.NewLine + Application.ProductVersion);
@@ -362,7 +386,6 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
         
     }
 }
