@@ -306,7 +306,7 @@ namespace SbotControl
                 if (process != null)
                 {
                     if (!process.HasExited)
-                        process.Kill();
+                        process.CloseMainWindow();
                 }
             }
             catch (Exception ex)

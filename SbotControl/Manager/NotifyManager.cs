@@ -9,13 +9,14 @@ namespace SbotControl.Manager
 {
     public static class NotifyManager
     {
-        private static DevExpress.XtraBars.Alerter.AlertControl Alert = new DevExpress.XtraBars.Alerter.AlertControl() { AutoFormDelay = 4000 };
+        private static DevExpress.XtraBars.Alerter.AlertControl Alert = new DevExpress.XtraBars.Alerter.AlertControl() { AutoFormDelay = 4000, AutoHeight = true };
         //private static readonly SynchronizationContext ctx = SynchronizationContext.Current;
         public enum MSG_Type
         {
             Connect,
             Disconnect,
             Died,
+            UnknownBotLogin,
         }
         public static void ShowAlert(string CharName, string Msg, MSG_Type MSG)
         {
@@ -40,6 +41,9 @@ namespace SbotControl.Manager
                     if (!Properties.Settings.Default.Alert_Died)
                         return;
                     info.Image = Properties.Resources.Info;
+                    break;
+                case MSG_Type.UnknownBotLogin:
+                    info.Image = Properties.Resources.Exit;
                     break;
                 default:
                     break;

@@ -51,8 +51,7 @@ namespace SbotControl
         private IntPtr TopPanalHandle { get; set; }
         private IntPtr RightPanalHandle { get; set; }
         private IntPtr ButtomPanalHandle { get; set; }
-
-        //Top Panal Ctr
+        //Top Panel Ctr
         private IntPtr BotVersionHandle { get; set; }
         private IntPtr CharHPProgressBarHandle { get; set; }
         private IntPtr CharMPProgressBarHandle { get; set; }
@@ -62,7 +61,7 @@ namespace SbotControl
         private IntPtr BotStatusHandle { get; set; }
         private IntPtr ConnectionQualityAvgHandle { get; set; }
         private IntPtr ConnectionQualityCurHandle { get; set; }
-        //Right Panal Ctr
+        //Right Panel Ctr
         private IntPtr PosXHandle { get; set; }
         private IntPtr PosYHandle { get; set; }
         private IntPtr CharNameHandle { get; set; }
@@ -87,7 +86,9 @@ namespace SbotControl
         private IntPtr BtnHieClientHandle { get; set; }
         private IntPtr BtnStartTrainingHandle { get; set; }
         private IntPtr BtnStopTrainingHandle { get; set; }
-        //Buttom Panal Ctr
+        //Left Panel Ctr
+        private IntPtr CharInfo { get; set; }
+        //Buttom Panel Ctr
         private IntPtr BotLogsHandle { get; set; }
         private IntPtr InventoryMainWindowHandle { get; set; }
         private IntPtr InventoryMainTabHandle { get; set; }
@@ -168,6 +169,12 @@ namespace SbotControl
             Online,
             bot_Process_Terminated,
             BotStuck_NPC,
+        }
+        public enum SroType
+        {
+            ISRO,
+            SROR,
+            PrivSRO
         }
         # endregion
 
@@ -273,7 +280,7 @@ namespace SbotControl
                 IntPtr ListView = Win32.GetWindow(BtnDisconnectHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                 RightPanalHandle = Win32.GetWindow(ListView, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 ButtomPanalHandle = Win32.GetWindow(RightPanalHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
-                //TopPanal Ctr
+                //TopPanel Ctr
                 IntPtr Tmp_VersionText = Win32.GetWindow(TopPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
                 BotVersionHandle = Win32.GetWindow(Tmp_VersionText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 IntPtr Tmp_HPText = Win32.GetWindow(BotVersionHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
@@ -293,7 +300,7 @@ namespace SbotControl
                 ConnectionQualityAvgHandle = Win32.GetWindow(Tmp_AvgText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 IntPtr Tmp_CurText = Win32.GetWindow(ConnectionQualityAvgHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                 ConnectionQualityCurHandle = Win32.GetWindow(Tmp_CurText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
-                //RightPanal Ctr
+                //RightPanel Ctr
                 IntPtr Tmp_XText = Win32.GetWindow(RightPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
                 PosXHandle = Win32.GetWindow(Tmp_XText, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 IntPtr Tmp_YText = Win32.GetWindow(PosXHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
@@ -342,8 +349,37 @@ namespace SbotControl
                 BtnHieClientHandle = Win32.GetWindow(BtnSaveSettingsHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 BtnStartTrainingHandle = Win32.GetWindow(BtnHieClientHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 BtnStopTrainingHandle = Win32.GetWindow(BtnStartTrainingHandle, Win32.GetWindow_Cmd.GW_HWNDNEXT);
-                //RightPanal Ctr
+                //LeftPanel Ctr
+                IntPtr Tmp_ListView1stChild = Win32.GetWindow(ListView, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
+                IntPtr Tmp_ListViewLoginUserControl = Win32.GetWindow(Tmp_ListView1stChild, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr1 = Win32.GetWindow(Tmp_ListViewLoginUserControl, Win32.GetWindow_Cmd.GW_CHILD);// Not Used
+                IntPtr Tmp_LoginUC_Ctr2 = Win32.GetWindow(Tmp_LoginUC_Ctr1, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr3 = Win32.GetWindow(Tmp_LoginUC_Ctr2, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr4 = Win32.GetWindow(Tmp_LoginUC_Ctr3, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr5 = Win32.GetWindow(Tmp_LoginUC_Ctr4, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr6 = Win32.GetWindow(Tmp_LoginUC_Ctr5, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr7 = Win32.GetWindow(Tmp_LoginUC_Ctr6, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr8 = Win32.GetWindow(Tmp_LoginUC_Ctr7, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr9 = Win32.GetWindow(Tmp_LoginUC_Ctr8, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr10 = Win32.GetWindow(Tmp_LoginUC_Ctr9, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr11 = Win32.GetWindow(Tmp_LoginUC_Ctr10, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr12 = Win32.GetWindow(Tmp_LoginUC_Ctr11, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr13 = Win32.GetWindow(Tmp_LoginUC_Ctr12, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr14 = Win32.GetWindow(Tmp_LoginUC_Ctr13, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr15 = Win32.GetWindow(Tmp_LoginUC_Ctr14, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr16 = Win32.GetWindow(Tmp_LoginUC_Ctr15, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr17 = Win32.GetWindow(Tmp_LoginUC_Ctr16, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr18 = Win32.GetWindow(Tmp_LoginUC_Ctr17, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr19 = Win32.GetWindow(Tmp_LoginUC_Ctr18, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr20 = Win32.GetWindow(Tmp_LoginUC_Ctr19, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr21 = Win32.GetWindow(Tmp_LoginUC_Ctr20, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr22 = Win32.GetWindow(Tmp_LoginUC_Ctr21, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr23 = Win32.GetWindow(Tmp_LoginUC_Ctr22, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                IntPtr Tmp_LoginUC_Ctr24 = Win32.GetWindow(Tmp_LoginUC_Ctr23, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                CharInfo = Win32.GetWindow(Tmp_LoginUC_Ctr24, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+                //ButtomPanel Ctr
                 BotLogsHandle = Win32.GetWindow(ButtomPanalHandle, Win32.GetWindow_Cmd.GW_CHILD);
+
                 //Inventory Handlers
                 //InventoryMainWindowHandle = FindMainWindowInProcess(SBot.InventoryTitle);
                 //InventoryMainTabHandle = Win32.GetDlgItem(InventoryMainWindowHandle, (int)CtrID.InventoryMainTab);
@@ -368,7 +404,9 @@ namespace SbotControl
                 UpdateProperty(PosXHandle, ref _posX, "PosX");
                 UpdateProperty(PosYHandle, ref _posY, "PosY");
                 if (_charName == null || _charName.Trim() == string.Empty || _charName == "none")
-                    UpdateProperty(CharNameHandle, ref _charName, "CharName");
+                    GetCharName();
+                //UpdateProperty(CharNameHandle, ref _charName, "CharName");
+
                 UpdateProperty(LevelHandle, ref _level, "Level");
                 UpdateProperty(GoldHandle, ref _gold, "Gold");
                 UpdateProperty(SkillPointHandle, ref _skillPoint, "SkillPoint");
@@ -504,12 +542,15 @@ namespace SbotControl
             }
         }
         public string Group { get; set; }
-
         string _botVersion; 
-        
         public string BotVersion
         {
             get { return _botVersion; }
+        }
+        SroType _sroType;
+        public SroType SROType
+        {
+            get { return _sroType; }
         }
         [Browsable(false)]
         private double _charHPProgressBar;
@@ -640,6 +681,36 @@ namespace SbotControl
         public string CharName
         {
             get { return _charName; }
+        }
+        private void GetCharName()
+        {
+            try
+            {
+                Int32 size = Win32.SendMessage((int)CharInfo, Win32.WM_GETTEXTLENGTH, 0, 0).ToInt32();
+                StringBuilder data = new StringBuilder(size + 1);
+                Win32.SendMessage(CharInfo, Win32.WM_GETTEXT, data.Capacity, data);
+
+                string[] Parts1 = data.ToString().Split(' ');
+                if (Parts1.Length <= 1)
+                {
+                    Manager.NotifyManager.ShowAlert(data.ToString(), "Unknown Login Information", Manager.NotifyManager.MSG_Type.UnknownBotLogin);
+                    Dispose();
+                }
+                string sro_Type = Parts1[0].Replace("[", "").Replace("]", "").Trim();
+                if (sro_Type == SroType.ISRO.ToString())
+                    _sroType = SroType.ISRO;
+                else if (sro_Type == SroType.SROR.ToString())
+                    _sroType = SroType.SROR;
+                else if (sro_Type == SroType.PrivSRO.ToString())
+                    _sroType = SroType.PrivSRO;
+                else
+                    _sroType = SroType.ISRO;
+                string[] Parts2 = Parts1[1].ToString().Split('@');
+                _charName = Parts2[0];
+                OnPropertyChanged("CharName");
+            }
+            catch (Exception ex)
+            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
         string _level;
         public string Level
@@ -1291,7 +1362,7 @@ namespace SbotControl
             {
                 if (_process != null && !_process.HasExited)
                 {
-                    _process.Kill();
+                    _process.CloseMainWindow();
                     _process.WaitForExit();
                 }
             }
@@ -1336,7 +1407,7 @@ namespace SbotControl
                     {
                         _process.Exited -= _process_Exited;
                         if (!_process.HasExited)
-                            _process.Kill();
+                            _process.CloseMainWindow();
                         _process.Dispose();
                         _process = null;
                     }
