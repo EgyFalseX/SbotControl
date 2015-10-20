@@ -192,6 +192,12 @@
     <Compile Include="UI\OutputUC.Designer.cs">
       <DependentUpon>OutputUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WaitWindowFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WaitWindowFrm.designer.cs">
+      <DependentUpon>WaitWindowFrm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="UI\AccountUC.resx">
       <DependentUpon>AccountUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OutputUC.resx">
       <DependentUpon>OutputUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WaitWindowFrm.resx">
+      <DependentUpon>WaitWindowFrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Datasource\dsData.xsc">

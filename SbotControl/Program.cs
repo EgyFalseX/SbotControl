@@ -21,6 +21,8 @@ namespace SbotControl
         [STAThread]
         static void Main(string[] Args)
         {
+            
+            
             try
             {
                 //Test.ReadMemoryAddress(1);

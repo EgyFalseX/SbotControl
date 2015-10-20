@@ -17,8 +17,16 @@ namespace SbotControl.UI
         public HistoryUC()
         {
             InitializeComponent();
-            XPSCSData.Session.ConnectionString = Properties.Settings.Default.LogDataConnectionString;
+            this.HandleCreated += HistoryUC_HandleCreated;
             tmrPuls = new System.Threading.Timer(_ => tmrPuls_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
+        }
+        private void HistoryUC_HandleCreated(object sender, EventArgs e)
+        {
+            
+            System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+            {
+                XPSCSData.Session.ConnectionString = Properties.Settings.Default.LogDataConnectionString;
+            });
         }
         void tmrPuls_Tick()
         {

@@ -22,6 +22,7 @@ namespace SbotControl
         private const string msg_BotStuck_NPC = "No information about current npc";//[08:15:44] * No information about current npc (26766). Too much lag on your computer? Try to use return scroll to fix this problem!
         private const string msg_ServerCrowded = "Trying again in a moment";
         private const string msg_YOUDIED = "YOUDIED";
+        private const string msg_LoginError = "Login error";
         public const string EmptySlotTitle = "[Empty]";
         public const int LogListMaxSize = 1000;
 
@@ -997,6 +998,7 @@ namespace SbotControl
                     case "none":
                     case "Disconnected":
                     case "Connecting":
+                    case msg_LoginError:
                         typ = StatusType.Disconnected;
                         break;
                     case "Resolving hosts...":
@@ -1022,6 +1024,18 @@ namespace SbotControl
                     LoginTimerStart();
                 else if (typ == StatusType.Online && _status != StatusType.Online && _account != null)
                     LoginTimerEnd();
+                //Sbot Login Fixes
+                if (stateString == msg_LoginError)
+                {
+                    System.Threading.ThreadPool.QueueUserWorkItem((o) => 
+                    {
+                        while (BotStatus == msg_LoginError)
+                        {
+                            ClickStartGameButton();
+                            System.Threading.Thread.Sleep(5000);
+                        }
+                    });
+                }
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
