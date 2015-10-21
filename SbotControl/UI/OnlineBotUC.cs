@@ -163,7 +163,7 @@ namespace SbotControl.UI
                     bot.Stop();
                     Program.BM.RemoveBot(bot);
                 }
-                gridControlOverall.RefreshDataSource();
+                gridControlOverall.Invoke(new MethodInvoker(() => { gridControlOverall.RefreshDataSource(); }));
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -172,12 +172,17 @@ namespace SbotControl.UI
         {
             try
             {
+                List<SBot> lst = new List<SBot>();
                 foreach (SBot bot in Program.BM.Bots)
+                {
+                    lst.Add(bot);
+                }
+                foreach (SBot bot in lst)
                 {
                     bot.Stop();
                     Program.BM.RemoveBot(bot);
                 }
-                gridControlOverall.RefreshDataSource();
+                gridControlOverall.Invoke(new MethodInvoker(() => { gridControlOverall.RefreshDataSource(); }));
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }

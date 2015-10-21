@@ -1270,6 +1270,7 @@ namespace SbotControl
                 process.StartInfo = new ProcessStartInfo(BotAccount.BotFilePath, BotAccount.CommandLineArg)
                 {
                     WorkingDirectory = BotAccount.BotFilePath.Substring(0, BotAccount.BotFilePath.LastIndexOf(Convert.ToChar("\\")))
+                    , WindowStyle = ProcessWindowStyle.Hidden
                 };
                 process.Start();
                 process.WaitForInputIdle();
@@ -1280,24 +1281,23 @@ namespace SbotControl
         }
         public void Start()
         {
+
             try
             {
                 if (_process == null)
                 {
                     _process = Runbot();
                     _process.Exited += _process_Exited;
-                    System.Threading.ThreadPool.QueueUserWorkItem((o) =>
-                    {
-                        if (_process.HasExited)
-                            return;
-                        while (!IsWindowVisible())
-                            System.Threading.Thread.Sleep(3000);
-                        PrepareHandlers();
-                        //this._status = StatusType.Nothing;
-                        PlusTimerStart();
-                        Visable = false;
-                        LoginTimerStart();//Timer if bot stuck in logging
-                });
+                    //System.Threading.ThreadPool.QueueUserWorkItem((o) =>{});
+                    if (_process.HasExited)
+                        return;
+                    while (!IsWindowVisible())
+                        System.Threading.Thread.Sleep(1000);
+                    PrepareHandlers();
+                    //this._status = StatusType.Nothing;
+                    PlusTimerStart();
+                    Visable = false;
+                    LoginTimerStart();//Timer if bot stuck in logging
                 }
                 else
                 {
@@ -1421,7 +1421,10 @@ namespace SbotControl
                     {
                         _process.Exited -= _process_Exited;
                         if (!_process.HasExited)
-                            _process.CloseMainWindow();
+                        {
+                            if (!_process.CloseMainWindow())
+                                _process.Kill();
+                        }
                         _process.Dispose();
                         _process = null;
                     }

@@ -15,8 +15,10 @@ namespace SbotControl
             //ManagerOnline = true;
             //GetStartedIBots();
             BotLogs = new List<Core.BotLogUnit>();
+            _queAutoStart = new Queue<SBot>();
             tmrSearch = new System.Threading.Timer(_ => tmrSearch_Tick(), null, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
             dm.AccountListChanged += Dm_AccountListChanged;
+            tmrAutoStart = new System.Threading.Timer(_ => tmrAutoStart_Tick(), null, 3 * 1000, 3 * 1000);
         }
         public List<SBot> Bots = new List<SBot>();
         public List<Core.BotLogUnit> BotLogs { get; set; }
@@ -37,6 +39,9 @@ namespace SbotControl
         public event BotListChangedEventhandler BotListChanged;
         public event BotListChangedEventhandler AccountListChanged;
         public event ManagerStatusChangedEventhandler ManagerStatusChanged;
+        public System.Threading.Timer tmrAutoStart;
+        Queue<SBot> _queAutoStart;
+        bool QueueLock = false;
         public System.Threading.Timer tmrSearch;
         private bool ManagerOnline;
 
@@ -155,6 +160,38 @@ namespace SbotControl
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
             return acc;
         }
+        void tmrAutoStart_Tick()
+        {
+            if (_queAutoStart.Count == 0 || !ManagerOnline)
+                return;
+            if (QueueLock)
+                return;
+            QueueLock = true;
+
+            System.Threading.ThreadPool.QueueUserWorkItem((o) =>
+            {
+                SBot bot = _queAutoStart.Dequeue();
+                try
+                {
+                    if ((bot.BotAccount != null && bot.BotAccount.Start) || bot.BotProcess != null)
+                    {
+                        Bots.Add(bot);
+                        bot.StateChanged += bot_StateChanged;
+                        bot.LogAdded += Bot_LogAdded;
+                        bot.PropertyChanged += bot_PropertyChanged;
+                        Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Start Login ... ", bot.CharName));
+                        if (BotListChanged != null)
+                            BotListChanged(bot, ChangesType.Added);
+                        bot.Start();
+                    }
+                }
+                catch (Exception ex)
+                { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
+
+                QueueLock = false;
+                tmrAutoStart_Tick();
+            });
+        }
         void tmrSearch_Tick()
         {
             try
@@ -170,7 +207,6 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
         public void AddBot(Account account)
         {
             lock (this)
@@ -181,7 +217,8 @@ namespace SbotControl
                         return;
                     SBot bot = SBot.CreateSbot();
                     account.bot = bot; bot.BotAccount = account;
-                    AddBot(bot);
+                    //AddBot(bot);
+                    _queAutoStart.Enqueue(bot);
                 }
                 catch (Exception ex)
                 { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
@@ -209,30 +246,13 @@ namespace SbotControl
                     else
                         bot.Group = "Unknown";
 
-                    AddBot(bot);
+                    //AddBot(bot);
+                    _queAutoStart.Enqueue(bot);
                 }
                 catch (Exception ex)
                 { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
             }
         }
-        private void AddBot(SBot bot)
-        {
-            try
-            {
-                Bots.Add(bot);
-                bot.StateChanged += bot_StateChanged;
-                bot.LogAdded += Bot_LogAdded;
-                bot.PropertyChanged += bot_PropertyChanged;
-
-                Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Start Login ... ", bot.CharName));
-                if (BotListChanged != null)
-                    BotListChanged(bot, ChangesType.Added);
-                bot.Start();
-            }
-            catch (Exception ex)
-            { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
-        }
-
         private void Bot_LogAdded(SBot sender, string Log)
         {
             lock (BotLogs)
@@ -290,6 +310,17 @@ namespace SbotControl
                     }
                     if (!found)
                     {
+                        foreach (SBot bot in _queAutoStart)
+                        {
+                            if (bot.BotProcess != null && bot.BotProcess.Id == process.Id)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found)
+                    {
                         Addbot(process);
                         //System.Threading.Thread.Sleep(1000);
                     }
@@ -323,6 +354,17 @@ namespace SbotControl
                     {
                         bot = Bots[i];
                         break;
+                    }
+                }
+                if (bot == null)
+                {
+                    foreach (SBot item in _queAutoStart)
+                    {
+                        if (item.CharName == CharName)
+                        {
+                            bot = item;
+                            break;
+                        }
                     }
                 }
             }
