@@ -78,7 +78,7 @@ namespace SbotControl.Core
                     con.Open();
                 lock (cmdEx)
                 {
-                    ParamExClassType.Value = ParamExMsg; ParamLog_Char.Value = ExMsg; ParamExDetails.Value = Details;
+                    ParamExClassType.Value = ExClassType; ParamExMsg.Value = ExMsg; ParamExDetails.Value = Details;
                     cmdEx.ExecuteNonQuery();
                 }
             }

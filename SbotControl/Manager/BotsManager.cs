@@ -162,15 +162,17 @@ namespace SbotControl
         }
         void tmrAutoStart_Tick()
         {
+            //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, string.Format("Queue Size {0}", _queAutoStart.Count));
             if (_queAutoStart.Count == 0 || !ManagerOnline)
                 return;
             if (QueueLock)
                 return;
             QueueLock = true;
-
+            
             System.Threading.ThreadPool.QueueUserWorkItem((o) =>
             {
                 SBot bot = _queAutoStart.Dequeue();
+                //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, string.Format("Locked to login {0}", bot.CharName));
                 try
                 {
                     if ((bot.BotAccount != null && bot.BotAccount.Start) || bot.BotProcess != null)
@@ -179,7 +181,7 @@ namespace SbotControl
                         bot.StateChanged += bot_StateChanged;
                         bot.LogAdded += Bot_LogAdded;
                         bot.PropertyChanged += bot_PropertyChanged;
-                        Program.Logger.AddLog(Log.LogType.Info, Log.LogLevel.Stander, string.Format("[{0}]- Start Login ... ", bot.CharName));
+                        Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, string.Format("[{0}]- Start Login ... ", bot.CharName));
                         if (BotListChanged != null)
                             BotListChanged(bot, ChangesType.Added);
                         bot.Start();
@@ -189,6 +191,8 @@ namespace SbotControl
                 { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
 
                 QueueLock = false;
+                //Program.Logger.AddLog(Log.LogType.Debug, Log.LogLevel.Debug, string.Format("Lock Release After Login {0}", bot.CharName));
+
                 tmrAutoStart_Tick();
             });
         }
@@ -441,7 +445,6 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
         private void Resume()
         {
             try
@@ -460,7 +463,6 @@ namespace SbotControl
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }
         }
-
         public void Start(bool resume)
         {
             ThreadPool.QueueUserWorkItem((o) => 

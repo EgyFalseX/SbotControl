@@ -37,7 +37,7 @@ namespace SbotControl.Core
     public class LocalTileSource : MapTileSourceBase
     {
         public const int tileSize = 256;
-        public const int maxZoomLevel = 5;
+        public const int maxZoomLevel = 9;
         string directoryPath;
         internal static double CalculateTotalImageSize(double zoomLevel)
         {

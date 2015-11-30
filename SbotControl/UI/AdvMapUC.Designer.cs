@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraMap.InformationLayer informationLayer3 = new DevExpress.XtraMap.InformationLayer();
+            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraMap.InformationLayer informationLayer1 = new DevExpress.XtraMap.InformationLayer();
             this.MCMain = new DevExpress.XtraMap.MapControl();
-            this.popupMenuGrid = new DevExpress.XtraBars.PopupMenu();
-            this.barManagerMain = new DevExpress.XtraBars.BarManager();
+            this.popupMenuGrid = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.bsiSetFocus = new DevExpress.XtraBars.BarSubItem();
+            this.barManagerMain = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.bsiSetFocus = new DevExpress.XtraBars.BarSubItem();
             ((System.ComponentModel.ISupportInitialize)(this.MCMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManagerMain)).BeginInit();
@@ -44,17 +45,18 @@
             // 
             // MCMain
             // 
+            this.MCMain.BackColor = System.Drawing.Color.Black;
             this.MCMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            informationLayer3.HighlightedItemStyle.TextGlowColor = System.Drawing.Color.Lime;
-            informationLayer3.Name = "informationLayerChar";
-            informationLayer3.SelectedItemStyle.TextGlowColor = System.Drawing.Color.Lime;
-            this.MCMain.Layers.Add(informationLayer3);
+            informationLayer1.HighlightedItemStyle.TextGlowColor = System.Drawing.Color.Lime;
+            informationLayer1.Name = "informationLayerChar";
+            informationLayer1.SelectedItemStyle.TextGlowColor = System.Drawing.Color.Lime;
+            this.MCMain.Layers.Add(informationLayer1);
             this.MCMain.Location = new System.Drawing.Point(0, 0);
-            this.MCMain.MaxZoomLevel = 7D;
+            this.MCMain.MaxZoomLevel = 9D;
             this.MCMain.Name = "MCMain";
             this.MCMain.Size = new System.Drawing.Size(954, 615);
             this.MCMain.TabIndex = 0;
-            this.MCMain.ZoomLevel = 3D;
+            this.MCMain.ZoomLevel = 4D;
             this.MCMain.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MCMain_MouseClick);
             // 
             // popupMenuGrid
@@ -63,6 +65,14 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.bsiSetFocus)});
             this.popupMenuGrid.Manager = this.barManagerMain;
             this.popupMenuGrid.Name = "popupMenuGrid";
+            // 
+            // bsiSetFocus
+            // 
+            this.bsiSetFocus.Caption = "Set Focus";
+            this.bsiSetFocus.Glyph = global::SbotControl.Properties.Resources.show_16x16;
+            this.bsiSetFocus.Id = 0;
+            this.bsiSetFocus.LargeGlyph = global::SbotControl.Properties.Resources.show_32x32;
+            this.bsiSetFocus.Name = "bsiSetFocus";
             // 
             // barManagerMain
             // 
@@ -103,14 +113,6 @@
             this.barDockControlRight.Location = new System.Drawing.Point(954, 0);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 615);
             // 
-            // bsiSetFocus
-            // 
-            this.bsiSetFocus.Caption = "Set Focus";
-            this.bsiSetFocus.Glyph = global::SbotControl.Properties.Resources.show_16x16;
-            this.bsiSetFocus.Id = 0;
-            this.bsiSetFocus.LargeGlyph = global::SbotControl.Properties.Resources.show_32x32;
-            this.bsiSetFocus.Name = "bsiSetFocus";
-            // 
             // AdvMapUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,6 +142,5 @@
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraBars.BarSubItem bsiSetFocus;
-        
     }
 }

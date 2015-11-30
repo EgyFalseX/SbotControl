@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace SbotControl
 {
@@ -21,8 +22,6 @@ namespace SbotControl
         [STAThread]
         static void Main(string[] Args)
         {
-            
-            
             try
             {
                 //Test.ReadMemoryAddress(1);
@@ -80,7 +79,6 @@ namespace SbotControl
             catch (Exception ex)
             { dbOperations.SaveToEx("Program", ex.Message, ex.StackTrace); }
         }
-        
 
     }
 }

@@ -13,10 +13,12 @@ namespace SbotControl.UI
 {
     public partial class AdvMapUC : DevExpress.XtraEditors.XtraUserControl
     {
-        int Start_X = -20928;
-        int End_X = 22656;
-        int Start_Y = 7761;
-        int End_Y = -16418;
+        bool tmp = false;
+        //32768
+        int Start_X = -24600;
+        int End_X = 24600;
+        int Start_Y = 12897;
+        int End_Y = -11380;
         private struct stc_Cord
         {
             public SBot bot;
@@ -33,14 +35,45 @@ namespace SbotControl.UI
         }
         private GeoPoint ConvertToGeoPoint(int sro_x, int sro_y)
         {
-            if (sro_x < Start_X || sro_x > End_X || sro_y > Start_Y || sro_y < End_Y)
+            //if (cbAlx.Checked)
+            //{
+            //    if (tmp)
+            //    {
+            //        tmp = false;
+            //        sro_x = -16621; sro_y = -345;
+            //    }
+            //    else
+            //    {
+            //        tmp = true;
+            //        sro_x = 14645; sro_y = 105;
+            //    }
+            //}
+            //if (cbFar.Checked)
+            //{
+            //    if (tmp)
+            //    {
+            //        tmp = false;
+            //        sro_x = 17963; sro_y = 6596;
+            //    }
+            //    else
+            //    {
+            //        tmp = true;
+            //        sro_x = -12347; sro_y = -6117;
+            //    }
+            //}
+            
+            double Start_X_Per = (180 * 1.00) / Math.Abs(Start_X);
+            double End_X_Per = (180 * 1.00) / Math.Abs(End_X);
+            double Start_Y_Per = (85.1 * 1.00) / Math.Abs(Start_Y);
+            double End_Y_Per = (85.1 * 1.00) / Math.Abs(End_Y);
+            double NewX = sro_x * (sro_x >= 0 ? Start_X_Per : End_X_Per);
+            double NewY = sro_y * (sro_y >= 0 ? Start_Y_Per : End_Y_Per);
+            double NewAddY = NewY < 0 ? (NewY * (1.00 / 120)) : 0;
+            //NewY -= NewAddY;
+            if (NewX < -180 || NewX > 180 || NewY > 85.1 || NewY < -85.1)
             {
                 return new GeoPoint(0, 0);
             }
-            double X_Per = (180 * 2 * 1.00) / (Math.Abs(Start_X) + Math.Abs(End_X));
-            double Y_Per = (85.1 * 2 * 1.00) / (Math.Abs(Start_Y) + Math.Abs(End_Y));
-            double NewX = (sro_x * X_Per) + (sro_x < 0 ? -7 : -7.15);
-            double NewY = (sro_y * Y_Per) + (sro_y < 0 ? 21 : 22.6);
             return new GeoPoint(NewY, NewX);
         }
         private void AddBotVisual(SBot bot)
@@ -226,7 +259,6 @@ namespace SbotControl.UI
         }
 
         #endregion
-
-       
+    
     }
 }
