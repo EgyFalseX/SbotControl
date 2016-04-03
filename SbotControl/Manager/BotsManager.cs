@@ -81,7 +81,7 @@ namespace SbotControl
         {
             try
             {
-                Program.DM.Accounts.Add(account);
+                //Program.DM.Accounts.Add(account);
                 if (AccountListChanged != null)
                     AccountListChanged(account, ChangesType.Added);
                 //should replace ManagerOnline with 

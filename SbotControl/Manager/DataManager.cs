@@ -32,10 +32,13 @@ namespace SbotControl
         {
             try
             {
-                Properties.Settings.Default.Save();
-                Program.AddRemoveStartup(Properties.Settings.Default.RunAtStartup);
-                SerializeObject<List<Account>>(Accounts, DataPath);
-                return true;
+                lock (this)
+                {
+                    Properties.Settings.Default.Save();
+                    Program.AddRemoveStartup(Properties.Settings.Default.RunAtStartup);
+                    SerializeObject<List<Account>>(Accounts, DataPath);
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -89,9 +92,9 @@ namespace SbotControl
             try
             {
                 Accounts.Add(account);
-                account.PropertyChanged += Account_PropertyChanged;
                 if (AccountListChanged != null)
                     AccountListChanged(account, ChangesType.Added);
+                account.PropertyChanged += Account_PropertyChanged;
             }
             catch (Exception ex)
             { Program.dbOperations.SaveToEx(this.GetType().ToString(), ex.Message, ex.StackTrace); }

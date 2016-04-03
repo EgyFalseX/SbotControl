@@ -896,7 +896,7 @@
             // 
             // bbiGoClientless
             // 
-            this.bbiGoClientless.Caption = "Go Clientless";
+            this.bbiGoClientless.Caption = "Go Client/Clientless";
             this.bbiGoClientless.Id = 4;
             this.bbiGoClientless.Name = "bbiGoClientless";
             this.bbiGoClientless.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiGoClientless_ItemClick);

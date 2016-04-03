@@ -155,12 +155,25 @@ namespace SbotControl
         }
         private enum MemoryAddress : int
         {
-            HP_Max = 0x00BF92AC,//OK
-            HP_Val = 0x00BF92B8,//OK
-            MP_Max = 0x00BF92B0,//OK
-            MP_Val = 0x00BF92BC,//OK
-            XP_Max = 0x00BF92E8,
-            XP_Val = 0x00BF9200,
+            HP_Max_I = 0x00BFB2AC,//OK
+            HP_Val_I = 0x00BFB2B8,//OK
+            MP_Max_I = 0x00BFB2B0,//OK
+            MP_Val_I = 0x00BFB2BC,//OK
+            XP_Max_I = 0x00BFB2E8,//OK
+            XP_Val_I = 0x00BFB200,//OK
+            //HP_Max_I = 0x00BF92AC,
+            //HP_Val_I = 0x00BF92B8,
+            //MP_Max_I = 0x00BF92B0,
+            //MP_Val_I = 0x00BF92BC,
+            //XP_Max_I = 0x00BF92E8,
+            //XP_Val_I = 0x00BF9200,
+
+            HP_Max_P = 0x0118C5F0,
+            HP_Val_P = 0x0118C5FC,
+            MP_Max_P = 0x0118C5F4,
+            MP_Val_P = 0x0118C600,
+            XP_Max_P = 0x0118C630,
+            XP_Val_P = 0x0118C540,
 
             //Old1
             //HP_Max = 0x00BF1E84,
@@ -169,6 +182,10 @@ namespace SbotControl
             //MP_Val = 0x00BF1E94,
             //XP_Max = 0x00BF1EC0,
             //XP_Val = 0x00BF1DD8,
+        }
+        private enum MemoryAddress_P : int
+        {
+            
         }
         public enum StatusType
         {
@@ -387,6 +404,12 @@ namespace SbotControl
                     IntPtr Tmp_LoginUC_Ctr14 = Win32.GetWindow(Tmp_LoginUC_Ctr13, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                     IntPtr Tmp_LoginUC_Ctr15 = Win32.GetWindow(Tmp_LoginUC_Ctr14, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                     IntPtr Tmp_LoginUC_Ctr16 = Win32.GetWindow(Tmp_LoginUC_Ctr15, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+
+                    //IntPtr Tmp_LoginUC_Ctr17 = Win32.GetWindow(Tmp_LoginUC_Ctr16, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    //IntPtr Tmp_LoginUC_Ctr18 = Win32.GetWindow(Tmp_LoginUC_Ctr17, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    //IntPtr Tmp_LoginUC_Ctr19 = Win32.GetWindow(Tmp_LoginUC_Ctr18, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    //IntPtr Tmp_LoginUC_Ctr20 = Win32.GetWindow(Tmp_LoginUC_Ctr19, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+
                     CharInfo = Win32.GetWindow(Tmp_LoginUC_Ctr16, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 }
                 else
@@ -416,7 +439,13 @@ namespace SbotControl
                     IntPtr Tmp_LoginUC_Ctr22 = Win32.GetWindow(Tmp_LoginUC_Ctr21, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                     IntPtr Tmp_LoginUC_Ctr23 = Win32.GetWindow(Tmp_LoginUC_Ctr22, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
                     IntPtr Tmp_LoginUC_Ctr24 = Win32.GetWindow(Tmp_LoginUC_Ctr23, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
-                    CharInfo = Win32.GetWindow(Tmp_LoginUC_Ctr24, Win32.GetWindow_Cmd.GW_HWNDNEXT);
+
+                    IntPtr Tmp_LoginUC_Ctr25 = Win32.GetWindow(Tmp_LoginUC_Ctr24, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    IntPtr Tmp_LoginUC_Ctr26 = Win32.GetWindow(Tmp_LoginUC_Ctr25, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    IntPtr Tmp_LoginUC_Ctr27 = Win32.GetWindow(Tmp_LoginUC_Ctr26, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+                    IntPtr Tmp_LoginUC_Ctr28 = Win32.GetWindow(Tmp_LoginUC_Ctr27, Win32.GetWindow_Cmd.GW_HWNDNEXT);// Not Used
+
+                    CharInfo = Win32.GetWindow(Tmp_LoginUC_Ctr28, Win32.GetWindow_Cmd.GW_HWNDNEXT);
                 }
                 
                 //ButtomPanel Ctr
@@ -600,8 +629,9 @@ namespace SbotControl
         {
             try
             {
-                ulong max = Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Max, 4));
-                ulong val = Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Val, 4));
+                
+                ulong max = _sroType == SroType.ISRO ? Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Max_I, 4)) : Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Max_P, 4));
+                ulong val = _sroType == SroType.ISRO ? Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Val_I, 4)) : Misc.ConvertoToULong(ReadAddress(MemoryAddress.HP_Val_P, 4));
                 if (max == 0)
                     _charHPProgressBar = 0;
                 else
@@ -620,8 +650,8 @@ namespace SbotControl
         {
             try
             {
-                ulong max = Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Max, 4));
-                ulong val = Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Val, 4));
+                ulong max = _sroType == SroType.ISRO ? Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Max_I, 4)) : Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Max_P, 4));
+                ulong val = _sroType == SroType.ISRO ? Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Val_I, 4)) : Misc.ConvertoToULong(ReadAddress(MemoryAddress.MP_Val_P, 4));
                 if (max == 0)
                     _charMPProgressBar = 0;
                 else
@@ -640,8 +670,8 @@ namespace SbotControl
         {
             try
             {
-                long max = Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Max, 8));
-                long val = Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Val, 8));
+                long max = _sroType == SroType.ISRO ? Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Max_I, 8)) : Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Max_P, 8));
+                long val = _sroType == SroType.ISRO ? Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Val_I, 8)) : Misc.ConvertoToLong(ReadAddress(MemoryAddress.XP_Val_P, 8));
                 if (max == 0)
                     _charExpProgressBar = 0;
                 else
